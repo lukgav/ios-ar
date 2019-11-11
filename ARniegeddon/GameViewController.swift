@@ -28,27 +28,21 @@
  * THE SOFTWARE.
  */
 
-import UIKit
-import SpriteKit
-import GameplayKit
+import ARKit
 
 class GameViewController: UIViewController {
   
+  var sceneView : ARSKView!
+  
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    if let view = self.view as! SKView? {
-      // Load the SKScene from 'GameScene.sks'
-      if let scene = SKScene(fileNamed: "GameScene") {
-        // Set the scale mode to scale to fit the window
-        scene.scaleMode = .aspectFill
-        
-        // Present the scene
-        view.presentScene(scene)
-      }
-      
-      view.ignoresSiblingOrder = true
-      
+    if let view = self.view as? ARSKView {
+      sceneView = view
+      sceneView!.delegate = self
+      let scene = GameScene(size: view.bounds.size)
+      scene.scaleMode = .resizeFill
+      scene.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+      view.presentScene(scene)
       view.showsFPS = true
       view.showsNodeCount = true
     }
@@ -73,5 +67,41 @@ class GameViewController: UIViewController {
   
   override var prefersStatusBarHidden: Bool {
     return true
+  }
+  
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    let configuration = ARWorldTrackingConfiguration()
+    sceneView.session.run(configuration)
+  }
+    
+  override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    sceneView.session.pause()
+  }
+}
+
+extension GameViewController: ARSKViewDelegate {
+  func session(_ session: ARSession,
+                 didFailWithError error: Error) {
+    print("Session Failed - probably due to lack of camera access")
+  }
+    
+  func sessionWasInterrupted(_ session: ARSession) {
+    print("Session interrupted")
+  }
+    
+  func sessionInterruptionEnded(_ session: ARSession) {
+    print("Session resumed")
+    sceneView.session.run(session.configuration!,
+                          options: [.resetTracking,
+                                    .removeExistingAnchors])
+   }
+  
+  func view(_ view: ARSKView,
+            nodeFor anchor: ARAnchor) -> SKNode? {
+    let bug = SKSpriteNode(imageNamed: "bug")
+    bug.name = "bug"
+    return bug
   }
 }

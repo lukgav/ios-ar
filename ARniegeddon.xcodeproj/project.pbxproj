@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		8288976D1F33F3920035005F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8288976C1F33F3920035005F /* AppDelegate.swift */; };
-		8288976F1F33F3920035005F /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8288976E1F33F3920035005F /* GameScene.sks */; };
 		828897731F33F3920035005F /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828897721F33F3920035005F /* GameScene.swift */; };
 		828897751F33F3930035005F /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 828897741F33F3930035005F /* GameViewController.swift */; };
 		828897781F33F3930035005F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 828897761F33F3930035005F /* Main.storyboard */; };
@@ -21,14 +20,12 @@
 		8297D50A1F34836D00C42D1F /* sprayBug.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 8297D5031F34836C00C42D1F /* sprayBug.mp3 */; };
 		8297D50B1F34836D00C42D1F /* sprayFirebug.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8297D5041F34836C00C42D1F /* sprayFirebug.wav */; };
 		8297D50C1F34836D00C42D1F /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8297D5051F34836C00C42D1F /* win.wav */; };
-		8297D5101F34859600C42D1F /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = 8297D50F1F34859600C42D1F /* Actions.sks */; };
 		8297D5121F3487F700C42D1F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8297D5111F3487F700C42D1F /* Types.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		828897691F33F3910035005F /* ARniegeddon.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARniegeddon.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8288976C1F33F3920035005F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8288976E1F33F3920035005F /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		828897721F33F3920035005F /* GameScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
 		828897741F33F3930035005F /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		828897771F33F3930035005F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -42,7 +39,6 @@
 		8297D5031F34836C00C42D1F /* sprayBug.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = sprayBug.mp3; sourceTree = "<group>"; };
 		8297D5041F34836C00C42D1F /* sprayFirebug.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sprayFirebug.wav; sourceTree = "<group>"; };
 		8297D5051F34836C00C42D1F /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
-		8297D50F1F34859600C42D1F /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
 		8297D5111F3487F700C42D1F /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,8 +75,6 @@
 			isa = PBXGroup;
 			children = (
 				8288976C1F33F3920035005F /* AppDelegate.swift */,
-				8297D50F1F34859600C42D1F /* Actions.sks */,
-				8288976E1F33F3920035005F /* GameScene.sks */,
 				828897741F33F3930035005F /* GameViewController.swift */,
 				828897721F33F3920035005F /* GameScene.swift */,
 				8297D5111F3487F700C42D1F /* Types.swift */,
@@ -167,12 +161,10 @@
 			files = (
 				828897781F33F3930035005F /* Main.storyboard in Resources */,
 				8297D5081F34836D00C42D1F /* hitBug.wav in Resources */,
-				8288976F1F33F3920035005F /* GameScene.sks in Resources */,
 				8297D5061F34836D00C42D1F /* Attribution.md in Resources */,
 				8297D5071F34836D00C42D1F /* catchBugspray.wav in Resources */,
 				8288977A1F33F3930035005F /* Assets.xcassets in Resources */,
 				8297D5091F34836D00C42D1F /* lose.wav in Resources */,
-				8297D5101F34859600C42D1F /* Actions.sks in Resources */,
 				8297D50A1F34836D00C42D1F /* sprayBug.mp3 in Resources */,
 				8288977D1F33F3940035005F /* LaunchScreen.storyboard in Resources */,
 				8297D50C1F34836D00C42D1F /* win.wav in Resources */,
