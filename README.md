@@ -1,7 +1,11 @@
 # ios-ar
 Augmented Reality project written for iOS
 
-# Git commit messeging conversion
+
+# Goal of Project
+
+
+## Git commit messeging conversion
 
 At start of every commit should be the follwing:
 1. "+": to show code(should be not a small amount )) was added
