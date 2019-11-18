@@ -21,6 +21,8 @@
 		8297D50B1F34836D00C42D1F /* sprayFirebug.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8297D5041F34836C00C42D1F /* sprayFirebug.wav */; };
 		8297D50C1F34836D00C42D1F /* win.wav in Resources */ = {isa = PBXBuildFile; fileRef = 8297D5051F34836C00C42D1F /* win.wav */; };
 		8297D5121F3487F700C42D1F /* Types.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8297D5111F3487F700C42D1F /* Types.swift */; };
+		AC4525992382DC4C0010E275 /* Level1.sks in Resources */ = {isa = PBXBuildFile; fileRef = AC4525982382DC4C0010E275 /* Level1.sks */; };
+		AC45259B2382DF240010E275 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC45259A2382DF240010E275 /* Anchor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		8297D5041F34836C00C42D1F /* sprayFirebug.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sprayFirebug.wav; sourceTree = "<group>"; };
 		8297D5051F34836C00C42D1F /* win.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = win.wav; sourceTree = "<group>"; };
 		8297D5111F3487F700C42D1F /* Types.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Types.swift; sourceTree = "<group>"; };
+		AC4525982382DC4C0010E275 /* Level1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level1.sks; sourceTree = "<group>"; };
+		AC45259A2382DF240010E275 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +78,7 @@
 		8288976B1F33F3910035005F /* ARniegeddon */ = {
 			isa = PBXGroup;
 			children = (
+				AC4525982382DC4C0010E275 /* Level1.sks */,
 				8288976C1F33F3920035005F /* AppDelegate.swift */,
 				828897741F33F3930035005F /* GameViewController.swift */,
 				828897721F33F3920035005F /* GameScene.swift */,
@@ -83,6 +88,7 @@
 				8297D4FE1F34836C00C42D1F /* Sounds */,
 				8288977B1F33F3940035005F /* LaunchScreen.storyboard */,
 				8288977E1F33F3940035005F /* Info.plist */,
+				AC45259A2382DF240010E275 /* Anchor.swift */,
 			);
 			path = ARniegeddon;
 			sourceTree = "<group>";
@@ -168,6 +174,7 @@
 				8297D50A1F34836D00C42D1F /* sprayBug.mp3 in Resources */,
 				8288977D1F33F3940035005F /* LaunchScreen.storyboard in Resources */,
 				8297D50C1F34836D00C42D1F /* win.wav in Resources */,
+				AC4525992382DC4C0010E275 /* Level1.sks in Resources */,
 				8297D50B1F34836D00C42D1F /* sprayFirebug.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -180,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				828897731F33F3920035005F /* GameScene.swift in Sources */,
+				AC45259B2382DF240010E275 /* Anchor.swift in Sources */,
 				828897751F33F3930035005F /* GameViewController.swift in Sources */,
 				8288976D1F33F3920035005F /* AppDelegate.swift in Sources */,
 				8297D5121F3487F700C42D1F /* Types.swift in Sources */,
