@@ -49,8 +49,6 @@ class GameScene: SKScene {
   }
   
   private func setUpWorld() {
-    
-    private func setUpWorld() {
       guard let currentFrame = sceneView.session.currentFrame,
         // 1
         let scene = SKScene(fileNamed: "Level1")
@@ -82,7 +80,6 @@ class GameScene: SKScene {
         }
       }
       isWorldSetUp = true
-    }
   }
   
   override func update(_ currentTime: TimeInterval) {
