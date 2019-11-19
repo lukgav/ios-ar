@@ -52,7 +52,9 @@ class GameScene: SKScene {
       guard let currentFrame = sceneView.session.currentFrame,
         // 1
         let scene = SKScene(fileNamed: "Level1")
-        else { return }
+        else {
+          return
+      }
         
       for node in scene.children {
         if let node = node as? SKSpriteNode {
