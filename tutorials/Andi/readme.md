@@ -1,5 +1,9 @@
 # Links: 
 
+## Augmented Reality Guidelines 
+
+{Guidelines](https://developer.apple.com/design/human-interface-guidelines/ios/system-capabilities/augmented-reality/#:~:targetText=Augmented%20reality%20(or%20AR)%20lets,that%20these%20objects%20actually%20exist.)
+
 ## Presentation Topics:
 
 [Occluding Virtual Content with People](https://developer.apple.com/documentation/arkit/occluding_virtual_content_with_people)
