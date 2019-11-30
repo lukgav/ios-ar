@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+<<<<<<< HEAD
+		<key>BD+PO.xcscheme_^#shared#^_</key>
+=======
+		<key>BodyDetection.xcscheme_^#shared#^_</key>
+>>>>>>> 4f930614e1e416bc26c854a7d6fcad3eafbe184b
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+	</dict>
+</dict>
+</plist>
