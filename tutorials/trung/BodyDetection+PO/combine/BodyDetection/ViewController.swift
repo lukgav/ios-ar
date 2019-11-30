@@ -13,11 +13,29 @@ import Combine
 class ViewController: UIViewController, ARSessionDelegate {
 
     @IBOutlet var arView: ARView!
+	@IBOutlet var messageLabel: RoundedLabel!
     
     // The 3D character to display.
     var character: BodyTrackedEntity?
     let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
     let characterAnchor = AnchorEntity()
+	
+	override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        do {
+            let fakevase = character/robot
+            
+            // Place model on a horizontal plane.
+            let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
+            arView.scene.anchors.append(anchor)
+            
+            fakevase.scale = [1, 1, 1] * 0.006
+            anchor.children.append(fakevase)
+        } catch {
+            fatalError("Failed to load asset.")
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -73,5 +91,27 @@ class ViewController: UIViewController, ARSessionDelegate {
                 characterAnchor.addChild(character)
             }
         }
+    }
+	
+	@IBAction func onTap(_ sender: UITapGestureRecognizer) {
+        togglePeopleOcclusion()
+    }
+    
+    fileprivate func togglePeopleOcclusion() {
+        guard let config = arView.session.configuration as? ARWorldTrackingConfiguration else {
+            fatalError("Unexpectedly failed to get the configuration.")
+        }
+        guard ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) else {
+            fatalError("People occlusion is not supported on this device.")
+        }
+        switch config.frameSemantics {
+        case [.personSegmentationWithDepth]:
+            config.frameSemantics.remove(.personSegmentationWithDepth)
+            messageLabel.displayMessage("People occlusion off", duration: 1.0)
+        default:
+            config.frameSemantics.insert(.personSegmentationWithDepth)
+            messageLabel.displayMessage("People occlusion on", duration: 1.0)
+        }
+        arView.session.run(config)
     }
 }
