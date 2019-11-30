@@ -1,0 +1,74 @@
+// Gets the location of the tap and assigns it to a constant
+let location = sender.location(in: sceneView)
+ 
+// Searches for real world objects such as surfaces and filters out flat surfaces
+let hitTest = sceneView.hitTest(location, types: [ARHitTestResult.ResultType.featurePoint])
+ 
+// Assigns the most accurate result to a constant if it is non-nil
+guard let result = hitTest.last else { return }
+
+
+// Converts the matrix_float4x4 to an SCNMatrix4 to be used with SceneKit
+let transform = SCNMatrix4.init(result.worldTransform)
+ 
+// Creates an SCNVector3 with certain indexes in the matrix
+let vector = SCNVector3Make(transform.m41, transform.m42, transform.m43)
+ 
+// Makes a new sphere with the created method
+let sphere = newSphere(at: vector)
+
+
+var spheres: [SCNNode] = []
+
+
+
+// Adds a second sphere to the array
+spheres.append(sphere)
+print(sphere.distance(to: first))
+ 
+// If more that two are present...
+if spheres.count > 2 {
+     
+    // Iterate through spheres array
+    for sphere in spheres {
+         
+        // Remove all spheres
+        sphere.removeFromParentNode()
+    }
+     
+    // Remove extraneous spheres
+    spheres = [spheres[2]]
+}
+
+
+@objc func handleTap(sender: UITapGestureRecognizer) {
+     
+    let location = sender.location(in: sceneView)
+    let hitTest = sceneView.hitTest(location, types: [ARHitTestResult.ResultType.featurePoint])
+     
+    guard let result = hitTest.last else { return }
+     
+    let transform = SCNMatrix4.init(result.worldTransform)
+    let vector = SCNVector3Make(transform.m41, transform.m42, transform.m43)
+    let sphere = newSphere(at: vector)
+     
+    if let first = spheres.first {
+        spheres.append(sphere)
+        print(sphere.distance(to: first))
+         
+        if spheres.count > 2 {
+            for sphere in spheres {
+                sphere.removeFromParentNode()
+            }
+             
+            spheres = [spheres[2]]
+        }
+     
+    } else {
+        spheres.append(sphere)
+    }
+     
+    for sphere in spheres {
+        self.sceneView.scene.rootNode.addChildNode(sphere)
+    }
+}

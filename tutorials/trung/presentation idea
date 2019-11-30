@@ -1,0 +1,39 @@
+Presentation "Bringing people into AR"
+
+<< introducinng >>
+
+- what is ar ?
+	+ Devices augment reality by placing virtual objects in your physical world, 
+	typically by using your phone's camera. You can interact with those objects by looking at your device's display.
+	+ https://en.wikipedia.org/wiki/Augmented_reality
+	+ adding some ar example / ar application with pictures
+	
+- what is arkit ? 
+	+ ARKit is what Apple calls its set of software development tools to enable developers to build augmented-reality apps for iOS.
+	+ availble from ios 11
+	+ short introduce arkit 2
+
+<< going 2 main topic >>
+
+- Occluding Virtual Content with People: Cover your app’s virtual content with people that ARKit perceives in the camera feed.
+	+ overview
+	+ function
+		# Verify Device Support for People Occlusion
+		  guard ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) else {
+			fatalError("People occlusion is not supported on this device.")
+		  }
+		# Enable People Occlusion
+		# Disable People Occlusion
+
+- Capturing Body Motion in 3D: Track a person in the physical environment and visualize their motion by applying the same body movements to a virtual character.
+	+ some classes
+		# class ARBodyTrackingConfiguration
+		  A configuration you use to track a person's motion in 3D space.
+		
+		# class ARBodyAnchor
+		  An object that tracks the movement in 3D space of a body that ARKit recognizes in the camera feed.
+		
+		# class ARBody2D
+		  The screen-space representation of a person ARKit recognizes in the camera feed. 
+		  
+<< demo >>		  
