@@ -20,6 +20,23 @@ class ViewController: UIViewController, ARSessionDelegate {
     let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
     let characterAnchor = AnchorEntity()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        do {
+            let vase = try ModelEntity.load(named: "character/robot")
+            
+            // Place model on a horizontal plane.
+            let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
+            arView.scene.anchors.append(anchor)
+            
+            vase.scale = [1, 1, 1]
+            anchor.children.append(vase)
+        } catch {
+            fatalError("Failed to load asset.")
+        }
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         arView.session.delegate = self
@@ -29,10 +46,8 @@ class ViewController: UIViewController, ARSessionDelegate {
         // this unhandled case.
         guard ARBodyTrackingConfiguration.isSupported else {
             fatalError("This feature is only supported on devices with an A12 chip")
-
         }
         
-
         // Run a body tracking configration.
         let configuration = ARBodyTrackingConfiguration()
         arView.session.run(configuration)
@@ -41,7 +56,7 @@ class ViewController: UIViewController, ARSessionDelegate {
         
         // Asynchronously load the 3D character.
         var cancellable: AnyCancellable? = nil
-        cancellable = Entity.loadBodyTrackedAsync(named: "character/robot").sink(
+        cancellable = Entity.loadBodyTrackedAsync(named: "character/pickle_rick").sink(
             receiveCompletion: { completion in
                 if case let .failure(error) = completion {
                     print("Error: Unable to load model: \(error.localizedDescription)")
@@ -79,9 +94,9 @@ class ViewController: UIViewController, ARSessionDelegate {
         }
     }
     
-    @IBAction func onTap(_ sender: UITapGestureRecognizer) {
-        togglePeopleOcclusion()
-    }
+//    @IBAction func onTap(_ sender: UITapGestureRecognizer) {
+//        togglePeopleOcclusion()
+//    }
     
     fileprivate func togglePeopleOcclusion() {
         guard let config = arView.session.configuration as? ARWorldTrackingConfiguration else {

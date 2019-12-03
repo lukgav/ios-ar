@@ -29,6 +29,12 @@
 		5DCA879A14A3351D9E9CEA98 /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		718E55BB2289F8FF00A9B13B /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		78F4E054153DD3A4202C28BA /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		A3C1969C239520AA0012F6F0 /* bumbleBee.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = bumbleBee.usdz; sourceTree = "<group>"; };
+		A3C1969D239520AA0012F6F0 /* eyeball.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = eyeball.usdz; sourceTree = "<group>"; };
+		A3C1969E239520AA0012F6F0 /* pickle_rick.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pickle_rick.usdz; sourceTree = "<group>"; };
+		A3C1969F239520AA0012F6F0 /* wheel_animate-3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "wheel_animate-3.usdz"; sourceTree = "<group>"; };
+		A3C196A0239520AA0012F6F0 /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = robot.usdz; path = ../../../andi/CapturingBodyMotionIn3D/BodyDetection/character/robot.usdz; sourceTree = "<group>"; };
+		A3C196A1239520AA0012F6F0 /* vase.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = vase.usdz; path = ../../../../OccludingVirtualContentWithPeople/vase.usdz; sourceTree = "<group>"; };
 		A3C1D1032394059800213BEF /* RoundedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -73,6 +79,7 @@
 		2F60E1D922631E0F00357E98 /* BodyDetection */ = {
 			isa = PBXGroup;
 			children = (
+				A3C196A2239520AA0012F6F0 /* Assets */,
 				2F60E1DA22631E0F00357E98 /* AppDelegate.swift */,
 				2F60E1DC22631E0F00357E98 /* ViewController.swift */,
 				A3C1D1032394059800213BEF /* RoundedLabel.swift */,
@@ -91,6 +98,20 @@
 				78F4E054153DD3A4202C28BA /* LICENSE.txt */,
 			);
 			path = LICENSE;
+			sourceTree = "<group>";
+		};
+		A3C196A2239520AA0012F6F0 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				A3C1969C239520AA0012F6F0 /* bumbleBee.usdz */,
+				A3C1969D239520AA0012F6F0 /* eyeball.usdz */,
+				A3C1969E239520AA0012F6F0 /* pickle_rick.usdz */,
+				A3C1969F239520AA0012F6F0 /* wheel_animate-3.usdz */,
+				A3C196A0239520AA0012F6F0 /* robot.usdz */,
+				A3C196A1239520AA0012F6F0 /* vase.usdz */,
+			);
+			name = Assets;
+			path = PeopleOcclusion;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

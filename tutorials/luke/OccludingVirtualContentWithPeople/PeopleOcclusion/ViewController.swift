@@ -18,14 +18,13 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         do {
-            let vase = try ModelEntity.load(named: "pickle_rick")
+            let vase = try ModelEntity.load(named: "vase")
             
             // Place model on a horizontal plane.
-            let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.1, 0.1])
+            let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
             arView.scene.anchors.append(anchor)
-//            var scaleValue = 0.006
-
-            vase.scale = [1, 1, 1] * 1.0
+            
+            vase.scale = [1, 1, 1] * 0.006
             anchor.children.append(vase)
         } catch {
             fatalError("Failed to load asset.")
@@ -40,6 +39,8 @@ class ViewController: UIViewController {
     @IBAction func onTap(_ sender: UITapGestureRecognizer) {
         togglePeopleOcclusion()
     }
+    
+    
     
     fileprivate func togglePeopleOcclusion() {
         guard let config = arView.session.configuration as? ARWorldTrackingConfiguration else {
