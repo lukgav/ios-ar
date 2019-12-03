@@ -18,14 +18,21 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         do {
-            let vase = try ModelEntity.load(named: "vase")
+            let vase1 = try ModelEntity.load(named: "vase")
+            let vase2 = try ModelEntity.load(named: "vase")
             
             // Place model on a horizontal plane.
-            let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
-            arView.scene.anchors.append(anchor)
+            let anchor1 = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
+            let anchor2 = AnchorEntity(plane: .vertical, minimumBounds: [0.15, 0.15])
             
-            vase.scale = [1, 1, 1] * 0.006
-            anchor.children.append(vase)
+            arView.scene.anchors.append(anchor1)
+            arView.scene.anchors.append(anchor2)
+            
+            vase1.scale = [1, 1, 1] * 0.006
+            vase2.scale = [1, 1, 1] * 0.010
+            
+            anchor1.children.append(vase1)
+            anchor2.children.append(vase2)
         } catch {
             fatalError("Failed to load asset.")
         }
