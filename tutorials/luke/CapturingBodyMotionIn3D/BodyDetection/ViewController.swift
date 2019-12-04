@@ -14,14 +14,24 @@ class ViewController: UIViewController, ARSessionDelegate {
 
     @IBOutlet var arView: ARView!
     
-    // The 3D character to display.
+//    var cards = [Entity] = []
+//    var characters = [BodyTrackedEntity] = []
+    
     var character: BodyTrackedEntity?
-    let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
+    var characters: Array<BodyTrackedEntity>
+    // The 3D character to display.
+//    var character: BodyTrackedEntity?
+    let numOfCharacters = 2
     let characterAnchor = AnchorEntity()
+
+    
+    let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
+    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0]
+    var characterOffsets: Array<SIMD3<Float>> = [characterOffset, characterOffsetB]
     
     //New Code
     var characterB: BodyTrackedEntity?
-    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0] // Offset the character by one meter to the left
+//    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0] // Offset the character by one meter to the left
     let characterAnchorB = AnchorEntity()
 
     override func viewDidAppear(_ animated: Bool) {
@@ -49,17 +59,34 @@ class ViewController: UIViewController, ARSessionDelegate {
                     print("Error: Unable to load model: \(error.localizedDescription)")
                 }
                 cancellable?.cancel()
-        }, receiveValue: { (character: Entity) in
-            if let character = character as? BodyTrackedEntity {
-                // Scale the character to human size
-                character.scale = [1.0, 1.0, 1.0]
-                self.character = character
-                self.characterB = character
-                cancellable?.cancel()
-            } else {
-                print("Error: Unable to load model as BodyTrackedEntity")
+            },
+            receiveValue: { (character: Entity) in
+                if let character = character as? BodyTrackedEntity {
+                    // Scale the character to human size
+                    character.scale = [1.0, 1.0, 1.0]
+
+                    self.characters = Array(repeating: self.character!, count: 2)
+
+                    
+                    for var char in self.characters{
+                        char = character.clone(recursive: true)
+                    }
+//                    self.character = character
+//                    self.characterB = character.clone(recursive: true)
+                    cancellable?.cancel()
+                } else {
+                    print("Error: Unable to load model as BodyTrackedEntity")
+                }
             }
-        })
+        )
+    }
+    
+//    init() {
+//        self.characters = Array(repeating: self.character!, count: 2)
+//    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
@@ -68,13 +95,20 @@ class ViewController: UIViewController, ARSessionDelegate {
             
             // Update the position of the character anchor's position.
             let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
+            var characterOffsets = [self.characterOffset, self.characterOffsetB]
+
             characterAnchor.position = bodyPosition + characterOffset
             characterAnchorB.position = bodyPosition + characterOffsetB
-//
+
             characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
             characterAnchorB.orientation = Transform(matrix: bodyAnchor.transform).rotation
-
-            if let character = character{
+            
+            
+            for var char in self.characters{
+                char = character.clone(recursive: true)
+            }
+            
+            if let character = character, character.parent == nil {
                 characterAnchor.addChild(character)
 //                characterAnchor.addChild(self.characterB)
             }
