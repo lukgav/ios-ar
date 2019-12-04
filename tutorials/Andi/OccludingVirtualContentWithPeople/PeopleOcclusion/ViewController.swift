@@ -19,11 +19,11 @@ class ViewController: UIViewController {
         
         do {
             let vase = try ModelEntity.load(named: "vase")
-            
+
             // Place model on a horizontal plane.
             let anchor = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
             arView.scene.anchors.append(anchor)
-            
+
             vase.scale = [1, 1, 1] * 0.006
             anchor.children.append(vase)
         } catch {
@@ -41,19 +41,23 @@ class ViewController: UIViewController {
     }
     
     fileprivate func togglePeopleOcclusion() {
-        guard let config = arView.session.configuration as? ARWorldTrackingConfiguration else {
+        guard let config = arView.session.configuration as? ARWorldTrackingConfiguration
+            else {
             fatalError("Unexpectedly failed to get the configuration.")
         }
-        guard ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth) else {
+        
+        guard ARWorldTrackingConfiguration.supportsFrameSemantics(.personSegmentationWithDepth)
+            else {
             fatalError("People occlusion is not supported on this device.")
         }
+                
         switch config.frameSemantics {
-        case [.personSegmentationWithDepth]:
-            config.frameSemantics.remove(.personSegmentationWithDepth)
-            messageLabel.displayMessage("People occlusion off", duration: 1.0)
-        default:
-            config.frameSemantics.insert(.personSegmentationWithDepth)
-            messageLabel.displayMessage("People occlusion on", duration: 1.0)
+            case [.personSegmentationWithDepth]:
+                config.frameSemantics.remove(.personSegmentationWithDepth)
+                messageLabel.displayMessage("People occlusion off", duration: 1.0)
+            default:
+                config.frameSemantics.insert(.personSegmentationWithDepth)
+                messageLabel.displayMessage("People occlusion on", duration: 1.0)
         }
         arView.session.run(config)
     }

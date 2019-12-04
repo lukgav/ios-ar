@@ -19,7 +19,7 @@ class ViewController: UIViewController {
         
         do {
             let vase1 = try ModelEntity.load(named: "vase")
-            let vase2 = try ModelEntity.load(named: "vase2")
+            let vase2 = try ModelEntity.load(named: "vase3_changing coordination of 2 axis")
             
             // Place model on a horizontal plane.
             let anchor1 = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
@@ -29,7 +29,7 @@ class ViewController: UIViewController {
             arView.scene.anchors.append(anchor2)
             
             vase1.scale = [1, 1, 1] * 0.006
-            vase2.scale = [1, 1, 1] * 0.010
+            vase2.scale = [1, 1, 1] * 0.006
             
             anchor1.children.append(vase1)
             anchor2.children.append(vase2)
