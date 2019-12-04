@@ -68,9 +68,7 @@ class ViewController: UIViewController, ARSessionDelegate {
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         for anchor in anchors {
             guard let bodyAnchor = anchor as? ARBodyAnchor else { continue }
-            
-            
-            
+
             // Update the position of the character anchor's position.
             let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
             characterAnchor1.position = bodyPosition + characterOffset1
@@ -80,8 +78,6 @@ class ViewController: UIViewController, ARSessionDelegate {
             characterAnchor1.orientation = Transform(matrix: bodyAnchor.transform).rotation
             characterAnchor2.orientation = Transform(matrix: bodyAnchor.transform).rotation
    
-            
-            
             if (character1!.parent == nil) && (character2!.parent == nil) {
                 // Attach the character to its anchor as soon as
                 // 1. the body anchor was detected and
@@ -91,7 +87,44 @@ class ViewController: UIViewController, ARSessionDelegate {
             }
             
             
+            // Extracting Data from 3D Skeleton
             
+            let hipWorldPosition = bodyAnchor.transform
+            
+            let skeleton = bodyAnchor.skeleton
+            
+            let jointTransforms = skeleton.jointModelTransforms
+            
+            for (i, jointTransform) in jointTransforms.enumerated() {
+                
+                let parentIndex = skeleton.definition.parentIndices[i]
+                
+                guard parentIndex != -1 else { continue }
+                
+                let parentJointTransform = jointTransforms[parentIndex]
+            }
+        }
+    }
+    
+    // Accessing Data from 2D Skeleton
+    
+    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+        
+        let person = frame.detectedBody!
+        
+        let skeleton2D = person.skeleton
+        
+        let definition = skeleton2D.definition
+        
+        let jointLandmarks = skeleton2D.jointLandmarks
+        
+        for (i, joint) in jointLandmarks.enumerated() {
+            
+            let parentIndex = definition.parentIndices[i]
+            
+            guard parentIndex != -1 else { continue }
+            
+            let parentJoint = jointLandmarks[parentIndex]
         }
     }
 }
