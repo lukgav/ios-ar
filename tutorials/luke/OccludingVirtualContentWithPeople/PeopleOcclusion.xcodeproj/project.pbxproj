@@ -14,11 +14,6 @@
 		2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E322631E0F00357E98 /* Assets.xcassets */; };
 		2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E522631E0F00357E98 /* LaunchScreen.storyboard */; };
 		713BA399228B0EAC00AB8F66 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 713BA398228B0EAC00AB8F66 /* README.md */; };
-		A3219A092392D395001691FC /* robot.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A3219A082392D395001691FC /* robot.usdz */; };
-		A3219A0E2392DCF8001691FC /* bumbleBee.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A3219A0A2392DCF6001691FC /* bumbleBee.usdz */; };
-		A3219A0F2392DCF8001691FC /* eyeball.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A3219A0B2392DCF7001691FC /* eyeball.usdz */; };
-		A3219A102392DCF8001691FC /* wheel_animate-3.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A3219A0C2392DCF7001691FC /* wheel_animate-3.usdz */; };
-		A3219A112392DCF8001691FC /* pickle_rick.usdz in Resources */ = {isa = PBXBuildFile; fileRef = A3219A0D2392DCF8001691FC /* pickle_rick.usdz */; };
 		E1C186FF227870D500A8424D /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C186FE227870D500A8424D /* RoundedLabel.swift */; };
 /* End PBXBuildFile section */
 
@@ -33,11 +28,6 @@
 		2F60E1EB22631E0F00357E98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4872D327FC55AAA2A419ADD9 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
 		713BA398228B0EAC00AB8F66 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
-		A3219A082392D395001691FC /* robot.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = robot.usdz; path = ../../../andi/CapturingBodyMotionIn3D/BodyDetection/character/robot.usdz; sourceTree = "<group>"; };
-		A3219A0A2392DCF6001691FC /* bumbleBee.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = bumbleBee.usdz; sourceTree = "<group>"; };
-		A3219A0B2392DCF7001691FC /* eyeball.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = eyeball.usdz; sourceTree = "<group>"; };
-		A3219A0C2392DCF7001691FC /* wheel_animate-3.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = "wheel_animate-3.usdz"; sourceTree = "<group>"; };
-		A3219A0D2392DCF8001691FC /* pickle_rick.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = pickle_rick.usdz; sourceTree = "<group>"; };
 		B88FE34A981D0135EDEFD79E /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		E1C186FE227870D500A8424D /* RoundedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,11 +81,6 @@
 		2FB3FE0B2263200E00F0D5EF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				A3219A0A2392DCF6001691FC /* bumbleBee.usdz */,
-				A3219A0B2392DCF7001691FC /* eyeball.usdz */,
-				A3219A0D2392DCF8001691FC /* pickle_rick.usdz */,
-				A3219A0C2392DCF7001691FC /* wheel_animate-3.usdz */,
-				A3219A082392D395001691FC /* robot.usdz */,
 				0C50248F228B77F500CC2CD0 /* vase.usdz */,
 			);
 			name = Assets;
@@ -184,14 +169,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C502490228B77F500CC2CD0 /* vase.usdz in Resources */,
-				A3219A102392DCF8001691FC /* wheel_animate-3.usdz in Resources */,
 				2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */,
 				2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */,
-				A3219A112392DCF8001691FC /* pickle_rick.usdz in Resources */,
-				A3219A0E2392DCF8001691FC /* bumbleBee.usdz in Resources */,
 				713BA399228B0EAC00AB8F66 /* README.md in Resources */,
-				A3219A092392D395001691FC /* robot.usdz in Resources */,
-				A3219A0F2392DCF8001691FC /* eyeball.usdz in Resources */,
 				2F60E1E222631E0F00357E98 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
