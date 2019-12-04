@@ -20,6 +20,11 @@ class ViewController: UIViewController, ARSessionDelegate {
     let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
     let characterAnchor = AnchorEntity()
     
+    // The 3D character to display.
+    var characterB: BodyTrackedEntity?
+    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0] // Offset the character by one meter to the left
+    let characterAnchorB = AnchorEntity()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
