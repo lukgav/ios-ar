@@ -19,11 +19,11 @@ class ViewController: UIViewController {
         
         do {
             let vase1 = try ModelEntity.load(named: "vase")
-            let vase2 = try ModelEntity.load(named: "vase")
+            let vase2 = try ModelEntity.load(named: "vase2")
             
             // Place model on a horizontal plane.
             let anchor1 = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
-            let anchor2 = AnchorEntity(plane: .vertical, minimumBounds: [0.15, 0.15])
+            let anchor2 = AnchorEntity(plane: .horizontal, minimumBounds: [0.15, 0.15])
             
             arView.scene.anchors.append(anchor1)
             arView.scene.anchors.append(anchor2)
