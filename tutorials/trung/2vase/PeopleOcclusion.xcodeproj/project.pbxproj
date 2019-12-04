@@ -13,6 +13,7 @@
 		2F60E1E222631E0F00357E98 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E022631E0F00357E98 /* Main.storyboard */; };
 		2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E322631E0F00357E98 /* Assets.xcassets */; };
 		2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2F60E1E522631E0F00357E98 /* LaunchScreen.storyboard */; };
+		5329BBC22397CBDE006D53BC /* vase2.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 5329BBC12397CBDE006D53BC /* vase2.usdz */; };
 		713BA399228B0EAC00AB8F66 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 713BA398228B0EAC00AB8F66 /* README.md */; };
 		E1C186FF227870D500A8424D /* RoundedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1C186FE227870D500A8424D /* RoundedLabel.swift */; };
 /* End PBXBuildFile section */
@@ -27,6 +28,7 @@
 		2F60E1E622631E0F00357E98 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2F60E1EB22631E0F00357E98 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4872D327FC55AAA2A419ADD9 /* LICENSE.txt */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
+		5329BBC12397CBDE006D53BC /* vase2.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = vase2.usdz; sourceTree = SOURCE_ROOT; };
 		713BA398228B0EAC00AB8F66 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		B88FE34A981D0135EDEFD79E /* SampleCode.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = SampleCode.xcconfig; path = Configuration/SampleCode.xcconfig; sourceTree = "<group>"; };
 		E1C186FE227870D500A8424D /* RoundedLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedLabel.swift; sourceTree = "<group>"; };
@@ -81,6 +83,7 @@
 		2FB3FE0B2263200E00F0D5EF /* Assets */ = {
 			isa = PBXGroup;
 			children = (
+				5329BBC12397CBDE006D53BC /* vase2.usdz */,
 				0C50248F228B77F500CC2CD0 /* vase.usdz */,
 			);
 			name = Assets;
@@ -169,6 +172,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C502490228B77F500CC2CD0 /* vase.usdz in Resources */,
+				5329BBC22397CBDE006D53BC /* vase2.usdz in Resources */,
 				2F60E1E722631E0F00357E98 /* LaunchScreen.storyboard in Resources */,
 				2F60E1E422631E0F00357E98 /* Assets.xcassets in Resources */,
 				713BA399228B0EAC00AB8F66 /* README.md in Resources */,
@@ -338,7 +342,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				DEVELOPMENT_TEAM = YB75785J73;
 				ENABLE_RCPROJECT_COMPILATION = YES;
 				ENABLE_USDZ_COMPILATION = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/PeopleOcclusion/Info.plist";
@@ -346,7 +350,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.PeopleOcclusion${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BodyDetectionYB75785J73";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
@@ -362,7 +366,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				DEVELOPMENT_TEAM = YB75785J73;
 				ENABLE_RCPROJECT_COMPILATION = YES;
 				ENABLE_USDZ_COMPILATION = YES;
 				INFOPLIST_FILE = "$(SRCROOT)/PeopleOcclusion/Info.plist";
@@ -370,7 +374,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.PeopleOcclusion${SAMPLE_CODE_DISAMBIGUATOR}";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.example.apple-samplecode.BodyDetectionYB75785J73";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SDKROOT = iphoneos;
