@@ -18,22 +18,24 @@ class ViewController: UIViewController, ARSessionDelegate {
 //    var characters = [BodyTrackedEntity] = []
     
     var character: BodyTrackedEntity?
-    var characters: Array<BodyTrackedEntity>
     // The 3D character to display.
 //    var character: BodyTrackedEntity?
-    let numOfCharacters = 2
-    let characterAnchor = AnchorEntity()
-
-    
+    let numOfCharacters = 4
     let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
-    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0]
-    var characterOffsets: Array<SIMD3<Float>> = [characterOffset, characterOffsetB]
     
-    //New Code
     var characterB: BodyTrackedEntity?
-//    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0] // Offset the character by one meter to the left
+    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0]
+    
+    let characterAnchor = AnchorEntity()
     let characterAnchorB = AnchorEntity()
+    let characterAnchorC = AnchorEntity()
+    let characterAnchorD = AnchorEntity()
 
+    
+    var characters: Array<BodyTrackedEntity> = []
+    var characterOffsets: Array<SIMD3<Float>> = []
+    var characterAnchors: Array<AnchorEntity> = []
+ 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         arView.session.delegate = self
@@ -43,15 +45,16 @@ class ViewController: UIViewController, ARSessionDelegate {
         guard ARBodyTrackingConfiguration.isSupported else {
             fatalError("This feature is only supported on devices with an A12 chip")
         }
-        // Run a body tracking configration.
         let configuration = ARBodyTrackingConfiguration()
         arView.session.run(configuration)
+        characterAnchors = Array(repeating: AnchorEntity(), count: self.numOfCharacters)
+        characterOffsets = Array(repeating: [1.0, 0, 0], count: self.numOfCharacters)
         
-        arView.scene.addAnchor(characterAnchor)
-        //New Code
-        arView.scene.addAnchor(characterAnchorB)
+        for  i in 0...self.numOfCharacters-1{
+            characterAnchors[i] = AnchorEntity()
+            arView.scene.addAnchor(characterAnchors[i])
+        }
         
-        // Asynchronously load the 3D character.
         var cancellable: AnyCancellable? = nil
         cancellable = Entity.loadBodyTrackedAsync(named: "character/robot").sink(
             receiveCompletion: { completion in
@@ -62,17 +65,16 @@ class ViewController: UIViewController, ARSessionDelegate {
             },
             receiveValue: { (character: Entity) in
                 if let character = character as? BodyTrackedEntity {
-                    // Scale the character to human size
                     character.scale = [1.0, 1.0, 1.0]
+                    self.characters = Array(repeating: character.clone(recursive: true), count: self.numOfCharacters)
 
-                    self.characters = Array(repeating: self.character!, count: 2)
-
-                    
-                    for var char in self.characters{
-                        char = character.clone(recursive: true)
+                    for  i in 0...self.numOfCharacters - 1{
+                        let x : Float = Float(i % 4) + 0.25
+                        let z : Float = Float(i / 4) + 0.25
+                        self.characters[i] = character.clone(recursive: true)
+                        self.characterOffsets[i] = [x, 0, z]
                     }
-//                    self.character = character
-//                    self.characterB = character.clone(recursive: true)
+
                     cancellable?.cancel()
                 } else {
                     print("Error: Unable to load model as BodyTrackedEntity")
@@ -81,13 +83,6 @@ class ViewController: UIViewController, ARSessionDelegate {
         )
     }
     
-//    init() {
-//        self.characters = Array(repeating: self.character!, count: 2)
-//    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         for anchor in anchors {
@@ -95,28 +90,18 @@ class ViewController: UIViewController, ARSessionDelegate {
             
             // Update the position of the character anchor's position.
             let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
-            var characterOffsets = [self.characterOffset, self.characterOffsetB]
 
-            characterAnchor.position = bodyPosition + characterOffset
-            characterAnchorB.position = bodyPosition + characterOffsetB
+            for  i in 0...self.numOfCharacters - 1{
+                characterAnchors[i].position = bodyPosition + characterOffsets[i]
+                characterAnchors[i].orientation = Transform(matrix: bodyAnchor.transform).rotation
 
-            characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
-            characterAnchorB.orientation = Transform(matrix: bodyAnchor.transform).rotation
-            
-            
-            for var char in self.characters{
-                char = character.clone(recursive: true)
+                
+                if characters[i].parent == nil {
+
+                    characterAnchors[i].addChild(characters[i])
+                    
+                }
             }
-            
-            if let character = character, character.parent == nil {
-                characterAnchor.addChild(character)
-//                characterAnchor.addChild(self.characterB)
-            }
-            if let characterX = characterB {
-                characterAnchorB.addChild(characterX)
-//                characterAnchor.addChild(self.characterB)
-            }
-            
         }
     }
 }
