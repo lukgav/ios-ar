@@ -48,9 +48,8 @@ class ViewController: UIViewController, ARSessionDelegate {
         let configuration = ARBodyTrackingConfiguration()
         arView.session.run(configuration)
         characterAnchors = Array(repeating: AnchorEntity(), count: self.numOfCharacters)
-
-//        characterAnchors = [characterAnchor, characterAnchorB, characterAnchorC, characterAnchorD]
-
+        characterOffsets = Array(repeating: [1.0, 0, 0], count: self.numOfCharacters)
+        
         for  i in 0...self.numOfCharacters-1{
             characterAnchors[i] = AnchorEntity()
             arView.scene.addAnchor(characterAnchors[i])
@@ -67,10 +66,8 @@ class ViewController: UIViewController, ARSessionDelegate {
             receiveValue: { (character: Entity) in
                 if let character = character as? BodyTrackedEntity {
                     character.scale = [1.0, 1.0, 1.0]
-                    
                     self.characters = Array(repeating: character.clone(recursive: true), count: self.numOfCharacters)
-                    self.characterOffsets = Array(repeating: [1.0, 0, 0], count: self.numOfCharacters)
-                    
+
                     for  i in 0...self.numOfCharacters - 1{
                         let x : Float = Float(i % 4) + 0.25
                         let z : Float = Float(i / 4) + 0.25
@@ -100,7 +97,9 @@ class ViewController: UIViewController, ARSessionDelegate {
 
                 
                 if characters[i].parent == nil {
+
                     characterAnchors[i].addChild(characters[i])
+                    
                 }
             }
         }
