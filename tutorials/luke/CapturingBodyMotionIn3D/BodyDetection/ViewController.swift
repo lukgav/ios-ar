@@ -18,16 +18,16 @@ class ViewController: UIViewController, ARSessionDelegate {
 //    var characters = [BodyTrackedEntity] = []
     
     var character: BodyTrackedEntity?
-    var characters: Array<BodyTrackedEntity>
+    var characters: Array<BodyTrackedEntity> = []
     // The 3D character to display.
 //    var character: BodyTrackedEntity?
-    let numOfCharacters = 2
+    let numOfCharacters = 3
     let characterAnchor = AnchorEntity()
 
     
     let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
     let characterOffsetB: SIMD3<Float> = [1.0, 0, 0]
-    var characterOffsets: Array<SIMD3<Float>> = [characterOffset, characterOffsetB]
+    var characterOffsets: Array<SIMD3<Float>> = []
     
     //New Code
     var characterB: BodyTrackedEntity?
@@ -65,11 +65,12 @@ class ViewController: UIViewController, ARSessionDelegate {
                     // Scale the character to human size
                     character.scale = [1.0, 1.0, 1.0]
 
-                    self.characters = Array(repeating: self.character!, count: 2)
+                    self.character = character
 
+                    self.characters = Array(repeating: character, count: self.numOfCharacters + 1)
                     
-                    for var char in self.characters{
-                        char = character.clone(recursive: true)
+                    for  i in 1...self.numOfCharacters{
+                        self.characters[i] = character.clone(recursive: true)
                     }
 //                    self.character = character
 //                    self.characterB = character.clone(recursive: true)
@@ -80,14 +81,7 @@ class ViewController: UIViewController, ARSessionDelegate {
             }
         )
     }
-    
-//    init() {
-//        self.characters = Array(repeating: self.character!, count: 2)
-//    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+  
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         for anchor in anchors {
@@ -95,28 +89,54 @@ class ViewController: UIViewController, ARSessionDelegate {
             
             // Update the position of the character anchor's position.
             let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
-            var characterOffsets = [self.characterOffset, self.characterOffsetB]
+            characterOffsets = [self.characterOffset, self.characterOffsetB]
 
-            characterAnchor.position = bodyPosition + characterOffset
-            characterAnchorB.position = bodyPosition + characterOffsetB
+//            characterAnchor.position = bodyPosition + characterOffset
+//            characterAnchorB.position = bodyPosition + characterOffsetB
 
             characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
-            characterAnchorB.orientation = Transform(matrix: bodyAnchor.transform).rotation
+//            characterAnchorB.orientation = Transform(matrix: bodyAnchor.transform).rotation
             
             
-            for var char in self.characters{
-                char = character.clone(recursive: true)
+            for offset in self.characterOffsets{
+                characterAnchor.position = bodyPosition + offset
+                characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
             }
             
-            if let character = character, character.parent == nil {
-                characterAnchor.addChild(character)
-//                characterAnchor.addChild(self.characterB)
-            }
-            if let characterX = characterB {
-                characterAnchorB.addChild(characterX)
-//                characterAnchor.addChild(self.characterB)
+            
+            for char in self.characters{
+                if character! == char, char.parent == nil {
+                    characterAnchor.addChild(char)
+    //                characterAnchor.addChild(self.characterB)
+                }
             }
             
+            for char in self.characters{
+                if character! == char, char.parent == nil {
+                    characterAnchorB.addChild(char)
+    //                characterAnchor.addChild(self.characterB)
+                }
+            }
+        
+            
+//            if let character = character, character.parent == nil {
+//                characterAnchor.addChild(character)
+////                characterAnchor.addChild(self.characterB)
+//            }
+//            if let characterX = characterB {
+//                characterAnchorB.addChild(characterX)
+////                characterAnchor.addChild(self.characterB)
+//            }
         }
     }
 }
+
+//if let availableDevices = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices {
+//      captureDevice = availableDevices.first
+//      beginSession()
+//  }
+//
+//if let availableDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: AVMediaType.video, position: .back).devices.first {
+//    captureDevice = availableDevice
+//    beginSession()
+//}
