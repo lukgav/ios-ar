@@ -18,18 +18,24 @@ class ViewController: UIViewController, ARSessionDelegate {
 //    var characters = [BodyTrackedEntity] = []
     
     var character: BodyTrackedEntity?
-//    var characters: Array<BodyTrackedEntity> = []
     // The 3D character to display.
 //    var character: BodyTrackedEntity?
-    let numOfCharacters = 3
-    let characterAnchor = AnchorEntity()
+    let numOfCharacters = 2
     let characterOffset: SIMD3<Float> = [-1.0, 0, 0] // Offset the character by one meter to the left
     
     var characterB: BodyTrackedEntity?
-    let characterAnchorB = AnchorEntity()
     let characterOffsetB: SIMD3<Float> = [1.0, 0, 0]
     
-//    var characterOffsets: Array<SIMD3<Float>> = []
+    let characterAnchor = AnchorEntity()
+    let characterAnchorB = AnchorEntity()
+    let characterAnchorC = AnchorEntity()
+    let characterAnchorD = AnchorEntity()
+
+    
+    var characters: Array<BodyTrackedEntity> = []
+    var characterOffsets: Array<SIMD3<Float>> = []
+    var characterAnchors: Array<AnchorEntity> = []
+ 
     
     //New Code
 //    let characterOffsetB: SIMD3<Float> = [1.0, 0, 0] // Offset the character by one meter to the left
@@ -46,10 +52,21 @@ class ViewController: UIViewController, ARSessionDelegate {
         // Run a body tracking configration.
         let configuration = ARBodyTrackingConfiguration()
         arView.session.run(configuration)
+        characterAnchors = Array(repeating: AnchorEntity(), count: self.numOfCharacters)
+
+//        characterAnchors = [characterAnchor, characterAnchorB, characterAnchorC, characterAnchorD]
+
+//
+//        var numChars = self.numOfCharacters
+//        var numanchors = characterAnchors.count
+//
+        for  i in 0...self.numOfCharacters-1{
+            arView.scene.addAnchor(characterAnchors[i])
+        }
         
-        arView.scene.addAnchor(characterAnchor)
-        //New Code
-        arView.scene.addAnchor(characterAnchorB)
+//        arView.scene.addAnchor(characterAnchor)
+//        //New Code
+//        arView.scene.addAnchor(characterAnchorB)
         
         // Asynchronously load the 3D character.
         var cancellable: AnyCancellable? = nil
@@ -65,14 +82,27 @@ class ViewController: UIViewController, ARSessionDelegate {
                     // Scale the character to human size
                     character.scale = [1.0, 1.0, 1.0]
 
-                    self.character = character
-                    self.character = character.clone(recursive: true)
+//                    self.character = character
+//                    self.character = character.clone(recursive: true)
 
-//                    self.characters = Array(repeating: character, count: self.numOfCharacters + 1)
-//
-//                    for  i in 1...self.numOfCharacters{
+                    self.characters = Array(repeating: character.clone(recursive: true), count: self.numOfCharacters)
+                    self.characterOffsets = Array(repeating: [1.0, 0, 0], count: self.numOfCharacters)
+                    
+                    for  i in 0...self.numOfCharacters - 1{
+                        
+                        let x : Float = Float(i)
 //                        self.characters[i] = character.clone(recursive: true)
-//                    }
+//                        self.characterAnchors[i] = AnchorEntity()
+                        self.characterOffsets[i] = [x*2 + -1.0, 0, 0]
+                    }
+                    
+//                    let anchorArray = self.characterAnchors.count
+//                    let offsetArray = self.characterOffsets.count
+//                    let characterArray = self.characters.count
+
+                    
+                    
+                    
 //                    self.character = character
 //                    self.characterB = character.clone(recursive: true)
                     cancellable?.cancel()
@@ -81,8 +111,9 @@ class ViewController: UIViewController, ARSessionDelegate {
                 }
             }
         )
+        
     }
-  
+    
     
     func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
         for anchor in anchors {
@@ -92,31 +123,48 @@ class ViewController: UIViewController, ARSessionDelegate {
             let bodyPosition = simd_make_float3(bodyAnchor.transform.columns.3)
 //            characterOffsets = [self.characterOffset, self.characterOffsetB]
 
-            characterAnchor.position = bodyPosition + characterOffset
-            characterAnchorB.position = bodyPosition + characterOffsetB
-
-            characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
-            characterAnchorB.orientation = Transform(matrix: bodyAnchor.transform).rotation
-            
+//            characterAnchor.position = bodyPosition + characterOffset
+//            characterAnchorB.position = bodyPosition + characterOffsetB
+//
+//            characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
+//            characterAnchorB.orientation = Transform(matrix: bodyAnchor.transform).rotation
+//
             
 //            for offset in self.characterOffsets{
 //                characterAnchor.position = bodyPosition + offset
 //                characterAnchor.orientation = Transform(matrix: bodyAnchor.transform).rotation
 //            }
+            for  i in 0...self.numOfCharacters - 1{
+                characterAnchors[i].position = bodyPosition + characterOffsets[i]
+                characterAnchors[i].orientation = Transform(matrix: bodyAnchor.transform).rotation
+
+                
+//                if characters[i].parent == nil {
+//                    characterAnchors[i].addChild(characters[i])
+////                        characterAnchor.addChild(self.characterB)
+//                }
+            }
             
+            if characters[0].parent == nil {
+                    characterAnchors[0].addChild(characters[0])
+            }
+            if characters[1].parent == nil {
+                    characterAnchors[1].addChild(characters[1])
+                
+            }
             
 //            for char in self.characters{
-            if character == character, character?.parent == nil {
-                    characterAnchor.addChild(character!)
-    //                characterAnchor.addChild(self.characterB)
-                }
+//                if let character = character, character?.parent == nil {
+//                        characterAnchor.addChild(character!)
+//    //                    characterAnchor.addChild(self.characterB)
+//                    }
 //            }
-            
-//            for char in self.characters{
-            if character == characterB, character?.parent == nil {
-                    characterAnchorB.addChild(character!)
-    //                characterAnchor.addChild(self.characterB)
-                }
+//
+////            for char in self.characters{
+//            if character == characterB, character?.parent == nil {
+//                    characterAnchorB.addChild(characterB!)
+//    //                characterAnchor.addChild(self.characterB)
+//                }
 //            }
             
 //            if let character = character, character.parent == nil {
