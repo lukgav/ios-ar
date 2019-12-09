@@ -85,45 +85,45 @@ class ViewController: UIViewController, ARSessionDelegate {
             
             // Extracting Data from 3D Skeleton
             
-            // Access to the Position of Root Node
-            let hipWorldPosition = bodyAnchor.transform
-            // Accessing the Skeleton Geometry
-            let skeleton = bodyAnchor.skeleton
-            // Accessing List of Transforms of all Joints Relative to Root
-            let jointTransforms = skeleton.jointModelTransforms
-            // Iterating over ALL Joints
-            for (i, jointTransform) in jointTransforms.enumerated() {
-                // Extract Parent Index from Definition
-                let parentIndex = skeleton.definition.parentIndices[i]
-                // Check if it's not the Root
-                guard parentIndex != -1 else { continue }
-                // Find Position of Parent Joint
-                let parentJointTransform = jointTransforms[parentIndex]
-            }
+//            // Access to the Position of Root Node
+//            let hipWorldPosition = bodyAnchor.transform
+//            // Accessing the Skeleton Geometry
+//            let skeleton = bodyAnchor.skeleton
+//            // Accessing List of Transforms of all Joints Relative to Root
+//            let jointTransforms = skeleton.jointModelTransforms
+//            // Iterating over ALL Joints
+//            for (i, jointTransform) in jointTransforms.enumerated() {
+//                // Extract Parent Index from Definition
+//                let parentIndex = skeleton.definition.parentIndices[i]
+//                // Check if it's not the Root
+//                guard parentIndex != -1 else { continue }
+//                // Find Position of Parent Joint
+//                let parentJointTransform = jointTransforms[parentIndex]
+//            }
         }
     }
     
     // Extracting Data from 2D Skeleton
     
-    func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        // Accessing ARBody2D Object from ARFrame
-        let person = frame.detectedBody!
-        // Use Skeleton Property to Access the Skeleton
-        let skeleton2D = person.skeleton
-        // Access Definition Object Containing Structure
-        let definition = skeleton2D.definition
-        // List of Joint Landmarks
-        let jointLandmarks = skeleton2D.jointLandmarks
-        // Iterate over ALL the Landmarks
-        for (i, joint) in jointLandmarks.enumerated() {
-            // Find Index of Parent
-            let parentIndex = definition.parentIndices[i]
-            // Check if it's not the Root
-            guard parentIndex != -1 else { continue }
-            // Find Position of Parent Index
-            let parentJoint = jointLandmarks[parentIndex]
-        }
-    }
+//    func session(_ session: ARSession, didUpdate frame: ARFrame) {
+//        // Accessing ARBody2D Object from ARFrame
+//        let person = frame.detectedBody!
+//        // Use Skeleton Property to Access the Skeleton
+//        let skeleton2D = person.skeleton
+//        // Access Definition Object Containing Structure
+//        let definition = skeleton2D.definition
+//        // List of Joint Landmarks
+//        let jointLandmarks = skeleton2D.jointLandmarks
+//        // Iterate over ALL the Landmarks
+//        for (i, joint) in jointLandmarks.enumerated() {
+//            // Find Index of Parent
+//            let parentIndex = definition.parentIndices[i]
+//            // Check if it's not the Root
+//            guard parentIndex != -1 else { continue }
+//            // Find Position of Parent Index
+//            let parentJoint = jointLandmarks[parentIndex]
+//        }
+//    }
 }
 
 

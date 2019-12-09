@@ -21,11 +21,11 @@ class ViewController: UIViewController {
         configuration.planeDetection = [.horizontal, .vertical]
         
         // Enable Debug Options
-        arView.debugOptions = [ARView.DebugOptions.showFeaturePoints,
-                               ARView.DebugOptions.showWorldOrigin,
-                               ARView.DebugOptions.showAnchorOrigins]
-        
-        arView.session.run(configuration)
+//        arView.debugOptions = [ARView.DebugOptions.showFeaturePoints,
+//                               ARView.DebugOptions.showWorldOrigin,
+//                               ARView.DebugOptions.showAnchorOrigins]
+//
+//        arView.session.run(configuration)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
