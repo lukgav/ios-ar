@@ -55,13 +55,12 @@ books
 # operating systems, file systems, dbs, etc.
 ################################################
 
-*~
-*#
-
 ##relevant
 .DS_STORE
 **/.DS_Store
 .python-version
+
+**/.python-version
 ## relavant
 
 
