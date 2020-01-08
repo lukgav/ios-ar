@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="212" height="20" tilewidth="16" tileheight="16">
- <tileset firstgid="1" name="tileSet-hd" tilewidth="16" tileheight="16">
+<map version="1.2" tiledversion="1.3.1" orientation="orthogonal" renderorder="right-down" compressionlevel="0" width="212" height="20" tilewidth="16" tileheight="16" infinite="0" nextlayerid="4" nextobjectid="1">
+ <tileset firstgid="1" name="tileSet-hd" tilewidth="16" tileheight="16" tilecount="256" columns="16">
   <image source="tileSet.png" trans="fe80fe" width="256" height="256"/>
  </tileset>
- <layer name="background" width="212" height="20">
+ <layer id="1" name="background" width="212" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt19dSFEEUgOE1oKiYQDGhmEWMqChBUcxZQcWIVUbMVQgiKlClYkQvMMcL0BcwPKD/XGjh1jA7sz0z3bt9/qrvjp09vbN0zyYSkiRJkiRJkiSF0XP04AVeWvTekr/kHgXrEz7jC75a9N6Sv+QeSQPrQz++4bvmWdItG9ZgQnLWqvcDP/ELvzXPkm7ZsAYTkrNWsiWbz2Bb1m7q88EQDMUwDEcORmAkcjFK32j/CvrZhXUGm3rPvLLl+cPU54OJyEcBJmEyCjEFUzEtwLWi2ht1fXam3jMp/aI+v+dgLuZhPhZgIRahBIsDXMuWvdErW563MrWov6NlWIXVWINyrMU6VKAygvfM5mRPsbtabMYWbMU2bMcO7MSuQV6Xh7EYF8OM2Vym/EaTc9dfdajHIRzGETTgKI7huMtrZqAIMzELxbFMGk6jMSbx/34wXuM8mfIbTc5df53BWZzDeVzARTThEi4n/X0plmAplmE5VmBlTPOqNj3hvh/M9vHaEziJU2jE6WhGdG2wfWBCgGvonN9JdQ1e88e1tlRraMZNtKAVt9CG22jHnaTrVaEa67EBNdiITT7nGbhmHansB1dwFddwHTcimtEtlX3gbzrnd1Jdg9f8ca0t1Rru4wEeohuP8BhP8BTPkq63G3uwF/uwHwdw0Mcsuu+nk8p+cBf30IFOdEUzomthPBfonN9JdQ1e88e1tlRr6MUrvMYbvMU7vMcHfEy6nsr/k+776ZSp86s+Fzjp/vxV12DC+RTGfZD0p7IPmJLqGkw4n8K+D38A4ca3xw==
+   eAHt11dv1EAQwPGjd0IvoXcIvUPohBp670h0CEWidyR6f6D3B8oXoHxA/n44ybIu693s2mufZ6Sfcj7v7c6M79ZOqSQhHZAOSAekA9IB6YB0QDogHZAOuOjAMyZ5jhd46WJCgzl8rm2QZqGHyjUyu/yfGf4FX/HN7KPWo32ubZ18QSaQa1SQC61Z5nfG/cBP/NL8TNaGVUMNWeip3Gvtr8JvpviDv/hnP52XGaqhBi+Niywq99pIQ+SwajtQ5HtwUWrP6vNBK35VrdEGbdEO7dEBHdEJvsO0d67uwabr+u5TsL6r2rNQiyqHrD4f9CTpXuiNPuiLfuiPARgI3Uhqb/TVO1/r6vZbxpl3IKnvaDmTEbwYiVEYjTEYi3EYjwnQjaLsjap+JH29VGvLufgOJP0dnU4KMzATszAbczAX8zAfEvodSPp66WciI310YBmLLkcDVmAlVmE11mAtKkVX3uyG7pVOynvaHcjL/2hy39W7pFsYthXbsB07sBO7sBt7EI1BvDEYQzAUw5CX6EyiXRDeD2o8Jp+X/9Hkvqv3JTnEsMM4gqM4huM4gZM4hXDUcTARkzAZUzAV05CHqCXJSvvBcI3k9zJmH/bjAA4irWhuH+hhkIDP/IM0bWtQ5a86Z9Ci2KFxNZxnhgu4iEu4jCu4imu4jnDUc7AAC7EIi7EES6ET4e+jznjXY2z2gyaSOY0zOItzSCtqWail+0A5R5/5BznY1qDKX3WuXL+Lv3E13GWRe7iPB3iIR3iMJ3iKcDRysA7rsQEbsQmbERdp1azKw2Y/uMHEN3ELt3EHaUUdC9k+F/jMP+iTbQ2q/FXnXF6juBpesdhrvMFbvMN7fMBHfEI4Gjlo6e8prZrD+UZf5zX/egqxeS4I+uC7/7Y1NFFDc88HqnNB7a7CtgZXecg8dh2w2QfsVnb3adsaVPuB6py7Ckol2xqiufwH4ca3xw==
   </data>
  </layer>
- <layer name="walls" width="212" height="20">
+ <layer id="2" name="walls" width="212" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt1+ENgyAQhmE2bTdoN4AJ7Mr1hySEchwIisX3SS61USgl9yVoDAAAAAAAAAAAAAAAAPZwoxdwko9S0rOu4Tdrx0rr8ffcVqn7s7FbAWhjDXkCerCGPJ3BjV4ADhdn6cp5ctF3fx4PP0d7rPXsOF+P/+aUuXPPS9fxPKWkdyvPCteauHf39HH4vrlnv1NZunKejqJloCYjr7Xejeu5q1QmSvox1btn97KUpZnyVJoDLQM1GVm2Qp1cJnI9KfWuNrb1HBGOz2VppjyV5kDLQE1GyFO9kkyk+jLXu9rY1nOEH69l6cg8LdRP9dgb9rjvflL/W16POVrnmaHutA9faJk07A==
+   eAHtlgtuhDAMBfemcIPuDcoJ2is3VvWkJwtIssCWwlhCdhx/ktlY7eOBQAACEIAABCAAAQhAAAIQgAAEIAABCEAAAhCAAAQgAAEIQAACEIAABCAAAQi8QmB6Jekf5nyXM699fiWPm3yj0+7N9b65VexFvfjCvrp8lgvGh0AAAtsIaJaYp20cyYaAzxLzdNx7mI4rTeWTEMizdOZ5yu9R/4+7/musQznAuOMh9rjbtHAe1c7bHr9ke07UaZWIXYv39+d2rX7EerzbtVzt62xTcaydUfFZ6wxZ57irr4dywXHlkrV9T/0oi6c7sJsJ6B0qIa/lz1pxoSXyaX20Vr85fXTvd9UfSqOxoVltBmr73uKrLOJD+gj4O1TmnE970h4TtsT98rkeymJ0R6ft+d5rzu4sfdrw1jmozUBt3wH0xHrene38BsViyb+0H/GSWm7r21C9rJWf+8ytc+5ea7019O/fsOAg2cJENUJvqXOFXLG4wl24Q/973uP3V43Qd/8NxOIOHH4AaJk07A==
   </data>
  </layer>
- <layer name="hazards" width="212" height="20">
+ <layer id="3" name="hazards" width="212" height="20">
   <data encoding="base64" compression="zlib">
-   eJzt2TkKADAIBED/X+XJadJHyCVhBgQbFWw3AgAAAAAAAAD+1kYBAAAAAABwx2o2k5m/kQHN9p+43xL9rv0Vvcj2qv8EALI6v9wIcQ==
+   eAHt2cEKABAMAFD/f/LJOCgXEbWktxLRZt5VSoIAAQIECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIECPwtkOvz2hAECBAgQIAAAQIECBAgQIAAAQIECBAgQIAAAQIxArd/Mzv5EX9Aqz5W5yfaY83Z+qRuzxlr9r2X5tZfdI/R973krRcCBAgQ+EugAL/cCHE=
   </data>
  </layer>
 </map>

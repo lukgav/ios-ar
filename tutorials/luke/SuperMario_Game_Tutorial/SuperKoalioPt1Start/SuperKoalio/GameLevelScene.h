@@ -8,6 +8,5 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface GameLevelScene : SKScene
-
 @end
+
