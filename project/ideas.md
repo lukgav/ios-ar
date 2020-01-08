@@ -26,3 +26,7 @@
 **Punishment for too much shaking:**
 - the bomb explodes when it was shaked too much
 
+
+**Links:**
+- [Device Motion Data](https://developer.apple.com/documentation/coremotion/getting_processed_device-motion_data)
+- [Device Reference Frame](https://developer.apple.com/documentation/coremotion/getting_processed_device-motion_data/understanding_reference_frames_and_device_attitude)
