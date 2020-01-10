@@ -15,19 +15,20 @@
 - tap with finger on phone to create a sound recording in a specific rythm
 - three tries for the rythm, punishment when failing
 
-### Task 2: Unwrap the phone**
+### Task 2: Unwrap the phone
 - unwrap in x, y or z rotation but always 360 so the user can see the screen
 - no tries, no timer, just solve it
 
-### Task 3: Deliver to next player**
+### Task 3: Deliver to next player
 - hand over to next player and punish if too much shaking
 - timer for delivery
 - stop and go (freeze) mechanic
 
-### Punishment for too much shaking:**
+### Punishment for too much shaking:
 - the bomb explodes when it was shaked too much
 
 
 ### Links:
 - [Device Motion Data](https://developer.apple.com/documentation/coremotion/getting_processed_device-motion_data)
 - [Device Reference Frame](https://developer.apple.com/documentation/coremotion/getting_processed_device-motion_data/understanding_reference_frames_and_device_attitude)
+- [MotionGraphs Example App](https://developer.apple.com/library/archive/samplecode/MotionGraphs/Introduction/Intro.html#//apple_ref/doc/uid/DTS40012333)
