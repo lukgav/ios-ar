@@ -13,6 +13,8 @@
 		A3B3AA4E23C61447001E3151 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3B3AA4C23C61447001E3151 /* Main.storyboard */; };
 		A3B3AA5023C6144A001E3151 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A3B3AA4F23C6144A001E3151 /* Assets.xcassets */; };
 		A3B3AA5323C6144A001E3151 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A3B3AA5123C6144A001E3151 /* LaunchScreen.storyboard */; };
+		A3EDE73023C8B53D00822DAA /* Color_Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EDE72F23C8B53D00822DAA /* Color_Tracker.swift */; };
+		A3EDE73223C8BB4A00822DAA /* Unwrap.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EDE73123C8BB4A00822DAA /* Unwrap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		A3B3AA4F23C6144A001E3151 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A3B3AA5223C6144A001E3151 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A3B3AA5423C6144A001E3151 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A3EDE72F23C8B53D00822DAA /* Color_Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color_Tracker.swift; sourceTree = "<group>"; };
+		A3EDE73123C8BB4A00822DAA /* Unwrap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Unwrap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,7 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				A3B3AA4623C61447001E3151 /* AppDelegate.swift */,
+				A3EDE72F23C8B53D00822DAA /* Color_Tracker.swift */,
 				A3B3AA4823C61447001E3151 /* SceneDelegate.swift */,
+				A3EDE73123C8BB4A00822DAA /* Unwrap.swift */,
 				A3B3AA4A23C61447001E3151 /* ViewController.swift */,
 				A3B3AA4C23C61447001E3151 /* Main.storyboard */,
 				A3B3AA4F23C6144A001E3151 /* Assets.xcassets */,
@@ -138,6 +144,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3EDE73223C8BB4A00822DAA /* Unwrap.swift in Sources */,
+				A3EDE73023C8B53D00822DAA /* Color_Tracker.swift in Sources */,
 				A3B3AA4B23C61447001E3151 /* ViewController.swift in Sources */,
 				A3B3AA4723C61447001E3151 /* AppDelegate.swift in Sources */,
 				A3B3AA4923C61447001E3151 /* SceneDelegate.swift in Sources */,

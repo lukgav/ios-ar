@@ -16,14 +16,13 @@ struct Vector3D {
     var z: Double? = 0.0
     var defaultStr: String = "pos"
 //    var displayString: String ="x: \(self.x!), y: \(self.pos.y!), z: \(self.pos.z!) \n "
-
 }
 
 enum UnitVector {
     case position
     case acceleration
     case velocity
-    case jerk
+    case gravity
 }
 
 
@@ -31,24 +30,48 @@ enum UnitVector {
 
 class ViewController: UIViewController {
     
+//    self.view.backgroun
     let motion = CMMotionManager()
 
     var pos = Vector3D()
     var acc = Vector3D()
     var maxAcc = Vector3D()
+    var grav = Vector3D()
     var vectorChosen: UnitVector? = .position
 
+    func unwrap(pos: Vector3D, acc: Vector3D) -> UIColor{
+//        self.grav
+        var color = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
+//        red = 1
+        if self.grav.x! > 0{
+            color =  UIColor(red: 1, green: 0, blue: 0, alpha: 1)
+        }
+        else if self.grav.x! <= 0{
+            color = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
-
+        }
+        return color
+    }
 
     @IBOutlet var gyroView: UITextView!
-        
     
     func roundFloat(p: Double) -> Double {
         let y = Double(round(1000*p)/1000)
         print(y)  // 1.236
         return y
     }
+    
+    func VectorToColor(vector: Vector3D) -> UIColor {
+        
+        let pi = Double(CGFloat.pi)
+            
+        let redPercent = CGFloat((vector.x! + pi)/(2*pi))
+        let greenPercent =  CGFloat((vector.y! + pi)/(2*pi))
+        let bluePercent =  CGFloat((vector.z! + pi)/(2*pi))
+            
+        return UIColor(red: redPercent, green: greenPercent, blue: bluePercent, alpha: 1)
+    }
+    
     
     func setMotion3DVector(unit: UnitVector) -> Vector3D{
         var vector = Vector3D()
@@ -71,8 +94,15 @@ class ViewController: UIViewController {
             self.acc = vector
         case .velocity:
             print("velocity")
-        case .jerk:
-            print("jerk")
+        case .gravity:
+            print("gravity")
+            if let data = self.motion.deviceMotion {
+                vector.x = self.roundFloat(p: data.gravity.x)
+                vector.y = self.roundFloat(p: data.gravity.y)
+                vector.z = self.roundFloat(p: data.gravity.z)
+            }
+            self.grav = vector
+
         }
         
         return vector
@@ -108,34 +138,26 @@ class ViewController: UIViewController {
                                     
 //                                    pos.z
                                     // Get the attitude relative to the magnetic north reference frame.
-                                    self.vectorChosen = .position
+//                                    self.vectorChosen = .position
+//                                    self.setMotion3DVector(unit: self.vectorChosen!)
+//
+//                                    self.vectorChosen = .acceleration
+//                                    self.setMotion3DVector(unit: self.vectorChosen!)
+//                                                                     self.ve
+                                    self.vectorChosen = .gravity
                                     self.setMotion3DVector(unit: self.vectorChosen!)
-                                    
-                                    self.vectorChosen = .acceleration
-                                    self.setMotion3DVector(unit: self.vectorChosen!)
-                                                                     
-                                    
-//                                    self.pos.x = self.roundFloat(p: data.attitude.pitch);
-//                                    self.pos.y = self.roundFloat(p: data.attitude.roll)
-//                                    self.pos.z = self.roundFloat(p: data.attitude.yaw)
-//                                    var pos = [x, y, z]
-                                    
-                                    self.acc.x = self.roundFloat(p: data.userAcceleration.x)
-                                    self.acc.y = self.roundFloat(p: data.userAcceleration.y)
-                                    self.acc.z = self.roundFloat(p: data.userAcceleration.z)
-                                    
+                                           
                                     self.updateMaxAcc()
   
-                                    let posString = "x: \(self.pos.x!), y: \(self.pos.y!), z: \(self.pos.z!) \n "
-                                    let accString = "aX: \(self.acc.x!), \n aY: \( self.acc.y!),\n  aZ: \(self.acc.z!) \n"
-                                    let maxAccString = "\n maxX: \(self.maxAcc.x!) \n maxY: \(self.maxAcc.y!) \n maxZ: \(self.maxAcc.z!) \n"
-                                    
-                                    self.gyroView.text = posString + accString + maxAccString
-                                    
-//                                    self.gyroView.text = "x: \(self.pos.x!), y: \(self.pos.y!), z: \(self.pos.z!) \n aX: \( accX), \n aY: \( accY),\n  aZ: \(accZ) \n \n maxX: \(self.maxAcc.x!) \n maxY: \(self.maxAcc.y!) \n maxZ: \(self.maxAcc.z!)"
+//                                    let posString = "x: \(self.pos.x!), y: \(self.pos.y!), z: \(self.pos.z!) \n "
+//                                    let accString = "aX: \(self.acc.x!), \n aY: \( self.acc.y!),\n  aZ: \(self.acc.z!) \n"
+//                                    let maxAccString = "\n maxX: \(self.maxAcc.x!) \n maxY: \(self.maxAcc.y!) \n maxZ: \(self.maxAcc.z!) \n"
+                                    let gravString = "\n gravX: \(self.grav.x!) \n gravY: \(self.grav.y!) \n gravZ: \(self.grav.z!) \n"
                                     
                                     
-//                                    self.gyroView.text = "x: \(x), y: \(y) z: \( z) \n aX: \( accX), \n aY: \( accY),\n  aZ: \(accZ) \n \n maxX: \(self.maxX) \n maxY: \(self.maxY) \n maxZ: \(self.maxZ)"
+                                    self.gyroView.text = gravString //posString + accString + maxAccString
+                                    
+//                                    self.view.backgroundColor = self.VectorToColor(vector: self.pos)
                                     
                                     // Use the motion data in your app.
                                 }
@@ -147,10 +169,13 @@ class ViewController: UIViewController {
         }
     }
     
+
         
     override func viewDidLoad() {
         super.viewDidLoad()
         startDeviceMotion()
+        
+        
         // Do any additional setup after loading the view.
     }
 
