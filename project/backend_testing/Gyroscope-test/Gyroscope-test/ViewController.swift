@@ -26,11 +26,92 @@ func Addition3D(coOrds: Vector3D) -> Double{
 
 
 
+func Unwrap(pGrav: Vector3D, pAcc: Vector3D, pOldGrav: Vector3D) -> Vector3D{
+
+    // -- variable setup --------- --------- --------- --------- ---------
+    //max change in magnitdue of gravity value
+
+    let max_diff = 0.05
+
+    var z = pGrav.z!
+    var zOld = pOldGrav.z!
+    var dZ = abs(zOld - z)
+    
+    var x = pGrav.x!
+    var xOld = pOldGrav.z!
+    var dX = abs(xOld - x)
+    
+    var y = pGrav.y!
+    var yOld = pOldGrav.y!
+    var dY = abs(yOld - y)
+    
+    // ------------ ------------ x-direction ------------ ------------
+
+    // ------------ ------------ z-direction ------------ ------------
+
+    //phone face up (z-grav of phone is in -ve)
+    if(z < 0){
+        //clock-wise(twisting away from the user) grav.x becomes positive
+        if (x > xOld){
+            //Is change within speed of rotation (max_dev) limits?
+            if (dZ < max_diff){
+                
+            }
+            //is past max rotation speed
+            else if (dZ > max_diff){
+                
+            }
+        }
+        //anti clockwise(twisting towards the user) grav.x becomes positive
+        else if (x < xOld){
+            //Is change within speed of rotation (max_dev) limits?
+            if (dZ < max_diff){
+                
+            }
+            //is past max rotation speed
+            else if (dZ > max_diff){
+                
+            }
+        }
+    }
+    // phone face down (z-grav of phone is in +ve)
+    if(z > 0){
+        //clock-wise(twisting away from the user) grav.x becomes positive
+        if (x > xOld){
+             //Is change within speed of rotation (max_dev) limits?
+            if (dZ < max_diff){
+                
+            }
+            //is past max rotation speed
+            else if (dZ > max_diff){
+                
+            }
+        }
+        //anti clockwise(twisting towards the user) grav.x becomes positive
+        else if (x < xOld){
+            //Is change within speed of rotation (max_dev) limits?
+            if (dZ < max_diff){
+                
+            }
+            //is past max rotation speed
+            else if (dZ > max_diff){
+                
+            }
+        }
+       //clock-wise
+
+    }
+    
+
+    //y direction
+}
+
 
 struct Vector3D {
     var x: Double? = 0.0
     var y: Double? = 0.0
     var z: Double? = 0.0
+//    init(startingValue)
 //    var vector: Double? = sqrt(powerOfTwo(x) + powerOfTwo(y) + powerOfTwo(z))
     var defaultStr: String = "pos"
 //    var displayString: String = "x: \(x), y: \(y), z: \(z) \n "
@@ -63,10 +144,37 @@ class ViewController: UIViewController {
     var acc = Vector3D()
     var maxAcc = Vector3D()
     var grav = Vector3D()
+    var oldGrav = Vector3D()
+    
 
     var vectorChosen: UnitVector? = .position
     var incrementalAcc = Vector3D()
     
+    init() {
+        self.oldGrav = self.grav
+//        var initialVec = Vector3D()
+//        self.pos = initialVec
+        
+    }
+
+    
+    func setUpMotion(){
+        if motion.isAccelerometerAvailable {
+            motion.accelerometerUpdateInterval = 0.1
+            motion.magnetometerUpdateInterval = 0.1
+            motion.gyroUpdateInterval = 0.1
+//            motionManager.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
+//                print(data)
+            }
+        }
+    }
+        
+    func updateOldValues(){
+        self.oldGrav = self.grav
+    }
+    
+    
+
     func unwrapGrav(pos: Vector3D, acc: Vector3D) -> UIColor{
 //        self.grav
         var color = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
@@ -130,6 +238,9 @@ class ViewController: UIViewController {
                 vector.x = roundFloat(p: data.attitude.pitch);
                 vector.y = roundFloat(p: data.attitude.roll)
                 vector.z = roundFloat(p: data.attitude.yaw)
+//                vector.x = roundFloat(p: data.)
+                
+
             }
             self.pos = vector
         case .acceleration:
@@ -266,11 +377,13 @@ class ViewController: UIViewController {
 
                                     // Use the motion data in your app.
                                 }
+                                
+                                Unwrap(pGrav: self.grav, pAcc: self.acc, pOldGrav: self.oldGrav)
+                                updateOldValues()
             })
             
             // Add the timer to the current run loop.
             RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
-            
         }
     }
     
