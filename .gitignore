@@ -58,6 +58,8 @@ books
 ##relevant
 .DS_STORE
 **/.DS_Store
+**/UserInterfaceState.xcuserstate
+
 .python-version
 
 **/.python-version

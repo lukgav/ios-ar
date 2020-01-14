@@ -10,6 +10,42 @@ import UIKit
 import CoreMotion
 
 
+struct Vector3D {
+    var x: Double? = 0.0
+    var y: Double? = 0.0
+    var z: Double? = 0.0
+    
+    
+    
+    init(){
+        let coOrd: Double? = 0.0
+        self.x = coOrd
+        self.y = coOrd
+        self.z = coOrd
+    }
+//    init(startingValue)
+//    var vector: Double? = sqrt(powerOfTwo(x) + powerOfTwo(y) + powerOfTwo(z))
+//    var defaultStr: String = "pos"
+//    var displayString: String = "x: \(x), y: \(y), z: \(z) \n "
+}
+
+//
+//struct VectorAdded {
+//    var coOrds: Vector3D
+//    var vector: Double? = sqrt(powerOfTwo(coOrds.x) + powerOfTwo(coOrds.y) + powerOfTwo(coOrds.z))
+//    var displayString: String = "x: \(coOrds.x), y: \(coOrds.y), z: \(coOrds.z) \n "
+//
+//}
+
+enum UnitVector {
+    case position
+    case acceleration
+    case velocity
+    case gravity
+}
+
+
+
 func powerOfTwo(num: Double)-> Double{
     return pow(num, 2)
 }
@@ -26,24 +62,24 @@ func Addition3D(coOrds: Vector3D) -> Double{
 
 
 
-func Unwrap(pGrav: Vector3D, pAcc: Vector3D, pOldGrav: Vector3D) -> Vector3D{
+func Unwrap(pGrav: Vector3D, pAcc: Vector3D, pOldGrav: Vector3D){
 
     // -- variable setup --------- --------- --------- --------- ---------
     //max change in magnitdue of gravity value
 
     let max_diff = 0.05
 
-    var z = pGrav.z!
-    var zOld = pOldGrav.z!
-    var dZ = abs(zOld - z)
+    let z = pGrav.z!
+    let zOld = pOldGrav.z!
+    let dZ = abs(zOld - z)
     
-    var x = pGrav.x!
-    var xOld = pOldGrav.z!
-    var dX = abs(xOld - x)
+    let x = pGrav.x!
+    let xOld = pOldGrav.z!
+    let dX = abs(xOld - x)
     
-    var y = pGrav.y!
-    var yOld = pOldGrav.y!
-    var dY = abs(yOld - y)
+    let y = pGrav.y!
+    let yOld = pOldGrav.y!
+    let dY = abs(yOld - y)
     
     // ------------ ------------ x-direction ------------ ------------
 
@@ -103,34 +139,9 @@ func Unwrap(pGrav: Vector3D, pAcc: Vector3D, pOldGrav: Vector3D) -> Vector3D{
     }
     
 
-    //y direction
+    // ------------ ------------ y-direction ------------ ------------
 }
 
-
-struct Vector3D {
-    var x: Double? = 0.0
-    var y: Double? = 0.0
-    var z: Double? = 0.0
-//    init(startingValue)
-//    var vector: Double? = sqrt(powerOfTwo(x) + powerOfTwo(y) + powerOfTwo(z))
-    var defaultStr: String = "pos"
-//    var displayString: String = "x: \(x), y: \(y), z: \(z) \n "
-}
-
-//
-//struct VectorAdded {
-//    var coOrds: Vector3D
-//    var vector: Double? = sqrt(powerOfTwo(coOrds.x) + powerOfTwo(coOrds.y) + powerOfTwo(coOrds.z))
-//    var displayString: String = "x: \(coOrds.x), y: \(coOrds.y), z: \(coOrds.z) \n "
-//
-//}
-
-enum UnitVector {
-    case position
-    case acceleration
-    case velocity
-    case gravity
-}
 
 
 
@@ -140,22 +151,22 @@ class ViewController: UIViewController {
 //    self.view.backgroun
     let motion = CMMotionManager()
 
+    var vec_default = Vector3D()
+    
+    var posVec: SIMD3<Double>? = nil
+    
+//    func taskA(){
+//        self.posVec.x
+//    }
+    
     var pos = Vector3D()
     var acc = Vector3D()
     var maxAcc = Vector3D()
     var grav = Vector3D()
     var oldGrav = Vector3D()
     
-
     var vectorChosen: UnitVector? = .position
     var incrementalAcc = Vector3D()
-    
-    init() {
-        self.oldGrav = self.grav
-//        var initialVec = Vector3D()
-//        self.pos = initialVec
-        
-    }
 
     
     func setUpMotion(){
@@ -165,13 +176,15 @@ class ViewController: UIViewController {
             motion.gyroUpdateInterval = 0.1
 //            motionManager.startAccelerometerUpdates(to: OperationQueue.main) { (data, error) in
 //                print(data)
-            }
         }
     }
+    
         
     func updateOldValues(){
         self.oldGrav = self.grav
     }
+
+
     
     
 
@@ -291,7 +304,9 @@ class ViewController: UIViewController {
        }
     }
     
-    func incrementAcceleration(vector: Double)-> UIColor{
+    
+    //accelertometer
+    func incrementAccelerationToChangeWarningColor()-> UIColor{
         var lColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
         var lAccX = abs(self.acc.x!)
@@ -356,9 +371,11 @@ class ViewController: UIViewController {
                                     var gravVector = Addition3D(coOrds: self.grav)
                                     var incrementalAccVector = Addition3D(coOrds: self.incrementalAcc)
                                     
-                                                                            
+                                    // Accelerometer code
                                     self.updateMaxAcc()
   
+                                    
+                                    //print to app
 //                                    let posString = "x: \(self.pos.x!), y: \(self.pos.y!), z: \(self.pos.z!) \n "
                                     let accString = "aX: \(self.acc.x!), \n aY: \( self.acc.y!),\n  aZ: \(self.acc.z!) \n"
                                     let maxAccString = "\n maxX: \(self.maxAcc.x!) \n maxY: \(self.maxAcc.y!) \n maxZ: \(self.maxAcc.z!) \n"
@@ -367,36 +384,28 @@ class ViewController: UIViewController {
                                     let incremAccString = "increm_acc_X:\(self.incrementalAcc.x!)  \n increm_acc_Y: \(self.incrementalAcc.y!) \n increm_acc_Z: \(self.incrementalAcc.z!) \n"
                                     let incremAccVectorString = "increm_acc_Vector: \(incrementalAccVector) \n"
                                                                      
-                                    
+                                    //keep this here
                                     self.gyroView.text = gravString  + accString + maxAccString + incremAccString + incremAccVectorString//posString  +
                                     
-//                                    self.view.backgroundColor = self.VectorToColor(vector: self.pos)
 
-//                                    self.view.backgroundColor = self.unwrapGrav(pos: self.pos, acc: self.acc)
-                                    self.view.backgroundColor = self.incrementAcceleration()
+                                    self.view.backgroundColor = self.incrementAccelerationToChangeWarningColor()
 
                                     // Use the motion data in your app.
                                 }
                                 
                                 Unwrap(pGrav: self.grav, pAcc: self.acc, pOldGrav: self.oldGrav)
-                                updateOldValues()
+                                self.updateOldValues()
             })
             
             // Add the timer to the current run loop.
             RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
         }
     }
-    
-
-        
+            
     override func viewDidLoad() {
         super.viewDidLoad()
         startDeviceMotion()
         
-        
         // Do any additional setup after loading the view.
     }
-
-
 }
-
