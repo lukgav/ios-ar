@@ -11,26 +11,23 @@ import Foundation
 import CoreMotion
 
 class MotionTask: GeneralTask{
-    
-    struct CoOrds3D {
-        var x: Double? = 0.0
-        var y: Double? = 0.0
-        var z: Double? = 0.0
-    //    init(startingValue)
-    //    var vector: Double? = sqrt(powerOfTwo(x) + powerOfTwo(y) + powerOfTwo(z))
-    //    var displayString: String = "x: \(x), y: \(y), z: \(z) \n "
-    }
+        
+    var vector: SIMD3<Double>?
     
     init(){
         let motionManager = CMMotionManager()
+        vector = SIMD3<Double>()
         super.init(pSensor: motionManager)
      }
     
-    func showData(pCoOrds: CoOrds3D) -> String{
+    func showData(pCoOrds: SIMD3<Double>) -> String{
         var displayString: String = "x: \(pCoOrds.x), y: \(pCoOrds.y), z: \(pCoOrds.z) \n "
         return displayString
     }
     
+    func ExecuteMotion(){
+        
+    }
     
     override func UpdateData(){
         

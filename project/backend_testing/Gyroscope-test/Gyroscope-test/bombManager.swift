@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class BombManager{
+class Bomb{
     let maxStability: Int = 100
     var stability: Int
     var degradation: Int
@@ -19,7 +19,7 @@ class BombManager{
     var colorDanger: CGFloat
     
     var timer: Timer
-    var warning: UIColor
+    var warningColor: UIColor
     
     init(){
         self.degradationRate = 1
@@ -28,7 +28,7 @@ class BombManager{
         self.timer = Timer.init()
         self.colorDanger = CGFloat((self.degradation/self.maxStability) * 255)
         self.colorStability = CGFloat((self.stability/self.maxStability) * 255)
-        self.warning = UIColor(red: self.colorDanger, green: self.colorStability, blue: 1, alpha: 1)
+        self.warningColor = UIColor(red: self.colorDanger, green: self.colorStability, blue: 1, alpha: 1)
     }
     
     func updateColorWarning(pNum: Int){
@@ -37,6 +37,7 @@ class BombManager{
 
         self.colorStability = CGFloat((newStability/self.maxStability) * 255)
         self.colorDanger = CGFloat((newDegradation/self.maxStability) * 255)
+        self.warningColor = UIColor(red: self.colorDanger, green: self.colorStability, blue: 1, alpha: 1)
     }
     
     func TakeDamage(){

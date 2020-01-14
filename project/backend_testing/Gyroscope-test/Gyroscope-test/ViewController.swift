@@ -9,29 +9,15 @@
 import UIKit
 import CoreMotion
 
-
-struct Vector3D {
-    var x: Double? = 0.0
-    var y: Double? = 0.0
-    var z: Double? = 0.0
-    
-    
-    
-    init(){
-        let coOrd: Double? = 0.0
-        self.x = coOrd
-        self.y = coOrd
-        self.z = coOrd
-    }
 //    init(startingValue)
 //    var vector: Double? = sqrt(powerOfTwo(x) + powerOfTwo(y) + powerOfTwo(z))
 //    var defaultStr: String = "pos"
 //    var displayString: String = "x: \(x), y: \(y), z: \(z) \n "
-}
+//}
 
 //
 //struct VectorAdded {
-//    var coOrds: Vector3D
+//    var coOrds: SIMD3<Double>
 //    var vector: Double? = sqrt(powerOfTwo(coOrds.x) + powerOfTwo(coOrds.y) + powerOfTwo(coOrds.z))
 //    var displayString: String = "x: \(coOrds.x), y: \(coOrds.y), z: \(coOrds.z) \n "
 //
@@ -45,7 +31,6 @@ enum UnitVector {
 }
 
 
-
 func powerOfTwo(num: Double)-> Double{
     return pow(num, 2)
 }
@@ -55,82 +40,87 @@ func roundFloat(p: Double) -> Double {
     return y
 }
 
-func Addition3D(coOrds: Vector3D) -> Double{
-    let h = roundFloat(p: sqrt(powerOfTwo(num: coOrds.x!) + powerOfTwo(num: coOrds.y!) + powerOfTwo(num: coOrds.z!)))
+func Addition3D(coOrds: SIMD3<Double>?) -> Double{
+    let h = roundFloat(p: sqrt(powerOfTwo(num: coOrds!.x) + powerOfTwo(num: coOrds!.y) + powerOfTwo(num: coOrds!.z)))
     return h
 }
 
 
 
-func Unwrap(pGrav: Vector3D, pAcc: Vector3D, pOldGrav: Vector3D){
+func Unwrap(pGrav: SIMD3<Double>?, pAcc: SIMD3<Double>?, pOldGrav: SIMD3<Double>?){
 
     // -- variable setup --------- --------- --------- --------- ---------
     //max change in magnitdue of gravity value
 
     let max_diff = 0.05
 
-    let z = pGrav.z!
-    let zOld = pOldGrav.z!
-    let dZ = abs(zOld - z)
+    let diffZ = abs(pOldGrav!.z - pGrav!.z)
+    let diffY = abs(pOldGrav!.y - pGrav!.y)
+    let diffX = abs(pOldGrav!.x - pGrav!.x)
     
-    let x = pGrav.x!
-    let xOld = pOldGrav.z!
-    let dX = abs(xOld - x)
-    
-    let y = pGrav.y!
-    let yOld = pOldGrav.y!
-    let dY = abs(yOld - y)
+//
+//    let z = pGrav!.z
+//    let zOld = pOldGrav!.z
+//    let dZ = abs(zOld - z)
+//
+//    let x = pGrav!.x
+//    let xOld = pOldGrav!.z
+//    let dX = abs(xOld - x)
+//
+//    let y = pGrav!.y
+//    let yOld = pOldGrav!.y
+//    let dY = abs(yOld - y)
     
     // ------------ ------------ x-direction ------------ ------------
 
     // ------------ ------------ z-direction ------------ ------------
 
     //phone face up (z-grav of phone is in -ve)
-    if(z < 0){
+    if(pGrav!.z < 0){
         //clock-wise(twisting away from the user) grav.x becomes positive
-        if (x > xOld){
+        if (pGrav!.x > pOldGrav!.x){
             //Is change within speed of rotation (max_dev) limits?
-            if (dZ < max_diff){
+            if (diffZ < max_diff){
                 
             }
             //is past max rotation speed
-            else if (dZ > max_diff){
+            else if (diffZ > max_diff){
                 
             }
         }
         //anti clockwise(twisting towards the user) grav.x becomes positive
-        else if (x < xOld){
+        else if (pGrav!.x < pOldGrav!.x){
             //Is change within speed of rotation (max_dev) limits?
-            if (dZ < max_diff){
+            if (diffZ < max_diff){
                 
             }
             //is past max rotation speed
-            else if (dZ > max_diff){
+            else if (diffZ > max_diff){
                 
             }
         }
     }
     // phone face down (z-grav of phone is in +ve)
-    if(z > 0){
+    if(pGrav!.z > 0){
         //clock-wise(twisting away from the user) grav.x becomes positive
-        if (x > xOld){
+        if (pGrav!.x > pOldGrav!.x){
              //Is change within speed of rotation (max_dev) limits?
-            if (dZ < max_diff){
+            if (diffZ < max_diff){
                 
             }
             //is past max rotation speed
-            else if (dZ > max_diff){
+            else if (diffZ > max_diff){
                 
             }
         }
         //anti clockwise(twisting towards the user) grav.x becomes positive
-        else if (x < xOld){
+        else if (pGrav!.x < pOldGrav!.x){
             //Is change within speed of rotation (max_dev) limits?
-            if (dZ < max_diff){
+            if (diffZ < max_diff){
                 
             }
             //is past max rotation speed
-            else if (dZ > max_diff){
+            else if (diffZ > max_diff){
                 
             }
         }
@@ -151,22 +141,25 @@ class ViewController: UIViewController {
 //    self.view.backgroun
     let motion = CMMotionManager()
 
-    var vec_default = Vector3D()
+    var vec_default : SIMD3<Double>? = nil
     
     var posVec: SIMD3<Double>? = nil
+    
+    var bomb: Bomb = Bomb()
+    var wrapTask: WrapTask = WrapTask(self.bomb)
     
 //    func taskA(){
 //        self.posVec.x
 //    }
     
-    var pos = Vector3D()
-    var acc = Vector3D()
-    var maxAcc = Vector3D()
-    var grav = Vector3D()
-    var oldGrav = Vector3D()
+    var pos : SIMD3<Double>? = SIMD3<Double>()
+    var acc : SIMD3<Double>? = SIMD3<Double>()
+    var maxAcc : SIMD3<Double>? = SIMD3<Double>()
+    var grav : SIMD3<Double>? = SIMD3<Double>()
+    var oldGrav : SIMD3<Double>? = SIMD3<Double>()
     
     var vectorChosen: UnitVector? = .position
-    var incrementalAcc = Vector3D()
+    var accCounter : SIMD3<Double>? = SIMD3<Double>()
 
     
     func setUpMotion(){
@@ -181,48 +174,48 @@ class ViewController: UIViewController {
     
         
     func updateOldValues(){
-        self.oldGrav = self.grav
+        self.oldGrav = self.grav!
     }
 
 
     
     
 
-    func unwrapGrav(pos: Vector3D, acc: Vector3D) -> UIColor{
-//        self.grav
+    func unwrapGrav(pos: SIMD3<Double>, acc: SIMD3<Double>) -> UIColor{
+//        self.grav!
         var color = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
 //        red = 1
-        if self.grav.x! > 0{
+        if self.grav!.x > 0{
             color =  UIColor(red: 1, green: 0, blue: 0, alpha: 1)
         }
-        else if self.grav.x! <= 0{
+        else if self.grav!.x <= 0{
             color = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
         }
         return color
     }
     
     func unwrapAcc() -> UIColor{
-//        self.grav
+//        self.grav!
         var color = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 //        red = 1
-        if self.maxAcc.x! > 5 {
+        if self.maxAcc!.x > 5 {
             print("too fast")
-//            if self.acc.x! > 5 {
+//            if self.acc.x > 5 {
 //                color = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
 //            }
         }
         else{
-            if self.acc.x! > 0{
+            if self.acc!.x > 0{
                 color =  UIColor(red: 1, green: 0, blue: 0, alpha: 1)
             }
-            else if self.acc.x! <= 0{
+            else if self.acc!.x <= 0{
                 color = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
             }
         }
         return color
     }
     
-//    func changeColorfromIncrementalAcc(){
+//    func changeColorfromaccCounter(){
 //        if self.incremental
 //    }
 
@@ -230,27 +223,27 @@ class ViewController: UIViewController {
     
 
     
-    func VectorToColor(vector: Vector3D) -> UIColor {
+    func VectorToColor(vector: SIMD3<Double>) -> UIColor {
         
         let pi = Double(CGFloat.pi)
             
-        let redPercent = CGFloat((vector.x! + pi)/(2*pi))
-        let greenPercent =  CGFloat((vector.y! + pi)/(2*pi))
-        let bluePercent =  CGFloat((vector.z! + pi)/(2*pi))
+        let redPercent = CGFloat((vector.x + pi)/(2*pi))
+        let greenPercent =  CGFloat((vector.y + pi)/(2*pi))
+        let bluePercent =  CGFloat((vector.z + pi)/(2*pi))
             
         return UIColor(red: redPercent, green: greenPercent, blue: bluePercent, alpha: 1)
     }
     
     
-    func setMotion3DVector(unit: UnitVector) -> Vector3D{
-        var vector = Vector3D()
+    func setMotion3DVector(unit: UnitVector) -> SIMD3<Double>{
+        var vector : SIMD3<Double>? = SIMD3<Double>()
         switch unit{
         case .position:
             print("position")
             if let data = self.motion.deviceMotion {
-                vector.x = roundFloat(p: data.attitude.pitch);
-                vector.y = roundFloat(p: data.attitude.roll)
-                vector.z = roundFloat(p: data.attitude.yaw)
+                vector!.x = roundFloat(p: data.attitude.pitch);
+                vector!.y = roundFloat(p: data.attitude.roll)
+                vector!.z = roundFloat(p: data.attitude.yaw)
 //                vector.x = roundFloat(p: data.)
                 
 
@@ -259,9 +252,10 @@ class ViewController: UIViewController {
         case .acceleration:
             print("acceleration")
             if let data = self.motion.deviceMotion {
-               vector.x = roundFloat(p: data.userAcceleration.x)
-               vector.y = roundFloat(p: data.userAcceleration.y)
-               vector.z = roundFloat(p: data.userAcceleration.z)
+//                vector = SIMD3<Double>(data.userAcceleration)
+               vector!.x = roundFloat(p: data.userAcceleration.x)
+               vector!.y = roundFloat(p: data.userAcceleration.y)
+               vector!.z = roundFloat(p: data.userAcceleration.z)
            }
             self.acc = vector
         case .velocity:
@@ -269,49 +263,49 @@ class ViewController: UIViewController {
         case .gravity:
             print("gravity")
             if let data = self.motion.deviceMotion {
-                vector.x = roundFloat(p: data.gravity.x)
-                vector.y = roundFloat(p: data.gravity.y)
-                vector.z = roundFloat(p: data.gravity.z)
+                vector!.x = roundFloat(p: data.gravity.x)
+                vector!.y = roundFloat(p: data.gravity.y)
+                vector!.z = roundFloat(p: data.gravity.z)
             }
-            self.grav = vector
+            self.grav = vector!
 
         }
         
-        return vector
+        return vector!
     }
     
     func updateMaxAcc(){
-        if self.acc.x! > self.maxAcc.x!{
-           self.maxAcc.x! = self.acc.x!
+        if self.acc!.x > self.maxAcc!.x{
+           self.maxAcc!.x = self.acc!.x
        }
-       if self.acc.x! > self.maxAcc.y!{
-           self.maxAcc.y! = self.acc.y!
+       if self.acc!.x > self.maxAcc!.y{
+           self.maxAcc!.y = self.acc!.y
        }
-       if self.acc.x! > self.maxAcc.z!{
-           self.maxAcc.z! = self.acc.z!
+       if self.acc!.x > self.maxAcc!.z{
+           self.maxAcc!.z = self.acc!.z
        }
     }
 
     func updateMinAcc(){
-        if self.acc.x! > self.maxAcc.x!{
-           self.maxAcc.x! = self.acc.x!
-       }
-       if self.acc.x! > self.maxAcc.y!{
-           self.maxAcc.y! = self.acc.y!
-       }
-       if self.acc.x! > self.maxAcc.z!{
-           self.maxAcc.z! = self.acc.z!
-       }
+         if self.acc!.x < self.maxAcc!.x{
+            self.maxAcc!.x = self.acc!.x
+        }
+        if self.acc!.x < self.maxAcc!.y{
+            self.maxAcc!.y = self.acc!.y
+        }
+        if self.acc!.x < self.maxAcc!.z{
+            self.maxAcc!.z = self.acc!.z
+        }
     }
     
     
     //accelertometer
-    func incrementAccelerationToChangeWarningColor()-> UIColor{
+    func CountAcceleration()-> UIColor{
         var lColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
 
-        var lAccX = abs(self.acc.x!)
-        var lAccY = abs(self.acc.y!)
-        var lAccZ = abs(self.acc.z!)
+        var lAccX = abs(self.acc!.x)
+        var lAccY = abs(self.acc!.y)
+        var lAccZ = abs(self.acc!.z)
         
 //        if vector > 5{
 //            vector = roundFloat(p: vector + vector)
@@ -319,22 +313,22 @@ class ViewController: UIViewController {
 //        }
         
         if lAccX > 0.02{
-            self.incrementalAcc.x = roundFloat(p: self.incrementalAcc.x! + lAccX)
+            self.accCounter!.x = roundFloat(p: self.accCounter!.x + lAccX)
         }
         if lAccY > 0.02{
-            self.incrementalAcc.y = roundFloat(p: self.incrementalAcc.y! + lAccY)
+            self.accCounter!.y = roundFloat(p: self.accCounter!.y + lAccY)
         }
         if lAccZ > 0.02{
-            self.incrementalAcc.z = roundFloat(p: self.incrementalAcc.z! + lAccZ)
+            self.accCounter!.z = roundFloat(p: self.accCounter!.z + lAccZ)
         }
         
-        if self.incrementalAcc.x! > 100{
+        if self.accCounter!.x > 100{
             lColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         }
-        if self.incrementalAcc.y! > 100{
+        if self.accCounter!.y > 100{
             lColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         }
-        if self.incrementalAcc.z! > 100{
+        if self.accCounter!.z > 100{
             lColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         }
         return lColor
@@ -344,8 +338,6 @@ class ViewController: UIViewController {
     
     func startDeviceMotion() {
         
-        self.pos.x = 5
-
         if motion.isDeviceMotionAvailable {
             self.motion.deviceMotionUpdateInterval = 1.0 / 30.0
             self.motion.showsDeviceMovementDisplay = true
@@ -366,34 +358,34 @@ class ViewController: UIViewController {
                                     self.vectorChosen = .gravity
                                     self.setMotion3DVector(unit: self.vectorChosen!)
                                            
-                                    var posVector = Addition3D(coOrds: self.pos)
-                                    var accVector = Addition3D(coOrds: self.acc)
-                                    var gravVector = Addition3D(coOrds: self.grav)
-                                    var incrementalAccVector = Addition3D(coOrds: self.incrementalAcc)
+                                    var posVector = self.pos!
+                                    var accVector = self.acc!
+                                    var gravVector = self.grav!
+                                    var accCounterVector = self.accCounter!.round(FloatingPointRoundingRule.up)
                                     
                                     // Accelerometer code
                                     self.updateMaxAcc()
   
                                     
                                     //print to app
-//                                    let posString = "x: \(self.pos.x!), y: \(self.pos.y!), z: \(self.pos.z!) \n "
-                                    let accString = "aX: \(self.acc.x!), \n aY: \( self.acc.y!),\n  aZ: \(self.acc.z!) \n"
-                                    let maxAccString = "\n maxX: \(self.maxAcc.x!) \n maxY: \(self.maxAcc.y!) \n maxZ: \(self.maxAcc.z!) \n"
-                                    let gravString = "\n gravX: \(self.grav.x!) \n gravY: \(self.grav.y!) \n gravZ: \(self.grav.z!) \n"
+//                                    let posString = "x: \(self.pos.x), y: \(self.pos.y), z: \(self.pos.z) \n "
+                                    let accString = "aX: \(self.acc!.x), \n aY: \( self.acc!.y),\n  aZ: \(self.acc!.z) \n"
+                                    let maxAccString = "\n maxX: \(self.maxAcc!.x) \n maxY: \(self.maxAcc!.y) \n maxZ: \(self.maxAcc!.z) \n"
+                                    let gravString = "\n gravX: \(self.grav!.x) \n gravY: \(self.grav!.y) \n gravZ: \(self.grav!.z) \n"
                                     
-                                    let incremAccString = "increm_acc_X:\(self.incrementalAcc.x!)  \n increm_acc_Y: \(self.incrementalAcc.y!) \n increm_acc_Z: \(self.incrementalAcc.z!) \n"
-                                    let incremAccVectorString = "increm_acc_Vector: \(incrementalAccVector) \n"
+                                    let accCounterString = "increm_acc_X:\(self.accCounter!.x)  \n increm_acc_Y: \(self.accCounter!.y) \n increm_acc_Z: \(self.accCounter!.z) \n"
+                                    let accCounterVectorString = "increm_acc_Vector: \(accCounterVector) \n"
                                                                      
                                     //keep this here
-                                    self.gyroView.text = gravString  + accString + maxAccString + incremAccString + incremAccVectorString//posString  +
+                                    self.gyroView.text = gravString  + accString + maxAccString + accCounterString + accCounterVectorString//posString  +
                                     
 
-                                    self.view.backgroundColor = self.incrementAccelerationToChangeWarningColor()
+                                    self.view.backgroundColor = self.CountAcceleration()
 
                                     // Use the motion data in your app.
                                 }
                                 
-                                Unwrap(pGrav: self.grav, pAcc: self.acc, pOldGrav: self.oldGrav)
+                                Unwrap(pGrav: self.grav!, pAcc: self.acc!, pOldGrav: self.oldGrav!)
                                 self.updateOldValues()
             })
             
@@ -401,7 +393,7 @@ class ViewController: UIViewController {
             RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
         }
     }
-            
+
     override func viewDidLoad() {
         super.viewDidLoad()
         startDeviceMotion()
