@@ -17,7 +17,7 @@ class Game {
     init(playerCount: Int) {
         players = Array<Player>()
         for playerId in 1...playerCount {
-            players.append(Player(id: playerId))
+            players.append(Player(id: playerId, limit: 0.0))
         }
         
         bombLimit = Double(players.count)*100.0

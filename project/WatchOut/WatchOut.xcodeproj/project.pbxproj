@@ -13,6 +13,7 @@
 		53ED0EE623C6172E0040AD3E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53ED0EE423C6172E0040AD3E /* Main.storyboard */; };
 		53ED0EE823C617320040AD3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 53ED0EE723C617320040AD3E /* Assets.xcassets */; };
 		53ED0EEB23C617330040AD3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53ED0EE923C617330040AD3E /* LaunchScreen.storyboard */; };
+		AC810E2F23CE06AC00258A88 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC810E2E23CE06AC00258A88 /* HelpViewController.swift */; };
 		ACA386CE23CCC92800CD724E /* UnwrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386CD23CCC92800CD724E /* UnwrapViewController.swift */; };
 		ACA386D023CCC93C00CD724E /* DeliverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386CF23CCC93C00CD724E /* DeliverViewController.swift */; };
 		ACA386D323CCCA1800CD724E /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386D223CCCA1800CD724E /* Player.swift */; };
@@ -32,6 +33,7 @@
 		53ED0EE723C617320040AD3E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		53ED0EEA23C617330040AD3E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		53ED0EEC23C617330040AD3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC810E2E23CE06AC00258A88 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		ACA386CD23CCC92800CD724E /* UnwrapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapViewController.swift; sourceTree = "<group>"; };
 		ACA386CF23CCC93C00CD724E /* DeliverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverViewController.swift; sourceTree = "<group>"; };
 		ACA386D223CCCA1800CD724E /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
@@ -97,6 +99,7 @@
 				53ED0EE223C6172E0040AD3E /* HomeViewController.swift */,
 				ACA386CD23CCC92800CD724E /* UnwrapViewController.swift */,
 				ACA386CF23CCC93C00CD724E /* DeliverViewController.swift */,
+				AC810E2E23CE06AC00258A88 /* HelpViewController.swift */,
 				53ED0EE423C6172E0040AD3E /* Main.storyboard */,
 				53ED0EE923C617330040AD3E /* LaunchScreen.storyboard */,
 			);
@@ -201,6 +204,7 @@
 				53ED0EDF23C6172E0040AD3E /* AppDelegate.swift in Sources */,
 				ACA386D923CCCA9300CD724E /* UnwrapController.swift in Sources */,
 				ACA386DB23CCCAD700CD724E /* DeliverController.swift in Sources */,
+				AC810E2F23CE06AC00258A88 /* HelpViewController.swift in Sources */,
 				ACA386D723CCCA7F00CD724E /* HomeController.swift in Sources */,
 				53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */,
 				ACA386D323CCCA1800CD724E /* Player.swift in Sources */,

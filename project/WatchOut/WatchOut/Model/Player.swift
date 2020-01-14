@@ -11,8 +11,10 @@ import UIKit
 class Player {
    
     var id: Int?
+    var limit: Double?
     
-    init(id: Int) {
+    init(id: Int, limit: Double) {
         self.id = id
+        self.limit = limit
     }
 }

@@ -11,6 +11,8 @@ import UIKit
 class HomeViewController: UIViewController {
    
     
+    var controller: HomeController?
+    
     @IBOutlet weak var playerCountLabel: UILabel!
     
     @IBAction func playerCountStepperValueChanged(_ sender: UIStepper) {
@@ -20,7 +22,13 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+        
+        controller = HomeController()
     }
+    
+    // Navigation to first Task
+    
+    // Navigation to Help
     
 }
 
