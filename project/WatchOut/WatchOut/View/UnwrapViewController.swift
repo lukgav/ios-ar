@@ -10,10 +10,14 @@ import UIKit
 
 class UnwrapViewController: UIViewController {
 
+    var controller: UnwrapController?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        
+        controller = UnwrapController()
     }
     
 

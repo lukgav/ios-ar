@@ -24,6 +24,8 @@ class HomeViewController: UIViewController {
         // Do any additional setup after loading the view.
         
         controller = HomeController()
+        
+        print("Hello")
     }
     
     // Navigation to first Task
