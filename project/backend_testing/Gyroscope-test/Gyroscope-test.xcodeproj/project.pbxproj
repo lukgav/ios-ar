@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A30B712423CF5D5A00FB53CB /* DeliveryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30B712323CF5D5A00FB53CB /* DeliveryTask.swift */; };
+		A3973E1D23CF5864007C1728 /* lightSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3973E1C23CF5864007C1728 /* lightSensorManager.swift */; };
 		A3B3AA4723C61447001E3151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3AA4623C61447001E3151 /* AppDelegate.swift */; };
 		A3B3AA4923C61447001E3151 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3AA4823C61447001E3151 /* SceneDelegate.swift */; };
 		A3B3AA4B23C61447001E3151 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3AA4A23C61447001E3151 /* ViewController.swift */; };
@@ -23,6 +25,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		A30B712323CF5D5A00FB53CB /* DeliveryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTask.swift; sourceTree = "<group>"; };
+		A3973E1C23CF5864007C1728 /* lightSensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lightSensorManager.swift; sourceTree = "<group>"; };
 		A3B3AA4323C61447001E3151 /* Gyroscope-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gyroscope-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B3AA4623C61447001E3151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3B3AA4823C61447001E3151 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -74,12 +78,14 @@
 				A3EDE72F23C8B53D00822DAA /* Color_Tracker.swift */,
 				A3B3AA4823C61447001E3151 /* SceneDelegate.swift */,
 				A3E647B023CCB684001B7C20 /* Bomb.swift */,
+				A30B712323CF5D5A00FB53CB /* DeliveryTask.swift */,
 				A3B3AA4A23C61447001E3151 /* ViewController.swift */,
 				A3E647B223CCBF0D001B7C20 /* Task.swift */,
 				A3E647B423CCC180001B7C20 /* MotionTask.swift */,
 				A3D2E88723CE2EDE0053C2AC /* GameManager.swift */,
 				A3D2E88923CE2F070053C2AC /* Player.swift */,
 				A3D2E88523CE2CDD0053C2AC /* UnwrapTask.swift */,
+				A3973E1C23CF5864007C1728 /* lightSensorManager.swift */,
 				A3B3AA4C23C61447001E3151 /* Main.storyboard */,
 				A3B3AA4F23C6144A001E3151 /* Assets.xcassets */,
 				A3B3AA5123C6144A001E3151 /* LaunchScreen.storyboard */,
@@ -161,7 +167,9 @@
 			files = (
 				A3D2E88A23CE2F070053C2AC /* Player.swift in Sources */,
 				A3D2E88623CE2CDD0053C2AC /* UnwrapTask.swift in Sources */,
+				A3973E1D23CF5864007C1728 /* lightSensorManager.swift in Sources */,
 				A3E647B123CCB684001B7C20 /* Bomb.swift in Sources */,
+				A30B712423CF5D5A00FB53CB /* DeliveryTask.swift in Sources */,
 				A3EDE73023C8B53D00822DAA /* Color_Tracker.swift in Sources */,
 				A3B3AA4B23C61447001E3151 /* ViewController.swift in Sources */,
 				A3E647B523CCC180001B7C20 /* MotionTask.swift in Sources */,

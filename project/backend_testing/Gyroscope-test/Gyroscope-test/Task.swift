@@ -21,6 +21,11 @@ class GeneralTask{
         fatalError("Must Override")
     }
     
+    func PrintDatatoDevice(){
+
+        
+    }
+    
     func BackupData(){
         fatalError("Must Override")
     }

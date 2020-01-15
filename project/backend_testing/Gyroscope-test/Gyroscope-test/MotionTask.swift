@@ -20,8 +20,8 @@ class MotionTask: GeneralTask{
         super.init(pSensor: motionManager)
      }
     
-    func showData(pCoOrds: SIMD3<Double>) -> String{
-        var displayString: String = "x: \(pCoOrds.x), y: \(pCoOrds.y), z: \(pCoOrds.z) \n "
+    func VectorToString(pVec: SIMD3<Double>, pName: String) -> String{
+        var displayString: String = "\(pName)x: \(pVec.x), \(pName)y: \(pVec.y), \(pName)z: \(pVec.z) \n "
         return displayString
     }
     
@@ -29,6 +29,11 @@ class MotionTask: GeneralTask{
         
     }
     
+    override func PrintDatatoDevice(){
+         let accString = self.VectorToString(pVec: self.vector!, pName: "vector")
+         print(accString)
+         
+     }
     override func UpdateData(){
         
     }
