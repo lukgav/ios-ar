@@ -8,4 +8,22 @@
 
 class DeliverController {
     
+    let dmManager = DeviceMotionManager.shared
+    let observer = MotionDataObserver()
+    let gameManager = GameManager.shared
+
+    
+    
+    
+    init() {
+        
+    }
+    
+    func startDelivery(forPlayer: Player) {
+        
+    }
+    
+    func endDelivery() {
+        
+    }
 }

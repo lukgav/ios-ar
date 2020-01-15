@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5321CAB023CF5C9A0002130E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAAC23CF5C9A0002130E /* Task.swift */; };
+		5321CAB123CF5C9A0002130E /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAAD23CF5C9A0002130E /* Bomb.swift */; };
+		5321CAB223CF5C9A0002130E /* UnwrapTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAAE23CF5C9A0002130E /* UnwrapTask.swift */; };
+		5321CAB323CF5C9A0002130E /* MotionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAAF23CF5C9A0002130E /* MotionTask.swift */; };
+		5321CAB523CF5FB10002130E /* DeliveryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAB423CF5FB10002130E /* DeliveryTask.swift */; };
+		5321CAB823CF61BE0002130E /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAB723CF61BE0002130E /* Difficulty.swift */; };
 		53843C4623CF53E300A61D98 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53843C4523CF53E300A61D98 /* Observable.swift */; };
 		53ED0EDF23C6172E0040AD3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */; };
 		53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EE023C6172E0040AD3E /* SceneDelegate.swift */; };
@@ -21,13 +27,18 @@
 		ACA386CE23CCC92800CD724E /* UnwrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386CD23CCC92800CD724E /* UnwrapViewController.swift */; };
 		ACA386D023CCC93C00CD724E /* DeliverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386CF23CCC93C00CD724E /* DeliverViewController.swift */; };
 		ACA386D323CCCA1800CD724E /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386D223CCCA1800CD724E /* Player.swift */; };
-		ACA386D523CCCA4A00CD724E /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386D423CCCA4A00CD724E /* Game.swift */; };
 		ACA386D723CCCA7F00CD724E /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386D623CCCA7F00CD724E /* HomeController.swift */; };
 		ACA386DB23CCCAD700CD724E /* DeliverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386DA23CCCAD700CD724E /* DeliverController.swift */; };
 		ACA386DD23CCCE5400CD724E /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386DC23CCCE5400CD724E /* GameManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5321CAAC23CF5C9A0002130E /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		5321CAAD23CF5C9A0002130E /* Bomb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
+		5321CAAE23CF5C9A0002130E /* UnwrapTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnwrapTask.swift; sourceTree = "<group>"; };
+		5321CAAF23CF5C9A0002130E /* MotionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionTask.swift; sourceTree = "<group>"; };
+		5321CAB423CF5FB10002130E /* DeliveryTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeliveryTask.swift; path = WatchOut/Model/DeliveryTask.swift; sourceTree = SOURCE_ROOT; };
+		5321CAB723CF61BE0002130E /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
 		53843C4523CF53E300A61D98 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		53ED0EDB23C6172E0040AD3E /* WatchOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,7 +55,6 @@
 		ACA386CD23CCC92800CD724E /* UnwrapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapViewController.swift; sourceTree = "<group>"; };
 		ACA386CF23CCC93C00CD724E /* DeliverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverViewController.swift; sourceTree = "<group>"; };
 		ACA386D223CCCA1800CD724E /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		ACA386D423CCCA4A00CD724E /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		ACA386D623CCCA7F00CD724E /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		ACA386DA23CCCAD700CD724E /* DeliverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverController.swift; sourceTree = "<group>"; };
 		ACA386DC23CCCE5400CD724E /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
@@ -61,6 +71,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5321CAB623CF61AB0002130E /* Enumerations */ = {
+			isa = PBXGroup;
+			children = (
+				5321CAB723CF61BE0002130E /* Difficulty.swift */,
+			);
+			path = Enumerations;
+			sourceTree = "<group>";
+		};
 		53ED0ED223C6172D0040AD3E = {
 			isa = PBXGroup;
 			children = (
@@ -81,6 +99,7 @@
 			isa = PBXGroup;
 			children = (
 				53ED0EEC23C617330040AD3E /* Info.plist */,
+				5321CAB623CF61AB0002130E /* Enumerations */,
 				ACA386D123CCC98800CD724E /* Resources */,
 				ACA386CC23CCC53C00CD724E /* Controller */,
 				ACA386CB23CCC53300CD724E /* View */,
@@ -93,7 +112,10 @@
 			isa = PBXGroup;
 			children = (
 				ACA386D223CCCA1800CD724E /* Player.swift */,
-				ACA386D423CCCA4A00CD724E /* Game.swift */,
+				5321CAAD23CF5C9A0002130E /* Bomb.swift */,
+				5321CAAF23CF5C9A0002130E /* MotionTask.swift */,
+				5321CAAC23CF5C9A0002130E /* Task.swift */,
+				5321CAAE23CF5C9A0002130E /* UnwrapTask.swift */,
 				AC810E3223CE1D7600258A88 /* DeviceMotionManager.swift */,
 				AC810E3423CE2E8F00258A88 /* MotionData.swift */,
 				53843C4523CF53E300A61D98 /* Observable.swift */,
@@ -119,10 +141,11 @@
 			isa = PBXGroup;
 			children = (
 				53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */,
+				ACA386DC23CCCE5400CD724E /* GameManager.swift */,
 				ACA386D623CCCA7F00CD724E /* HomeController.swift */,
 				AC810E3023CE131400258A88 /* UnwrapController.swift */,
 				ACA386DA23CCCAD700CD724E /* DeliverController.swift */,
-				ACA386DC23CCCE5400CD724E /* GameManager.swift */,
+				5321CAB423CF5FB10002130E /* DeliveryTask.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -208,12 +231,17 @@
 			files = (
 				53ED0EE323C6172E0040AD3E /* HomeViewController.swift in Sources */,
 				53843C4623CF53E300A61D98 /* Observable.swift in Sources */,
+				5321CAB823CF61BE0002130E /* Difficulty.swift in Sources */,
 				AC810E3123CE131400258A88 /* UnwrapController.swift in Sources */,
 				ACA386CE23CCC92800CD724E /* UnwrapViewController.swift in Sources */,
-				ACA386D523CCCA4A00CD724E /* Game.swift in Sources */,
+				5321CAB323CF5C9A0002130E /* MotionTask.swift in Sources */,
 				ACA386DD23CCCE5400CD724E /* GameManager.swift in Sources */,
 				53ED0EDF23C6172E0040AD3E /* AppDelegate.swift in Sources */,
+				5321CAB523CF5FB10002130E /* DeliveryTask.swift in Sources */,
 				ACA386DB23CCCAD700CD724E /* DeliverController.swift in Sources */,
+				5321CAB023CF5C9A0002130E /* Task.swift in Sources */,
+				5321CAB223CF5C9A0002130E /* UnwrapTask.swift in Sources */,
+				5321CAB123CF5C9A0002130E /* Bomb.swift in Sources */,
 				AC810E3523CE2E8F00258A88 /* MotionData.swift in Sources */,
 				AC810E2F23CE06AC00258A88 /* HelpViewController.swift in Sources */,
 				ACA386D723CCCA7F00CD724E /* HomeController.swift in Sources */,

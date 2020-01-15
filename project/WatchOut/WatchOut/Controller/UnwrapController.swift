@@ -23,7 +23,6 @@ class UnwrapController {
         print("stop")
         dmManager.currentMotionData.removeObserver(observer)
         dmManager.stopDeviceMotion()
-        
     }
     
     /*

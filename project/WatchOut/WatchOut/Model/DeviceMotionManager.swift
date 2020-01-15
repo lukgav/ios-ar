@@ -25,6 +25,7 @@ class DeviceMotionManager {
         timer = Timer()
     }
     
+    /// Returns true, if it started correctly
     func startDeviceMotion() -> Bool {
         if motion.isDeviceMotionAvailable {
             motion.deviceMotionUpdateInterval = updateInterval
@@ -66,6 +67,7 @@ class DeviceMotionManager {
         }
     }
     
+    /// Returns true, if it stopped correctly
     func stopDeviceMotion() -> Bool {
         if motion.isDeviceMotionActive {
             motion.stopDeviceMotionUpdates()
