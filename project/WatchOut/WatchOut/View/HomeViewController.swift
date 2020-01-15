@@ -16,7 +16,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var playerCountLabel: UILabel!
     
     @IBAction func playerCountStepperValueChanged(_ sender: UIStepper) {
-        playerCountLabel.text = String(sender.value)
+        playerCountLabel.text = Int(sender.value).description
     }
     
     override func viewDidLoad() {
@@ -26,6 +26,21 @@ class HomeViewController: UIViewController {
         controller = HomeController()
         
         print("Hello")
+    }
+    
+    @IBAction func startButton(_ sender: UIButton) {
+        
+        // how many players
+        //switch playerCountLabel.text {
+        //case 1:
+        //    ...
+        //case 5:
+        //}
+    }
+    
+    
+    @IBAction func helpButton(_ sender: UIButton) {
+        // goes to help screen
     }
     
     // Navigation to first Task

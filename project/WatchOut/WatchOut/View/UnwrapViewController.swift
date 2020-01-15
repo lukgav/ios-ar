@@ -10,17 +10,14 @@ import UIKit
 
 class UnwrapViewController: UIViewController {
 
-    let controller: UnwrapController = UnwrapController()
+    var controller: UnwrapController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        controller.startTest()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        controller.stopTest()
+        
+        controller = UnwrapController()
     }
     
 
