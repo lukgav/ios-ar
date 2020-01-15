@@ -16,7 +16,7 @@
 		A3D2E88623CE2CDD0053C2AC /* UnwrapTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2E88523CE2CDD0053C2AC /* UnwrapTask.swift */; };
 		A3D2E88823CE2EDE0053C2AC /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2E88723CE2EDE0053C2AC /* GameManager.swift */; };
 		A3D2E88A23CE2F070053C2AC /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3D2E88923CE2F070053C2AC /* Player.swift */; };
-		A3E647B123CCB684001B7C20 /* bombManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E647B023CCB684001B7C20 /* bombManager.swift */; };
+		A3E647B123CCB684001B7C20 /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E647B023CCB684001B7C20 /* Bomb.swift */; };
 		A3E647B323CCBF0D001B7C20 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E647B223CCBF0D001B7C20 /* Task.swift */; };
 		A3E647B523CCC180001B7C20 /* MotionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3E647B423CCC180001B7C20 /* MotionTask.swift */; };
 		A3EDE73023C8B53D00822DAA /* Color_Tracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3EDE72F23C8B53D00822DAA /* Color_Tracker.swift */; };
@@ -34,7 +34,7 @@
 		A3D2E88523CE2CDD0053C2AC /* UnwrapTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapTask.swift; sourceTree = "<group>"; };
 		A3D2E88723CE2EDE0053C2AC /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		A3D2E88923CE2F070053C2AC /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
-		A3E647B023CCB684001B7C20 /* bombManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = bombManager.swift; sourceTree = "<group>"; };
+		A3E647B023CCB684001B7C20 /* Bomb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bomb.swift; sourceTree = "<group>"; };
 		A3E647B223CCBF0D001B7C20 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		A3E647B423CCC180001B7C20 /* MotionTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionTask.swift; sourceTree = "<group>"; };
 		A3EDE72F23C8B53D00822DAA /* Color_Tracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color_Tracker.swift; sourceTree = "<group>"; };
@@ -73,7 +73,7 @@
 				A3B3AA4623C61447001E3151 /* AppDelegate.swift */,
 				A3EDE72F23C8B53D00822DAA /* Color_Tracker.swift */,
 				A3B3AA4823C61447001E3151 /* SceneDelegate.swift */,
-				A3E647B023CCB684001B7C20 /* bombManager.swift */,
+				A3E647B023CCB684001B7C20 /* Bomb.swift */,
 				A3B3AA4A23C61447001E3151 /* ViewController.swift */,
 				A3E647B223CCBF0D001B7C20 /* Task.swift */,
 				A3E647B423CCC180001B7C20 /* MotionTask.swift */,
@@ -161,7 +161,7 @@
 			files = (
 				A3D2E88A23CE2F070053C2AC /* Player.swift in Sources */,
 				A3D2E88623CE2CDD0053C2AC /* UnwrapTask.swift in Sources */,
-				A3E647B123CCB684001B7C20 /* bombManager.swift in Sources */,
+				A3E647B123CCB684001B7C20 /* Bomb.swift in Sources */,
 				A3EDE73023C8B53D00822DAA /* Color_Tracker.swift in Sources */,
 				A3B3AA4B23C61447001E3151 /* ViewController.swift in Sources */,
 				A3E647B523CCC180001B7C20 /* MotionTask.swift in Sources */,

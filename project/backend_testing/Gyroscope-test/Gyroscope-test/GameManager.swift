@@ -18,15 +18,15 @@ class GameManager{
         player = Player()
         task = MotionTask()
     }
-    
-    func runTask() -> Boolean{
-        var result = task.ExecuteMotion()
-        return result
-    }
-    
-    func UpdateBomb(){
-        Update
-    }
+//    
+//    func runTask() -> Bool{
+//        var result: Bool = task.ExecuteMotion()
+//        return result
+//    }
+//    
+//    func UpdateBomb(){
+//        Update
+//    }
     
     func UpdatePlayer(){
         

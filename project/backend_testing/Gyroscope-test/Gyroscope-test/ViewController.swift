@@ -30,7 +30,6 @@ enum UnitVector {
     case gravity
 }
 
-
 func powerOfTwo(num: Double)-> Double{
     return pow(num, 2)
 }
@@ -144,14 +143,7 @@ class ViewController: UIViewController {
     var vec_default : SIMD3<Double>? = nil
     
     var posVec: SIMD3<Double>? = nil
-    
-    var bomb: Bomb = Bomb()
-    var wrapTask: WrapTask = WrapTask(self.bomb)
-    
-//    func taskA(){
-//        self.posVec.x
-//    }
-    
+
     var pos : SIMD3<Double>? = SIMD3<Double>()
     var acc : SIMD3<Double>? = SIMD3<Double>()
     var maxAcc : SIMD3<Double>? = SIMD3<Double>()
@@ -161,6 +153,19 @@ class ViewController: UIViewController {
     var vectorChosen: UnitVector? = .position
     var accCounter : SIMD3<Double>? = SIMD3<Double>()
 
+    var _bomb: Bomb = Bomb()
+
+//    init(){
+//        _bomb = Bomb()
+//    }
+//
+//    required init?(coder: NSCoder) {
+//        _bomb = Bomb()
+//        fatalError("init(coder:) has not been implemented")
+//    }
+    
+    var wrapTask: WrapTask = WrapTask()
+    
     
     func setUpMotion(){
         if motion.isAccelerometerAvailable {
@@ -181,39 +186,7 @@ class ViewController: UIViewController {
     
     
 
-    func unwrapGrav(pos: SIMD3<Double>, acc: SIMD3<Double>) -> UIColor{
-//        self.grav!
-        var color = UIColor(red: 0, green: 0, blue: 1, alpha: 1)
-//        red = 1
-        if self.grav!.x > 0{
-            color =  UIColor(red: 1, green: 0, blue: 0, alpha: 1)
-        }
-        else if self.grav!.x <= 0{
-            color = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
-        }
-        return color
-    }
-    
-    func unwrapAcc() -> UIColor{
-//        self.grav!
-        var color = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-//        red = 1
-        if self.maxAcc!.x > 5 {
-            print("too fast")
-//            if self.acc.x > 5 {
-//                color = UIColor(red: 1, green: 1, blue: 1, alpha: 1)
-//            }
-        }
-        else{
-            if self.acc!.x > 0{
-                color =  UIColor(red: 1, green: 0, blue: 0, alpha: 1)
-            }
-            else if self.acc!.x <= 0{
-                color = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
-            }
-        }
-        return color
-    }
+
     
 //    func changeColorfromaccCounter(){
 //        if self.incremental
@@ -334,17 +307,44 @@ class ViewController: UIViewController {
         return lColor
     }
     
+    func VectorToString(pVec: SIMD3<Double>?, pName: String) -> String{
+        var result =  "\(pName)X: \(pVec!.x), \(pName)Y: \(pVec!.y), \(pName)Z: \(pVec!.z) \n"
+//        let accString = "aX: \(self.acc!.x), \n aY: \( self.acc!.y),\n  aZ: \(self.acc!.z) \n"
+        return result
+    }
+    
+    func PrintDatatoDevice(){
+        let accString = self.VectorToString(pVec: self.acc, pName: "acc")
+        let maxAccString = self.VectorToString(pVec: self.maxAcc, pName: "max_a")
+        let gravString = self.VectorToString(pVec: self.grav, pName: "grav")
+        let accCounterString = self.VectorToString(pVec: self.accCounter, pName: "counter_acc")
+
+        var posVector = self.pos!
+        var accVector = self.acc!
+        var gravVector = self.grav!
+        var accCounterVector = self.accCounter!.round(FloatingPointRoundingRule.up)
+        
+        
+        let accCounterVectorString = "increm_acc_Vector: \(accCounterVector) \n"
+
+        let bombColorString = "Stability:\(self._bomb.colorStability)  \n Danger: \(self._bomb.colorDanger) \n"
+        
+        //keep this here
+        self.gyroView.text = gravString  + accString + maxAccString + accCounterString + accCounterVectorString + bombColorString//posString  +
+        
+    }
 
     
     func startDeviceMotion() {
         
+        var updateInterval: Double = 1.0 / 3.0
         if motion.isDeviceMotionAvailable {
-            self.motion.deviceMotionUpdateInterval = 1.0 / 30.0
+            self.motion.deviceMotionUpdateInterval = updateInterval
             self.motion.showsDeviceMovementDisplay = true
             self.motion.startDeviceMotionUpdates(using: .xMagneticNorthZVertical)
             
             // Configure a timer to fetch the motion data.
-            let timer = Timer(fire: Date(), interval: (1.0 / 30.0), repeats: true,
+            let timer = Timer(fire: Date(), interval: (updateInterval), repeats: true,
                                block: { (timer) in
                                 if let data = self.motion.deviceMotion {
                                     
@@ -354,33 +354,23 @@ class ViewController: UIViewController {
 //                                    self.setMotion3DVector(unit: self.vectorChosen!)
 //
                                     self.vectorChosen = .acceleration
-                                    self.setMotion3DVector(unit: self.vectorChosen!)
+                                    self.setMotion3DVector(unit: UnitVector.acceleration)
                                     self.vectorChosen = .gravity
-                                    self.setMotion3DVector(unit: self.vectorChosen!)
+                                    self.setMotion3DVector(unit: UnitVector.gravity)
                                            
-                                    var posVector = self.pos!
-                                    var accVector = self.acc!
-                                    var gravVector = self.grav!
-                                    var accCounterVector = self.accCounter!.round(FloatingPointRoundingRule.up)
-                                    
+
                                     // Accelerometer code
                                     self.updateMaxAcc()
   
+                                    self.wrapTask.ExecuteMotion(pGrav: self.grav, pAcc: self.acc, pOldGrav: self.oldGrav, pGoClockWise: true, pBomb: self._bomb)
                                     
                                     //print to app
 //                                    let posString = "x: \(self.pos.x), y: \(self.pos.y), z: \(self.pos.z) \n "
-                                    let accString = "aX: \(self.acc!.x), \n aY: \( self.acc!.y),\n  aZ: \(self.acc!.z) \n"
-                                    let maxAccString = "\n maxX: \(self.maxAcc!.x) \n maxY: \(self.maxAcc!.y) \n maxZ: \(self.maxAcc!.z) \n"
-                                    let gravString = "\n gravX: \(self.grav!.x) \n gravY: \(self.grav!.y) \n gravZ: \(self.grav!.z) \n"
-                                    
-                                    let accCounterString = "increm_acc_X:\(self.accCounter!.x)  \n increm_acc_Y: \(self.accCounter!.y) \n increm_acc_Z: \(self.accCounter!.z) \n"
-                                    let accCounterVectorString = "increm_acc_Vector: \(accCounterVector) \n"
-                                                                     
-                                    //keep this here
-                                    self.gyroView.text = gravString  + accString + maxAccString + accCounterString + accCounterVectorString//posString  +
-                                    
 
-                                    self.view.backgroundColor = self.CountAcceleration()
+                                    self.PrintDatatoDevice()
+//                                    self.view.backgroundColor = self.CountAcceleration()
+//                                    self.view.backgroundColor = UIColor(red: 0, green: 1, blue: 0, alpha: 1)
+                                    self.view.backgroundColor = self._bomb.warningColor
 
                                     // Use the motion data in your app.
                                 }
