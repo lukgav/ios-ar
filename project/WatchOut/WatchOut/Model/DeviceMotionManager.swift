@@ -14,15 +14,14 @@ class DeviceMotionManager {
     private let motion: CMMotionManager
     private var timer: Timer
     
-    @Published var motionData: MotionData
-    
-    var updateInterval: Double = 1.0/60
+    var currentMotionData: Observable<MotionData>
+    var updateInterval: Double = 1.0/60.0
     
     private init(){
         motion = CMMotionManager()
-        motionData = MotionData(attitude: SIMD3<Double>(0.0,0.0,0.0),
+        currentMotionData = Observable(value: MotionData(attitude: SIMD3<Double>(0.0,0.0,0.0),
                                 acceleration: SIMD3<Double>(0.0,0.0,0.0),
-                                gravity: SIMD3<Double>(0.0,0.0,0.0))
+                                gravity: SIMD3<Double>(0.0,0.0,0.0)))
         timer = Timer()
     }
     
@@ -31,11 +30,13 @@ class DeviceMotionManager {
             motion.deviceMotionUpdateInterval = updateInterval
             motion.showsDeviceMovementDisplay = true
             motion.startDeviceMotionUpdates(using: .xMagneticNorthZVertical)
-            
-            timer = Timer(fire: Date(), interval: (1.0 / 60.0), repeats: true,
+                        
+            timer = Timer(fire: Date(), interval: updateInterval, repeats: true,
                                block: { (timer) in
                                 if let data = self.motion.deviceMotion {
                                     // Get the attitude relative to the magnetic north reference frame.
+                                    
+                                    //print("Update")
                                     
                                     let attitude = SIMD3<Double>(data.attitude.pitch,
                                                                  data.attitude.roll,
@@ -49,7 +50,7 @@ class DeviceMotionManager {
                                                                 data.gravity.y,
                                                                 data.gravity.z)
                                     
-                                    self.motionData = MotionData(attitude: attitude,
+                                    self.currentMotionData.value =  MotionData(attitude: attitude,
                                                             acceleration: acceleration,
                                                             gravity: gravity)
                                 }

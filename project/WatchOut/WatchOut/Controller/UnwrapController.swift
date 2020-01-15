@@ -6,25 +6,26 @@
 //  Copyright © 2020 iOS1920. All rights reserved.
 //
 
-import UIKit
-import Combine
-
-class UnwrapController: UIViewController {
+class UnwrapController {
  
-    
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        DeviceMotionManager.shared.startDeviceMotion()
+    let dmManager = DeviceMotionManager.shared
+    let observer = MotionDataObserver()
         
-        DeviceMotionManager.shared.motionData.objectWillChange.sink(receiveValue: {
-                let gravity = DeviceMotionManager.shared.motionData.gravity
-            
-                print(gravity)
-            })
+    func startTest() {
+        dmManager.startDeviceMotion()
+        dmManager.currentMotionData.addObserver(observer) { newData in
+            print("Gravity")
+            print(newData.gravity)
+        }
     }
         
+    func stopTest() {
+        print("stop")
+        dmManager.currentMotionData.removeObserver(observer)
+        dmManager.stopDeviceMotion()
+        
+    }
+    
     /*
     // MARK: - Navigation
 

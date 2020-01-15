@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		53843C4623CF53E300A61D98 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53843C4523CF53E300A61D98 /* Observable.swift */; };
 		53ED0EDF23C6172E0040AD3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */; };
 		53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EE023C6172E0040AD3E /* SceneDelegate.swift */; };
 		53ED0EE323C6172E0040AD3E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EE223C6172E0040AD3E /* HomeViewController.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		53843C4523CF53E300A61D98 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		53ED0EDB23C6172E0040AD3E /* WatchOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		53ED0EE023C6172E0040AD3E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +96,7 @@
 				ACA386D423CCCA4A00CD724E /* Game.swift */,
 				AC810E3223CE1D7600258A88 /* DeviceMotionManager.swift */,
 				AC810E3423CE2E8F00258A88 /* MotionData.swift */,
+				53843C4523CF53E300A61D98 /* Observable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -204,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				53ED0EE323C6172E0040AD3E /* HomeViewController.swift in Sources */,
+				53843C4623CF53E300A61D98 /* Observable.swift in Sources */,
 				AC810E3123CE131400258A88 /* UnwrapController.swift in Sources */,
 				ACA386CE23CCC92800CD724E /* UnwrapViewController.swift in Sources */,
 				ACA386D523CCCA4A00CD724E /* Game.swift in Sources */,
@@ -361,13 +365,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				DEVELOPMENT_TEAM = YB75785J73;
 				INFOPLIST_FILE = WatchOut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "rwth-aachen.ios.teamWatchout.hello";
+				PRODUCT_BUNDLE_IDENTIFIER = de.Trung.ios.WatchOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -379,13 +383,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				DEVELOPMENT_TEAM = YB75785J73;
 				INFOPLIST_FILE = WatchOut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "rwth-aachen.ios.teamWatchout.hello";
+				PRODUCT_BUNDLE_IDENTIFIER = de.Trung.ios.WatchOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
