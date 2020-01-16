@@ -14,7 +14,12 @@
 
 @property (strong, nonatomic) id someProperty;
 
-- (void) someMethod;
++ (void) handle_event:(void*) target secondParam: (void*) refcon thirdParam:(IOHIDServiceRef) service fourthParam: (IOHIDEventRef) event;
+- (int)max:(int)num1 andNum2:(int)num2;
+
+- (int) max:(int) num1 secondNumber:(int) num2
+//+ (NSString *)sayHello;
+//- (void) someMethod;
 
 @end
 

@@ -6,6 +6,9 @@
 //  Copyright © 2020 Luke Gavin. All rights reserved.
 //
 
+#ifndef LightAmbientSensor_h
+#define LightAmbientSensor_h
+
 #import <Foundation/Foundation.h>
 
 @interface CustomObject : NSObject
@@ -21,3 +24,5 @@
 
 
 @end
+
+#endif

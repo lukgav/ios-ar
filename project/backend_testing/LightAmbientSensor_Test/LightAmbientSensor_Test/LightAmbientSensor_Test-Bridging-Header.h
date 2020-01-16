@@ -3,3 +3,5 @@
 //
 
 #import "CustomObjectA.h"
+#import "LightAmbienceDataObject"
+

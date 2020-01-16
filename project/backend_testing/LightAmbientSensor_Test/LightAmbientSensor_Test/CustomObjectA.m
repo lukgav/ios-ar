@@ -11,20 +11,20 @@
 @implementation CustomObject : NSObject
 
 + (void) printHello {
-    NSLog(@"Hello World");
+    NSLog(@" \n Hello Phone World");
 }
 
 +(NSString *)sayHello{
     NSString * var;
     
-    var = @"Hello from objective-c class.";
+    var = @" Hello from objective-c class.";
     
     return var;
     
 }
 
 - (void) someMethod {
-    NSLog(@"SomeMethod Ran");
+    NSLog(@"\n SomeMethod Ran");
     
 }
 

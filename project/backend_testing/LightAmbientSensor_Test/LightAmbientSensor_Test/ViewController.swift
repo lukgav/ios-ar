@@ -14,18 +14,28 @@ class ViewController: UIViewController {
     
     var instanceOfCustomObject: CustomObject = CustomObject()
     
-//    TestObjectiveCClass.printHello()
+//    CustomObject.printHello()
     
 //    var test : CustomObject
 //    test = CustomObject()
-//    test.someProperty
+//    instanceOfCustomObject.someProperty = "Test"
 //    instanceOfCustomObject.someProperty = "Hello"
-//    println(instanceOfCustomObject.someProperty)
-//    instanceOfCustomObject.someMethod()
+
+
+    
+    func testCustomObject(){
+        instanceOfCustomObject.someMethod()
+        instanceOfCustomObject.someProperty = "Test"
+        print(instanceOfCustomObject.someProperty!)
+        instanceOfCustomObject.someMethod()
+    }
 //
     override func viewDidLoad() {
         super.viewDidLoad()
-        testView.text = "Test me baby"
+        CustomObject.printHello()
+        testCustomObject()
+        
+        testView.text = CustomObject.sayHello()
         // Do any additional setup after loading the view.
     }
 
