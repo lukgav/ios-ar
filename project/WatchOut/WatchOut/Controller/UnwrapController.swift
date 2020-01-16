@@ -13,6 +13,8 @@ class UnwrapController : CustomController {
     private let gameManager = GameManager.shared
         
         
+    // MARK: - Unwrap Logic
+    
     func startTest() {
         dmManager.currentMotionData.addObserver(observer) { newData in
             print("Gravity")
@@ -25,6 +27,8 @@ class UnwrapController : CustomController {
         dmManager.currentMotionData.removeObserver(observer)
     }
     
+    
+    
     // MARK: - Navigation
     
     func navigateToNextTask() {
@@ -34,6 +38,9 @@ class UnwrapController : CustomController {
     }
     
     func navigateToHome() {
-        navigationController.performSegue(withIdentifier: Constants.QuitGameSegue, sender: self)
+        var result = dmManager.stopDeviceMotion()
+        if (result) {
+            navigationController.performSegue(withIdentifier: Constants.QuitGameSegue, sender: self)
+        }
     }
 }
