@@ -15,15 +15,8 @@ class UnwrapController {
     private let gameManager = GameManager.shared
         
     
-    private var lastAtt: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-    private var lastAcc: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-    private var lastGrav: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-    private var lastRotRate: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-    
-    private var diffAtt: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-    private var diffAcc: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-    private var diffGrav: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-    private var diffRotRate: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
+    private var lastMotionData: MotionData = MotionData()
+    private var diffMotionData: MotionData = MotionData()
     
     private var thresholdRotRate: Double = 0.05
     private var thresholdAcc: Double = 0.05
@@ -39,22 +32,14 @@ class UnwrapController {
     }
     
     func startUnwrapAroundZ() {
-        dmManager.currentMotionData.addObserver(observer) { newData in
-            print(newData.gravity)
-        
-            self.diffAtt = newData.attitude - self.lastAtt
-            self.diffRotRate = newData.rotationRate - self.lastRotRate
-            self.diffGrav = newData.gravity - self.lastGrav
-            self.diffAcc = newData.acceleration - self.lastAcc
+        dmManager.currentMotionData.addObserver(observer) { newMotionData in
+            self.lastMotionData = newMotionData
             
-            self.lastAtt = newData.attitude
-            self.lastAcc = newData.acceleration
-            self.lastGrav = newData.gravity
-            self.lastRotRate = newData.rotationRate
+            self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
             
-            
-            print("Last: Att: \(self.lastAtt), Acc: \(self.lastRotRate), Att: \(self.lastGrav), Att: \(self.lastAcc))")
-            print("Diff: Att: \(self.diffAtt), Acc: \(self.diffRotRate), Att: \(self.diffGrav), Att: \(self.diffAcc))")
+            print("------------------------------------------------------------")
+            print("Last: \(self.lastMotionData.ToString())")
+            print("Diff: \(self.diffMotionData.ToString())")
             
             // too much shaking
             if (true) {
@@ -69,7 +54,7 @@ class UnwrapController {
             
         }
     }
-        
+    
     func stopUnwrapX() {
         print("stop")
         dmManager.currentMotionData.removeObserver(observer)
