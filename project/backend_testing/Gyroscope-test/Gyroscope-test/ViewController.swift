@@ -9,6 +9,7 @@
 import UIKit
 import CoreMotion
 
+
 //    init(startingValue)
 //    var vector: Double? = sqrt(powerOfTwo(x) + powerOfTwo(y) + powerOfTwo(z))
 //    var defaultStr: String = "pos"
