@@ -10,42 +10,28 @@ import UIKit
 
 class HomeViewController: UIViewController {
    
-    
     var controller: HomeController?
-    
+                
     @IBOutlet weak var playerCountLabel: UILabel!
     
     @IBAction func playerCountStepperValueChanged(_ sender: UIStepper) {
-        playerCountLabel.text = Int(sender.value).description
+        controller!.playerCount = Int(sender.value)
+        playerCountLabel.text = String(controller!.playerCount)
+    }
+    
+    @IBAction func StartButtonTouch(_ sender: Any) {
+        controller!.navigateToFirstTask()
+    }
+    
+    @IBAction func HelpButtonTouch(_ sender: Any) {
+        controller!.navigateToHelp()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
-        controller = HomeController()
-        
-        print("Hello")
+        controller = HomeController(navigationController: navigationController!)
     }
-    
-    @IBAction func startButton(_ sender: UIButton) {
-        
-        // how many players
-        //switch playerCountLabel.text {
-        //case 1:
-        //    ...
-        //case 5:
-        //}
-    }
-    
-    
-    @IBAction func helpButton(_ sender: UIButton) {
-        // goes to help screen
-    }
-    
-    // Navigation to first Task
-    
-    // Navigation to Help
-    
+
 }
 

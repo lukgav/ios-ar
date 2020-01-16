@@ -6,13 +6,14 @@
 //  Copyright © 2020 iOS1920. All rights reserved.
 //
 
-class UnwrapController {
+class UnwrapController : CustomController {
  
-    let dmManager = DeviceMotionManager.shared
-    let observer = MotionDataObserver()
+    private let dmManager = DeviceMotionManager.shared
+    private let observer = MotionDataObserver()
+    private let gameManager = GameManager.shared
+        
         
     func startTest() {
-        dmManager.startDeviceMotion()
         dmManager.currentMotionData.addObserver(observer) { newData in
             print("Gravity")
             print(newData.gravity)
@@ -22,17 +23,17 @@ class UnwrapController {
     func stopTest() {
         print("stop")
         dmManager.currentMotionData.removeObserver(observer)
-        dmManager.stopDeviceMotion()
     }
     
-    /*
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    
+    func navigateToNextTask() {
+        var nextTaskType = gameManager.switchToNextTask()
+        
+        
     }
-    */
-
+    
+    func navigateToHome() {
+        navigationController.performSegue(withIdentifier: Constants.QuitGameSegue, sender: self)
+    }
 }

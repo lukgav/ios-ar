@@ -30,6 +30,9 @@
 		ACA386D723CCCA7F00CD724E /* HomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386D623CCCA7F00CD724E /* HomeController.swift */; };
 		ACA386DB23CCCAD700CD724E /* DeliverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386DA23CCCAD700CD724E /* DeliverController.swift */; };
 		ACA386DD23CCCE5400CD724E /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386DC23CCCE5400CD724E /* GameManager.swift */; };
+		ACC4381623D0A1780088E558 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4381523D0A1780088E558 /* TaskType.swift */; };
+		ACC4381823D0AAF00088E558 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4381723D0AAF00088E558 /* Constants.swift */; };
+		ACC4381A23D0AC480088E558 /* CustomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4381923D0AC480088E558 /* CustomController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -58,6 +61,9 @@
 		ACA386D623CCCA7F00CD724E /* HomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeController.swift; sourceTree = "<group>"; };
 		ACA386DA23CCCAD700CD724E /* DeliverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliverController.swift; sourceTree = "<group>"; };
 		ACA386DC23CCCE5400CD724E /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
+		ACC4381523D0A1780088E558 /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
+		ACC4381723D0AAF00088E558 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		ACC4381923D0AC480088E558 /* CustomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +81,7 @@
 			isa = PBXGroup;
 			children = (
 				5321CAB723CF61BE0002130E /* Difficulty.swift */,
+				ACC4381523D0A1780088E558 /* TaskType.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -119,6 +126,7 @@
 				AC810E3223CE1D7600258A88 /* DeviceMotionManager.swift */,
 				AC810E3423CE2E8F00258A88 /* MotionData.swift */,
 				53843C4523CF53E300A61D98 /* Observable.swift */,
+				ACC4381723D0AAF00088E558 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -146,6 +154,7 @@
 				AC810E3023CE131400258A88 /* UnwrapController.swift */,
 				ACA386DA23CCCAD700CD724E /* DeliverController.swift */,
 				5321CAB423CF5FB10002130E /* DeliveryTask.swift */,
+				ACC4381923D0AC480088E558 /* CustomController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -230,9 +239,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				53ED0EE323C6172E0040AD3E /* HomeViewController.swift in Sources */,
+				ACC4381823D0AAF00088E558 /* Constants.swift in Sources */,
 				53843C4623CF53E300A61D98 /* Observable.swift in Sources */,
 				5321CAB823CF61BE0002130E /* Difficulty.swift in Sources */,
 				AC810E3123CE131400258A88 /* UnwrapController.swift in Sources */,
+				ACC4381623D0A1780088E558 /* TaskType.swift in Sources */,
 				ACA386CE23CCC92800CD724E /* UnwrapViewController.swift in Sources */,
 				5321CAB323CF5C9A0002130E /* MotionTask.swift in Sources */,
 				ACA386DD23CCCE5400CD724E /* GameManager.swift in Sources */,
@@ -244,6 +255,7 @@
 				5321CAB123CF5C9A0002130E /* Bomb.swift in Sources */,
 				AC810E3523CE2E8F00258A88 /* MotionData.swift in Sources */,
 				AC810E2F23CE06AC00258A88 /* HelpViewController.swift in Sources */,
+				ACC4381A23D0AC480088E558 /* CustomController.swift in Sources */,
 				ACA386D723CCCA7F00CD724E /* HomeController.swift in Sources */,
 				53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */,
 				ACA386D323CCCA1800CD724E /* Player.swift in Sources */,
