@@ -8,14 +8,20 @@
 
 import UIKit
 
-class HomeController : CustomController {
+class HomeController {
     
     private let dmManager = DeviceMotionManager.shared
     private let observer = MotionDataObserver()
     private let gameManager = GameManager.shared
-        
+    
     var playerCount: Int = 1
-        
+    
+    let homeViewController : HomeViewController
+    
+    init(homeViewController: HomeViewController) {
+        self.homeViewController = homeViewController
+    }
+    
     // MARK: - Navigation
     
     func navigateToFirstTask() {
@@ -25,9 +31,9 @@ class HomeController : CustomController {
         if (result) {
             switch(gameManager.currentTask) {
                 case .Unwrap:
-                    navigationController.performSegue(withIdentifier: Constants.UnwrapSegue, sender: self)
+                    homeViewController.performSegue(withIdentifier: Constants.UnwrapSegue, sender: self)
                 case .Deliver:
-                    navigationController.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
+                    homeViewController.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
                 case .none:
                     return
             }
@@ -35,6 +41,6 @@ class HomeController : CustomController {
     }
     
     func navigateToHelp() {
-        navigationController.performSegue(withIdentifier: Constants.HelpSegue, sender: self)
+        homeViewController.performSegue(withIdentifier: Constants.HelpSegue, sender: self)
     }
 }

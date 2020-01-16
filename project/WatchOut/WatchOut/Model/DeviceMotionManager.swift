@@ -15,13 +15,14 @@ class DeviceMotionManager {
     private var timer: Timer
     
     var currentMotionData: Observable<MotionData>
-    var updateInterval: Double = 1.0/60.0
+    var updateInterval: Double = 1.0/10.0
     
     private init(){
         motion = CMMotionManager()
         currentMotionData = Observable(value: MotionData(attitude: SIMD3<Double>(0.0,0.0,0.0),
-                                acceleration: SIMD3<Double>(0.0,0.0,0.0),
-                                gravity: SIMD3<Double>(0.0,0.0,0.0)))
+                                                         rotationRate: SIMD3<Double>(0.0,0.0,0.0),
+                                                         gravity: SIMD3<Double>(0.0,0.0,0.0),
+                                                         acceleration: SIMD3<Double>(0.0,0.0,0.0)))
         timer = Timer()
     }
     
@@ -43,17 +44,23 @@ class DeviceMotionManager {
                                                                  data.attitude.roll,
                                                                  data.attitude.yaw)
                                     
-                                    let acceleration = SIMD3<Double>(data.userAcceleration.x,
-                                                                     data.userAcceleration.y,
-                                                                     data.userAcceleration.z)
+                                    let rotationRate = SIMD3<Double>(data.rotationRate.x,
+                                                                     data.rotationRate.y,
+                                                                     data.rotationRate.z)
                                     
                                     let gravity = SIMD3<Double>(data.gravity.x,
                                                                 data.gravity.y,
                                                                 data.gravity.z)
                                     
+                                    let acceleration = SIMD3<Double>(data.userAcceleration.x,
+                                                                     data.userAcceleration.y,
+                                                                     data.userAcceleration.z)
+                                    
+                                                                        
                                     self.currentMotionData.value =  MotionData(attitude: attitude,
-                                                            acceleration: acceleration,
-                                                            gravity: gravity)
+                                                                               rotationRate: rotationRate,
+                                                                               gravity: gravity,
+                                                                               acceleration: acceleration)
                                 }
             })
             

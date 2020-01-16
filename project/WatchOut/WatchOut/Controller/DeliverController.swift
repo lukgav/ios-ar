@@ -12,11 +12,10 @@ class DeliverController {
     let observer = MotionDataObserver()
     let gameManager = GameManager.shared
 
+    let deliverController: DeliverViewController
     
-    
-    
-    init() {
-        
+    init(deliverController: DeliverViewController) {
+        self.deliverController = deliverController
     }
     
     func startDelivery(forPlayer: Player) {
@@ -25,5 +24,20 @@ class DeliverController {
     
     func endDelivery() {
         
+    }
+    
+    // MARK: - Navigation
+    
+    func navigateToNextTask() {
+        //var nextTaskType = gameManager.switchToNextTask()
+        
+        deliverController.performSegue(withIdentifier: Constants.UnwrapSegue, sender: self)
+    }
+    
+    func navigateToHome() {
+        let result = dmManager.stopDeviceMotion()
+        if (result) {
+            deliverController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+        }
     }
 }
