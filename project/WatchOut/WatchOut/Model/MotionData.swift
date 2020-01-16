@@ -8,13 +8,15 @@
 
 class MotionData {
     var attitude: SIMD3<Double>
+    var rotationRate: SIMD3<Double>
     var acceleration: SIMD3<Double>
     var gravity: SIMD3<Double>
     
-    init(attitude: SIMD3<Double>, acceleration: SIMD3<Double>, gravity: SIMD3<Double>) {
+    init(attitude: SIMD3<Double>, rotationRate: SIMD3<Double>, gravity: SIMD3<Double>, acceleration: SIMD3<Double>) {
         self.attitude = attitude
-        self.acceleration = acceleration
+        self.rotationRate = rotationRate
         self.gravity = gravity
+        self.acceleration = acceleration
     }
 }
 

@@ -11,16 +11,20 @@ import UIKit
 class UnwrapViewController: UIViewController {
 
     var controller: UnwrapController?
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        controller = UnwrapController(navigationController: navigationController!)
+        controller = UnwrapController(unwrapViewController: self)
+        
+        controller?.startUnwrapAroundZ()
     }
-    
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
     
+    @IBAction func NextTaskTouch(_ sender: Any) {
+        controller?.navigateToNextTask()
+    }
 }

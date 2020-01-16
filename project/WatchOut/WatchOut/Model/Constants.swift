@@ -12,5 +12,5 @@ struct Constants {
     static let DeliverSegue = "DeliverSegue"
     static let UnwrapSegue = "UnwrapSegue"
     static let HelpSegue = "HelpSegue"
-    static let QuitGameSegue = "QuitGameSegue"
+    static let HomeSegue = "HomeSegue"
 }

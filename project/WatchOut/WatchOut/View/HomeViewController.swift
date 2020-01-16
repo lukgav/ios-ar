@@ -30,7 +30,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        controller = HomeController(navigationController: navigationController!)
+        controller = HomeController(homeViewController: self)
     }
 
 }

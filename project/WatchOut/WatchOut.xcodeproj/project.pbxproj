@@ -32,7 +32,6 @@
 		ACA386DD23CCCE5400CD724E /* GameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA386DC23CCCE5400CD724E /* GameManager.swift */; };
 		ACC4381623D0A1780088E558 /* TaskType.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4381523D0A1780088E558 /* TaskType.swift */; };
 		ACC4381823D0AAF00088E558 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4381723D0AAF00088E558 /* Constants.swift */; };
-		ACC4381A23D0AC480088E558 /* CustomController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACC4381923D0AC480088E558 /* CustomController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +62,6 @@
 		ACA386DC23CCCE5400CD724E /* GameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameManager.swift; sourceTree = "<group>"; };
 		ACC4381523D0A1780088E558 /* TaskType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskType.swift; sourceTree = "<group>"; };
 		ACC4381723D0AAF00088E558 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		ACC4381923D0AC480088E558 /* CustomController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,7 +152,6 @@
 				AC810E3023CE131400258A88 /* UnwrapController.swift */,
 				ACA386DA23CCCAD700CD724E /* DeliverController.swift */,
 				5321CAB423CF5FB10002130E /* DeliveryTask.swift */,
-				ACC4381923D0AC480088E558 /* CustomController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -255,7 +252,6 @@
 				5321CAB123CF5C9A0002130E /* Bomb.swift in Sources */,
 				AC810E3523CE2E8F00258A88 /* MotionData.swift in Sources */,
 				AC810E2F23CE06AC00258A88 /* HelpViewController.swift in Sources */,
-				ACC4381A23D0AC480088E558 /* CustomController.swift in Sources */,
 				ACA386D723CCCA7F00CD724E /* HomeController.swift in Sources */,
 				53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */,
 				ACA386D323CCCA1800CD724E /* Player.swift in Sources */,
