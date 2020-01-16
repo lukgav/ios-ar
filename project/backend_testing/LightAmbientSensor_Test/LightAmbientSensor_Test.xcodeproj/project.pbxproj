@@ -1,0 +1,535 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		A373686623D0BFE10074E831 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A373686523D0BFE10074E831 /* AppDelegate.swift */; };
+		A373686823D0BFE10074E831 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A373686723D0BFE10074E831 /* SceneDelegate.swift */; };
+		A373686A23D0BFE10074E831 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A373686923D0BFE10074E831 /* ViewController.swift */; };
+		A373686D23D0BFE10074E831 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A373686B23D0BFE10074E831 /* Main.storyboard */; };
+		A373687023D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A373686E23D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodeld */; };
+		A373687223D0BFE40074E831 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A373687123D0BFE40074E831 /* Assets.xcassets */; };
+		A373687523D0BFE40074E831 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A373687323D0BFE40074E831 /* LaunchScreen.storyboard */; };
+		A373688023D0BFE40074E831 /* LightAmbientSensor_TestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A373687F23D0BFE40074E831 /* LightAmbientSensor_TestTests.swift */; };
+		A373688C23D0C03B0074E831 /* LightAmbienceDataObject.m in Sources */ = {isa = PBXBuildFile; fileRef = A373688B23D0C03B0074E831 /* LightAmbienceDataObject.m */; };
+		A373689223D0C0C90074E831 /* CustomObjectA.m in Sources */ = {isa = PBXBuildFile; fileRef = A373689123D0C0C90074E831 /* CustomObjectA.m */; };
+		A3FC0C7E23D0CADE0074C10D /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3FC0C7D23D0CADE0074C10D /* IOKit.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A373687C23D0BFE40074E831 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A373685A23D0BFE10074E831 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A373686123D0BFE10074E831;
+			remoteInfo = LightAmbientSensor_Test;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		A373686223D0BFE10074E831 /* LightAmbientSensor_Test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LightAmbientSensor_Test.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A373686523D0BFE10074E831 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A373686723D0BFE10074E831 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A373686923D0BFE10074E831 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A373686C23D0BFE10074E831 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A373686F23D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LightAmbientSensor_Test.xcdatamodel; sourceTree = "<group>"; };
+		A373687123D0BFE40074E831 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A373687423D0BFE40074E831 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A373687623D0BFE40074E831 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A373687B23D0BFE40074E831 /* LightAmbientSensor_TestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LightAmbientSensor_TestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A373687F23D0BFE40074E831 /* LightAmbientSensor_TestTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightAmbientSensor_TestTests.swift; sourceTree = "<group>"; };
+		A373688123D0BFE40074E831 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A373688A23D0C03B0074E831 /* LightAmbientSensor_Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "LightAmbientSensor_Test-Bridging-Header.h"; sourceTree = "<group>"; };
+		A373688B23D0C03B0074E831 /* LightAmbienceDataObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LightAmbienceDataObject.m; sourceTree = "<group>"; };
+		A373688D23D0C0480074E831 /* LightAmbienceDataObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LightAmbienceDataObject.h; sourceTree = "<group>"; };
+		A373689123D0C0C90074E831 /* CustomObjectA.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CustomObjectA.m; sourceTree = "<group>"; };
+		A373689323D0C0D10074E831 /* CustomObjectA.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CustomObjectA.h; sourceTree = "<group>"; };
+		A3FC0C7D23D0CADE0074C10D /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A373685F23D0BFE10074E831 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A3FC0C7E23D0CADE0074C10D /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A373687823D0BFE40074E831 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A373685923D0BFE10074E831 = {
+			isa = PBXGroup;
+			children = (
+				A373686423D0BFE10074E831 /* LightAmbientSensor_Test */,
+				A373687E23D0BFE40074E831 /* LightAmbientSensor_TestTests */,
+				A373686323D0BFE10074E831 /* Products */,
+				A3FC0C7C23D0CADD0074C10D /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A373686323D0BFE10074E831 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A373686223D0BFE10074E831 /* LightAmbientSensor_Test.app */,
+				A373687B23D0BFE40074E831 /* LightAmbientSensor_TestTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A373686423D0BFE10074E831 /* LightAmbientSensor_Test */ = {
+			isa = PBXGroup;
+			children = (
+				A373686523D0BFE10074E831 /* AppDelegate.swift */,
+				A373686723D0BFE10074E831 /* SceneDelegate.swift */,
+				A373686923D0BFE10074E831 /* ViewController.swift */,
+				A373688B23D0C03B0074E831 /* LightAmbienceDataObject.m */,
+				A373688D23D0C0480074E831 /* LightAmbienceDataObject.h */,
+				A373686B23D0BFE10074E831 /* Main.storyboard */,
+				A373687123D0BFE40074E831 /* Assets.xcassets */,
+				A373687323D0BFE40074E831 /* LaunchScreen.storyboard */,
+				A373687623D0BFE40074E831 /* Info.plist */,
+				A373686E23D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodeld */,
+				A373688A23D0C03B0074E831 /* LightAmbientSensor_Test-Bridging-Header.h */,
+				A373689123D0C0C90074E831 /* CustomObjectA.m */,
+				A373689323D0C0D10074E831 /* CustomObjectA.h */,
+			);
+			path = LightAmbientSensor_Test;
+			sourceTree = "<group>";
+		};
+		A373687E23D0BFE40074E831 /* LightAmbientSensor_TestTests */ = {
+			isa = PBXGroup;
+			children = (
+				A373687F23D0BFE40074E831 /* LightAmbientSensor_TestTests.swift */,
+				A373688123D0BFE40074E831 /* Info.plist */,
+			);
+			path = LightAmbientSensor_TestTests;
+			sourceTree = "<group>";
+		};
+		A3FC0C7C23D0CADD0074C10D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3FC0C7D23D0CADE0074C10D /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A373686123D0BFE10074E831 /* LightAmbientSensor_Test */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A373688423D0BFE40074E831 /* Build configuration list for PBXNativeTarget "LightAmbientSensor_Test" */;
+			buildPhases = (
+				A373685E23D0BFE10074E831 /* Sources */,
+				A373685F23D0BFE10074E831 /* Frameworks */,
+				A373686023D0BFE10074E831 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LightAmbientSensor_Test;
+			productName = LightAmbientSensor_Test;
+			productReference = A373686223D0BFE10074E831 /* LightAmbientSensor_Test.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A373687A23D0BFE40074E831 /* LightAmbientSensor_TestTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A373688723D0BFE40074E831 /* Build configuration list for PBXNativeTarget "LightAmbientSensor_TestTests" */;
+			buildPhases = (
+				A373687723D0BFE40074E831 /* Sources */,
+				A373687823D0BFE40074E831 /* Frameworks */,
+				A373687923D0BFE40074E831 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A373687D23D0BFE40074E831 /* PBXTargetDependency */,
+			);
+			name = LightAmbientSensor_TestTests;
+			productName = LightAmbientSensor_TestTests;
+			productReference = A373687B23D0BFE40074E831 /* LightAmbientSensor_TestTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A373685A23D0BFE10074E831 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1130;
+				LastUpgradeCheck = 1130;
+				ORGANIZATIONNAME = "Luke Gavin";
+				TargetAttributes = {
+					A373686123D0BFE10074E831 = {
+						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
+					};
+					A373687A23D0BFE40074E831 = {
+						CreatedOnToolsVersion = 11.3.1;
+						TestTargetID = A373686123D0BFE10074E831;
+					};
+				};
+			};
+			buildConfigurationList = A373685D23D0BFE10074E831 /* Build configuration list for PBXProject "LightAmbientSensor_Test" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A373685923D0BFE10074E831;
+			productRefGroup = A373686323D0BFE10074E831 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A373686123D0BFE10074E831 /* LightAmbientSensor_Test */,
+				A373687A23D0BFE40074E831 /* LightAmbientSensor_TestTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A373686023D0BFE10074E831 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A373687523D0BFE40074E831 /* LaunchScreen.storyboard in Resources */,
+				A373687223D0BFE40074E831 /* Assets.xcassets in Resources */,
+				A373686D23D0BFE10074E831 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A373687923D0BFE40074E831 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A373685E23D0BFE10074E831 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A373686A23D0BFE10074E831 /* ViewController.swift in Sources */,
+				A373689223D0C0C90074E831 /* CustomObjectA.m in Sources */,
+				A373687023D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodeld in Sources */,
+				A373686623D0BFE10074E831 /* AppDelegate.swift in Sources */,
+				A373688C23D0C03B0074E831 /* LightAmbienceDataObject.m in Sources */,
+				A373686823D0BFE10074E831 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A373687723D0BFE40074E831 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A373688023D0BFE40074E831 /* LightAmbientSensor_TestTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A373687D23D0BFE40074E831 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A373686123D0BFE10074E831 /* LightAmbientSensor_Test */;
+			targetProxy = A373687C23D0BFE40074E831 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A373686B23D0BFE10074E831 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A373686C23D0BFE10074E831 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A373687323D0BFE40074E831 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A373687423D0BFE40074E831 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A373688223D0BFE40074E831 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A373688323D0BFE40074E831 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A373688523D0BFE40074E831 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework\n/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework\n/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework\n/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework/**",
+				);
+				GCC_NO_COMMON_BLOCKS = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
+				INFOPLIST_FILE = LightAmbientSensor_Test/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "learning.LightAmbientSensor-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LightAmbientSensor_Test/LightAmbientSensor_Test-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A373688623D0BFE40074E831 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework\n/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework\n/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework\n/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator.sdk/System/Library/Frameworks/IOKit.framework/**",
+				);
+				GCC_NO_COMMON_BLOCKS = NO;
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/**";
+				INFOPLIST_FILE = LightAmbientSensor_Test/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "learning.LightAmbientSensor-Test";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "LightAmbientSensor_Test/LightAmbientSensor_Test-Bridging-Header.h";
+				SWIFT_REFLECTION_METADATA_LEVEL = none;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A373688823D0BFE40074E831 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				INFOPLIST_FILE = LightAmbientSensor_TestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "learning.LightAmbientSensor-TestTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LightAmbientSensor_Test.app/LightAmbientSensor_Test";
+			};
+			name = Debug;
+		};
+		A373688923D0BFE40074E831 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				INFOPLIST_FILE = LightAmbientSensor_TestTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "learning.LightAmbientSensor-TestTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/LightAmbientSensor_Test.app/LightAmbientSensor_Test";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A373685D23D0BFE10074E831 /* Build configuration list for PBXProject "LightAmbientSensor_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A373688223D0BFE40074E831 /* Debug */,
+				A373688323D0BFE40074E831 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A373688423D0BFE40074E831 /* Build configuration list for PBXNativeTarget "LightAmbientSensor_Test" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A373688523D0BFE40074E831 /* Debug */,
+				A373688623D0BFE40074E831 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A373688723D0BFE40074E831 /* Build configuration list for PBXNativeTarget "LightAmbientSensor_TestTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A373688823D0BFE40074E831 /* Debug */,
+				A373688923D0BFE40074E831 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A373686E23D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A373686F23D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodel */,
+			);
+			currentVersion = A373686F23D0BFE10074E831 /* LightAmbientSensor_Test.xcdatamodel */;
+			path = LightAmbientSensor_Test.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = A373685A23D0BFE10074E831 /* Project object */;
+}

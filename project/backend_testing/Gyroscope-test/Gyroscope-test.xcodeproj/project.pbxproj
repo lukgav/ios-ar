@@ -8,7 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		A30B712423CF5D5A00FB53CB /* DeliveryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = A30B712323CF5D5A00FB53CB /* DeliveryTask.swift */; };
-		A3973E1D23CF5864007C1728 /* lightSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3973E1C23CF5864007C1728 /* lightSensorManager.swift */; };
+		A3492D1823CF86B300724798 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A3492D1623CF866C00724798 /* IOKit.framework */; };
+		A373685723D0BC790074E831 /* LightAmbientSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = A373685623D0BC790074E831 /* LightAmbientSensor.m */; };
+		A3973E1D23CF5864007C1728 /* LightSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3973E1C23CF5864007C1728 /* LightSensorManager.swift */; };
+		A3A4C09523D0ACDB00F729B1 /* IOKit in Resources */ = {isa = PBXBuildFile; fileRef = A3A4C09423D0ACDB00F729B1 /* IOKit */; };
 		A3B3AA4723C61447001E3151 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3AA4623C61447001E3151 /* AppDelegate.swift */; };
 		A3B3AA4923C61447001E3151 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3AA4823C61447001E3151 /* SceneDelegate.swift */; };
 		A3B3AA4B23C61447001E3151 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3B3AA4A23C61447001E3151 /* ViewController.swift */; };
@@ -26,7 +29,12 @@
 
 /* Begin PBXFileReference section */
 		A30B712323CF5D5A00FB53CB /* DeliveryTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTask.swift; sourceTree = "<group>"; };
-		A3973E1C23CF5864007C1728 /* lightSensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = lightSensorManager.swift; sourceTree = "<group>"; };
+		A3492D1623CF866C00724798 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework; sourceTree = DEVELOPER_DIR; };
+		A373685323D0BC3A0074E831 /* Gyroscope-test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Gyroscope-test-Bridging-Header.h"; sourceTree = "<group>"; };
+		A373685623D0BC790074E831 /* LightAmbientSensor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = LightAmbientSensor.m; sourceTree = "<group>"; };
+		A373685823D0BED80074E831 /* LightAmbientSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LightAmbientSensor.h; sourceTree = "<group>"; };
+		A3973E1C23CF5864007C1728 /* LightSensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightSensorManager.swift; sourceTree = "<group>"; };
+		A3A4C09423D0ACDB00F729B1 /* IOKit */ = {isa = PBXFileReference; lastKnownFileType = folder; name = IOKit; path = "Gyroscope-test/IOKit"; sourceTree = "<group>"; };
 		A3B3AA4323C61447001E3151 /* Gyroscope-test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Gyroscope-test.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A3B3AA4623C61447001E3151 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A3B3AA4823C61447001E3151 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,17 +57,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A3492D1823CF86B300724798 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		A3492D1523CF866C00724798 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A3492D1623CF866C00724798 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		A3B3AA3A23C61447001E3151 = {
 			isa = PBXGroup;
 			children = (
+				A3A4C09423D0ACDB00F729B1 /* IOKit */,
 				A3B3AA4523C61447001E3151 /* Gyroscope-test */,
 				A3B3AA4423C61447001E3151 /* Products */,
+				A3492D1523CF866C00724798 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -85,11 +104,14 @@
 				A3D2E88723CE2EDE0053C2AC /* GameManager.swift */,
 				A3D2E88923CE2F070053C2AC /* Player.swift */,
 				A3D2E88523CE2CDD0053C2AC /* UnwrapTask.swift */,
-				A3973E1C23CF5864007C1728 /* lightSensorManager.swift */,
+				A3973E1C23CF5864007C1728 /* LightSensorManager.swift */,
+				A373685623D0BC790074E831 /* LightAmbientSensor.m */,
+				A373685823D0BED80074E831 /* LightAmbientSensor.h */,
 				A3B3AA4C23C61447001E3151 /* Main.storyboard */,
 				A3B3AA4F23C6144A001E3151 /* Assets.xcassets */,
 				A3B3AA5123C6144A001E3151 /* LaunchScreen.storyboard */,
 				A3B3AA5423C6144A001E3151 /* Info.plist */,
+				A373685323D0BC3A0074E831 /* Gyroscope-test-Bridging-Header.h */,
 			);
 			path = "Gyroscope-test";
 			sourceTree = "<group>";
@@ -126,6 +148,7 @@
 				TargetAttributes = {
 					A3B3AA4223C61447001E3151 = {
 						CreatedOnToolsVersion = 11.3;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -153,6 +176,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A3B3AA5323C6144A001E3151 /* LaunchScreen.storyboard in Resources */,
+				A3A4C09523D0ACDB00F729B1 /* IOKit in Resources */,
 				A3B3AA5023C6144A001E3151 /* Assets.xcassets in Resources */,
 				A3B3AA4E23C61447001E3151 /* Main.storyboard in Resources */,
 			);
@@ -167,7 +191,8 @@
 			files = (
 				A3D2E88A23CE2F070053C2AC /* Player.swift in Sources */,
 				A3D2E88623CE2CDD0053C2AC /* UnwrapTask.swift in Sources */,
-				A3973E1D23CF5864007C1728 /* lightSensorManager.swift in Sources */,
+				A373685723D0BC790074E831 /* LightAmbientSensor.m in Sources */,
+				A3973E1D23CF5864007C1728 /* LightSensorManager.swift in Sources */,
 				A3E647B123CCB684001B7C20 /* Bomb.swift in Sources */,
 				A30B712423CF5D5A00FB53CB /* DeliveryTask.swift in Sources */,
 				A3EDE73023C8B53D00822DAA /* Color_Tracker.swift in Sources */,
@@ -238,6 +263,7 @@
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework/**";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -252,6 +278,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/luke/Desktop/cloud/code/uni/ios/ios-ar/project/backend_testing/Gyroscope-test/Gyroscope-test/IOKit/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -298,6 +325,7 @@
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework/**";
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -306,6 +334,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = "/Users/luke/Desktop/cloud/code/uni/ios/ios-ar/project/backend_testing/Gyroscope-test/Gyroscope-test/IOKit/**";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -319,9 +348,16 @@
 		A3B3AA5823C6144A001E3151 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				FRAMEWORK_SEARCH_PATHS = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework/**";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Gyroscope-test/IOKit\"/**",
+					"\"$(SRCROOT)\"/**",
+				);
 				INFOPLIST_FILE = "Gyroscope-test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -329,6 +365,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "learning.Gyroscope-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Gyroscope-test/Gyroscope-test-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -337,9 +375,16 @@
 		A3B3AA5923C6144A001E3151 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				FRAMEWORK_SEARCH_PATHS = "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS.sdk/System/Library/Frameworks/IOKit.framework/**";
+				HEADER_SEARCH_PATHS = (
+					"\"$(SRCROOT)/Gyroscope-test/IOKit\"/**",
+					"\"$(SRCROOT)\"/**",
+				);
 				INFOPLIST_FILE = "Gyroscope-test/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -347,6 +392,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "learning.Gyroscope-test";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Gyroscope-test/Gyroscope-test-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
