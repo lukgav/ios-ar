@@ -15,7 +15,7 @@ class DeviceMotionManager {
     private var timer: Timer
     
     var currentMotionData: Observable<MotionData>
-    var updateInterval: Double = 1.0/10.0
+    var updateInterval: Double = 1.0
     
     private init(){
         motion = CMMotionManager()
