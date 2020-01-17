@@ -12,9 +12,11 @@ import UIKit
 class Bomb{
     let stabilityLimit: Double
     var stabilityCounter: Double {
-        // change color everytime stabiltyCounter value changed
         didSet {
-            updateCurrentColor()
+            // change color everytime stabiltyCounter value changed
+            stabilityChanged()
+            print("StabilityCounter changed from \(oldValue) to \(stabilityCounter)")
+            print("Color: \(currentColor)")
         }
     }
     
@@ -22,6 +24,8 @@ class Bomb{
     
     var explosionColor: UIColor
     var currentColor: UIColor
+    
+    var hasExloded: Bool = false
     
     let timeLimit: Double
     var timer: Timer?
@@ -106,9 +110,17 @@ class Bomb{
         return increaseStability(increaseAmount: increaseAmount)
     }
     
-    private func updateCurrentColor() {
+    private func stabilityChanged() {
         // alpha = 0.0 is white, alpha = 1.0 is black
         let percentage = CGFloat(1.0 - self.stabilityCounter/self.stabilityLimit)
-        self.currentColor = UIColor(red: 1, green: 0, blue: 0, alpha: percentage)
+        
+        if (percentage > 0.0) {
+            self.currentColor = UIColor(red: 1, green: 0, blue: 0, alpha: percentage)
+        }
+        // bomb has exploded
+        else {
+            self.currentColor = explosionColor
+            self.hasExloded = true
+        }
     }
 }
