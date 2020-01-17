@@ -18,8 +18,8 @@ class UnwrapController {
     private var lastMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
-    private var thresholdRotRate: Double = 0.05
-    private var thresholdAcc: Double = 0.05
+    private var maxRotRate: Double = 0.05
+    private var maxAcc: Double = 0.05
     
     init(unwrapViewController: UnwrapViewController) {
         self.unwrapViewController = unwrapViewController
@@ -31,27 +31,21 @@ class UnwrapController {
         
     }
     
+    
+    /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
     func startUnwrapAroundZ() {
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
-            self.lastMotionData = newMotionData
             
+            self.lastMotionData = newMotionData
             self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
             
             print("------------------------------------------------------------")
             print("Last: \(self.lastMotionData.ToString())")
             print("Diff: \(self.diffMotionData.ToString())")
             
-            // too much shaking
-            if (true) {
+            if(self.checkMaxAcceleration() && self.checkMaxRotationRate()) {
                 
             }
-            
-            // too fast
-            if (true) {
-                
-            }
-            
-            
         }
     }
     
@@ -60,7 +54,39 @@ class UnwrapController {
         dmManager.currentMotionData.removeObserver(observer)
     }
     
+    func checkMaxAcceleration() -> Bool {
+        // too much acceleration (shaking)
+        if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxAcc)) {
+            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
+            self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
+            if (result == false) {
+                    // bomb exploded, show end screen
+                    return false
+                }
+                
+                return true
+        }
+        else {
+            return false
+        }
+    }
     
+    func checkMaxRotationRate() -> Bool {
+        // too fast rotation (speed)
+        if (self.lastMotionData.rotationContainsHigherAbsoluteValue(than: self.maxRotRate)) {
+            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
+            self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
+            if (result == false) {
+                // bomb exploded, show end screen
+                return false
+            }
+            
+            return true
+        }
+        else {
+            return false
+        }
+    }
     
     // MARK: - Navigation
     

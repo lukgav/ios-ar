@@ -20,6 +20,10 @@ class UnwrapViewController: UIViewController {
         
         controller?.startUnwrapAroundZ()
     }
+    func updateBackgroundColor(color: UIColor) {
+        self.view.backgroundColor = color
+    }
+    
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
