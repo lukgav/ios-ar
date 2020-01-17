@@ -5,7 +5,6 @@
 //  Created by Guest User on 14/01/2020.
 //  Copyright © 2020 iOS1920. All rights reserved.
 //
-
 class UnwrapController {
  
     private let unwrapViewController : UnwrapViewController
@@ -43,14 +42,7 @@ class UnwrapController {
             print("Last: \(self.lastMotionData.ToString())")
             print("Diff: \(self.diffMotionData.ToString())")
             
-<<<<<<< HEAD
-            
-            
-            // too much shaking
-            if (true) {
-=======
             if(self.checkMaxAcceleration() && self.checkMaxRotationRate()) {
->>>>>>> 6ba5fa4308e48cd5392ddbc5707225edd9a682c4
                 
             }
         }
