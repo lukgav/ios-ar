@@ -42,6 +42,53 @@ class UnwrapController {
             print("Last: \(self.lastMotionData.ToString())")
             print("Diff: \(self.diffMotionData.ToString())")
             
+              // ------------ ------------ z-direction ------------ ------------
+                    // - x to check direction gravity
+                    // - z to check rate of change in gravity of x
+                    // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
+                    
+            // New Code for accelerometer
+            //check all possible errors(Will there be other errors here apart from player errors)
+            if( (pGrav!.y > 0.5 || pGrav!.y < -0.5) && pAcc!.y > acc_limit){
+                PunishPlayer(pBomb: pBomb, pErrorMsg:  perpendicularDirectionError)
+            }
+            else if(pAcc!.z > acc_limit || pAcc!.x > acc_limit){
+                PunishPlayer(pBomb: pBomb, pErrorMsg:  tooFastWrongDirectionError)
+            }
+            
+            // Old Code for accelerometer
+            //check all possible errors(Will there be other errors here apart from player errors)
+            if( (pGrav!.y > 0.5 || pGrav!.y < -0.5) && pAcc!.y > acc_limit){
+                PunishPlayer(pBomb: pBomb, pErrorMsg:  perpendicularDirectionError)
+            }
+            else if(pAcc!.z > acc_limit || pAcc!.x > acc_limit){
+                PunishPlayer(pBomb: pBomb, pErrorMsg:  tooFastWrongDirectionError)
+            }
+            else{
+            
+            //phone face up (z-grav of phone is in -ve)
+            
+    //        if(pGrav!.z < 0){
+                //clock-wise(twisting away from the user) grav.x becomes positive
+                if (pGoClockWise == false){
+                    PunishPlayer(pBomb: pBomb, pErrorMsg:  oppositeDirectionError)
+                }
+                else{
+    //                pGrav!.x < pOldGrav!.x &&
+                    //is past max rotation speed
+                    if (diffZ > max_grav_diff){
+                        PunishPlayer(pBomb: pBomb, pErrorMsg:  tooFastCorrectDirectionError)
+                    }
+                    //Is change within speed of rotation (max_dev) limits?
+                    else if (diffZ < max_grav_diff){
+                        encouragePlayer()
+                    }
+                }
+            }
+                            
+            
+            
+            
             if(self.checkMaxAcceleration() && self.checkMaxRotationRate()) {
                 
             }
