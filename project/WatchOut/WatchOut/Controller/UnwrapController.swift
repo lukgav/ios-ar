@@ -26,7 +26,13 @@ class UnwrapController {
     
     // MARK: - Unwrap Logic
     
+    
+    
     func StartUnwrapX() {
+        
+        let curPlayerID: Int! = gameManager.currentPlayer!.id
+        
+        unwrapViewController.curPlayer.text = String(curPlayerID)
         
     }
     

@@ -17,4 +17,16 @@ class Player {
         self.id = id
         self.limit = limit
     }
+    
+    func decreaseLimit(decreaseAmount: Double) -> Bool {
+        if (self.limit! - decreaseAmount > 0.0) {
+            self.limit! -= decreaseAmount
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    
+    
 }
