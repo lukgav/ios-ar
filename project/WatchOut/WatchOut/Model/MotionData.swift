@@ -43,6 +43,8 @@ class MotionData {
         
         return String("Att: \(attX),\(attY),\(attZ), Rot: \(rotRateX),\(rotRateY),\(rotRateZ), Grav: \(gravX),\(gravY),\(gravZ), Att: \(accX),\(accY),\(accZ)")
     }
+    
+    
 }
 
 class MotionDataObserver : ObserverProtocol {
