@@ -83,6 +83,12 @@ class Bomb{
         return decreaseStability(decreaseAmount: decreaseAmount)
     }
     
+    // default value for DecreaseStability
+    func decreaseStabilityBySetAmount() -> Bool{
+        let lPercentage : Double = 4
+        return decreaseStability(percentage: lPercentage)
+    }
+    
     /// Returns false, if the bomb explodes when setting the new percentage (>100%)
     func setStability(percentage: Double) -> Bool {
         let newStability = percentage/100.0*stabilityLimit

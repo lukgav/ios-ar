@@ -35,6 +35,7 @@ class UnwrapController {
     func startUnwrapAroundZ() {
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             
+            let acc_limit:Double = 5
             self.lastMotionData = newMotionData
             self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
             
@@ -49,8 +50,9 @@ class UnwrapController {
                     
             // New Code for accelerometer
             //check all possible errors(Will there be other errors here apart from player errors)
-            if( (pGrav!.y > 0.5 || pGrav!.y < -0.5) && pAcc!.y > acc_limit){
-                PunishPlayer(pBomb: pBomb, pErrorMsg:  perpendicularDirectionError)
+            if( (newMotionData.gravity.y > 0.5 || newMotionData.gravity.y  < -0.5) && newMotionData.acceleration.y > acc_limit){
+//                PunishPlayer(pBomb: pBomb, pErrorMsg:  perpendicularDirectionError)
+                decreaseStabilityBySetAmount
             }
             else if(pAcc!.z > acc_limit || pAcc!.x > acc_limit){
                 PunishPlayer(pBomb: pBomb, pErrorMsg:  tooFastWrongDirectionError)
@@ -100,21 +102,49 @@ class UnwrapController {
         dmManager.currentMotionData.removeObserver(observer)
     }
     
-    func checkMaxAcceleration() -> Bool {
-        // too much acceleration (shaking)
-        if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxAcc)) {
-            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
-            self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
-            if (result == false) {
-                    // bomb exploded, show end screen
-                    return false
-                }
-                
-                return true
-        }
-        else {
+    func updateBombStabilityAndColor() -> Bool{
+        let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
+        self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
+        
+        
+//        return result
+        if (result == false) {
+            // bomb exploded, show end screen
             return false
         }
+            
+        return true
+    }
+    
+    func checkMaxAcceleration(pDirection: Direction) -> Bool {
+        // too much acceleration (shaking)
+        switch pDirection{
+        case Direction.x:
+            if (self.lastMotionData.accelerationContainsHigherAbsoluteValueXYZDirection(maxX: self.maxAcc, maxY: 0, maxZ: 0)) {
+                return updateBombStabilityAndColor()
+            else {
+                return false
+            }
+        case Direction.y:
+            
+        case Direction.z:
+            
+        case Direction.all:
+            if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxAcc)) {
+                let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
+                self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
+                if (result == false) {
+                        // bomb exploded, show end screen
+                        return false
+                    }
+                    
+                    return true
+            }
+            else {
+                return false
+            }
+        }
+
     }
     
     func checkMaxRotationRate() -> Bool {

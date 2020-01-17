@@ -27,13 +27,79 @@ class MotionData {
                           acceleration: self.acceleration - other.acceleration)
     }
     
+    //Rotation Code (to check max value)
     func rotationContainsHigherAbsoluteValue(than: Double) -> Bool {
-        return (abs(rotationRate.x) > than || abs(rotationRate.y) > than || abs(rotationRate.z) > than)
+        return rotationContainsHigherAbsoluteValueinXYZDirection(maxX: than, maxY: than, maxZ: than)
+    }
+
+    func rotationContainsHigherAbsoluteValueinXYZDirection(maxX: Double, maxY: Double, maxZ: Double) -> Bool {
+        let rotation = MotionType.rotation
+        return (PassedMaxXValueOf(motionType: rotation, maxValue: maxX) || PassedMaxYValueOf(motionType: rotation, maxValue: maxY)  || PassedMaxZValueOf(motionType: rotation, maxValue: maxZ))
     }
     
+    //Acceleration Code(to check max value)
     func accelerationContainsHigherAbsoluteValue(than: Double) -> Bool {
-        return (abs(acceleration.x) > than || abs(acceleration.y) > than || abs(acceleration.z) > than)
+        return rotationContainsHigherAbsoluteValueinXYZDirection(maxX: than, maxY: than, maxZ: than)
+
     }
+    func accelerationContainsHigherAbsoluteValueXYZDirection(maxX: Double, maxY: Double, maxZ: Double) -> Bool {
+        let acceleration = MotionType.acceleration
+        return(PassedMaxXValueOf(motionType: acceleration, maxValue: maxX) || PassedMaxYValueOf(motionType: acceleration, maxValue: maxY) || PassedMaxZValueOf(motionType: acceleration, maxValue: maxZ) )
+    }
+    
+    //Gravity Code(to check max value)
+    func gravityContainsHigherAbsoluteValue(than: Double) -> Bool {
+        return gravityContainsHigherAbsoluteValueXYZDirection(maxX: than, maxY: than, maxZ: than)
+    }
+    func gravityContainsHigherAbsoluteValueXYZDirection(maxX: Double, maxY: Double, maxZ: Double) -> Bool {
+        let gravity = MotionType.gravity
+        return(PassedMaxXValueOf(motionType: gravity, maxValue: maxX) || PassedMaxYValueOf(motionType: gravity, maxValue: maxY) || PassedMaxZValueOf(motionType: gravity, maxValue: maxZ) )
+    }
+    
+    
+    
+    //Chose MotionType and direction
+    func PassedMaxXValueOf(motionType: MotionType, maxValue: Double) -> Bool {
+        switch motionType{
+        case MotionType.attitude:
+            return (abs(rotationRate.x) > maxValue)
+        case MotionType.acceleration:
+            return (abs(acceleration.x) > maxValue)
+        case MotionType.gravity:
+            return (abs(gravity.x) > maxValue)
+        case MotionType.rotation:
+            return (abs(rotationRate.x) > maxValue)
+        }
+    }
+    
+    func PassedMaxYValueOf(motionType: MotionType, maxValue: Double) -> Bool {
+        switch motionType{
+        case MotionType.attitude:
+            return (abs(rotationRate.y) > maxValue)
+        case MotionType.acceleration:
+            return (abs(acceleration.y) > maxValue)
+        case MotionType.gravity:
+            return (abs(gravity.y) > maxValue)
+        case MotionType.rotation:
+            return (abs(rotationRate.y) > maxValue)
+        }
+    }
+    
+    func PassedMaxZValueOf(motionType: MotionType, maxValue: Double) -> Bool {
+        switch motionType{
+        case MotionType.attitude:
+            return (abs(rotationRate.z) > maxValue)
+        case MotionType.acceleration:
+            return (abs(acceleration.z) > maxValue)
+        case MotionType.gravity:
+            return (abs(gravity.z) > maxValue)
+        case MotionType.rotation:
+            return (abs(rotationRate.z) > maxValue)
+        }
+    }
+    
+    
+
     
     func ToString() -> String {
         let attX = String(format: "%.001f", attitude.x)
