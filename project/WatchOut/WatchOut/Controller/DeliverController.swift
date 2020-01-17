@@ -20,8 +20,8 @@ class DeliverController {
     private var lastMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
-    private var thresholdRotRate: Double = 0.05
-    private var thresholdAcc: Double = 0.05
+    private var maxRotRate: Double = 0.05
+    private var maxAcc: Double = 0.5
     
     private var accSumCounter: Double = 0.0
     
@@ -40,36 +40,62 @@ class DeliverController {
             print("Last: \(self.lastMotionData.ToString())")
             print("Diff: \(self.diffMotionData.ToString())")
             
-            // too much shaking
-            if (true) {
+            // too much shaking + too shaking
+            if (self.checkMaxAcceleration() && self.checkMaxRotationRate() ) {
+                let diffAccLength = simd_length(self.diffMotionData.acceleration)
                 
-            }
-            
-            // too fast
-            if (true) {
+                self.accSumCounter += diffAccLength
                 
-            }
-            
-            let diffAccLength = simd_length(self.diffMotionData.acceleration)
-            
-            self.accSumCounter += diffAccLength
-            
-            let percentage = self.accSumCounter/maxAccLimit
-            
-            let result = self.gameManager.bomb!.setStability(percentage: percentage)
-            self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
-            
-            if (result) {
-                // bomb explodes
+                let percentage = self.accSumCounter/maxAccLimit
                 
-                self.endDelivery()
+                let result = self.gameManager.bomb!.setStability(percentage: percentage)
+                self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+                
+                if (result) {
+                    // bomb explodes
+                    
+                    self.endDelivery()
+                }
             }
         }
-        
     }
     
     func endDelivery() {
         dmManager.currentMotionData.removeObserver(observer)
+    }
+    
+    // too fast
+    func checkMaxAcceleration() -> Bool {
+        if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxAcc)) {
+            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
+            self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+            if (result == false) {
+                    // bomb exploded, show end screen
+                    return false
+                }
+                
+                return true
+        }
+        else {
+            return false
+        }
+    }
+    
+    // too shaking
+    func checkMaxRotationRate() -> Bool {
+        if (self.lastMotionData.rotationContainsHigherAbsoluteValue(than: self.maxRotRate)) {
+            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
+            self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+            if (result == false) {
+                // bomb exploded, show end screen
+                return false
+            }
+            
+            return true
+        }
+        else {
+            return false
+        }
     }
     
     // MARK: - Navigation
