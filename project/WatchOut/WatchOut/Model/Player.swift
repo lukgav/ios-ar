@@ -13,6 +13,8 @@ class Player {
     var id: Int?
     var limit: Double?
     
+    var newTestA: Int = 0
+    
     init(id: Int, limit: Double) {
         self.id = id
         self.limit = limit
