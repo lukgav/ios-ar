@@ -27,6 +27,14 @@ class MotionData {
                           acceleration: self.acceleration - other.acceleration)
     }
     
+    func rotationContainsHigherAbsoluteValue(than: Double) -> Bool {
+        return (abs(rotationRate.x) > than || abs(rotationRate.y) > than || abs(rotationRate.z) > than)
+    }
+    
+    func accelerationContainsHigherAbsoluteValue(than: Double) -> Bool {
+        return (abs(acceleration.x) > than || abs(acceleration.y) > than || abs(acceleration.z) > than)
+    }
+    
     func ToString() -> String {
         let attX = String(format: "%.001f", attitude.x)
         let attY = String(format: "%.001f", attitude.y)
@@ -43,6 +51,8 @@ class MotionData {
         
         return String("Att: \(attX),\(attY),\(attZ), Rot: \(rotRateX),\(rotRateY),\(rotRateZ), Grav: \(gravX),\(gravY),\(gravZ), Att: \(accX),\(accY),\(accZ)")
     }
+    
+    
 }
 
 class MotionDataObserver : ObserverProtocol {

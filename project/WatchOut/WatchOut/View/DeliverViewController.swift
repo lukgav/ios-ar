@@ -16,7 +16,9 @@ class DeliverViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        controller = DeliverController(deliverController: self)
+        controller = DeliverController(deliverViewController: self)
+        
+        controller?.startDelivery(maxAccLimit: 100.0)
     }
     
     @IBAction func NextTaskTouch(_ sender: Any) {
@@ -25,5 +27,9 @@ class DeliverViewController: UIViewController {
     
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
+    }
+    
+    func updateBackgroundColor(newColor: UIColor) {
+        self.view.backgroundColor = newColor
     }
 }
