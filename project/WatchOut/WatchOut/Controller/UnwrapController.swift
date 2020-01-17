@@ -17,8 +17,15 @@ class UnwrapController {
     private var lastMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
-    private var maxRotRate: Double = 0.05
-    private var maxAcc: Double = 0.05
+    private var maxOverallRotRate: Double = 0.05
+    private var maxOverallAcc: Double = 0.05
+    private var maxRotRate: SIMD3<Double> =  SIMD3<Double>(x: 0.05, y: 5, z: 4)
+    private var maxAcc: SIMD3<Double> =  SIMD3<Double>(x: 0.05, y: 5, z: 4)
+    
+    private var minGrav: SIMD3<Double> =  SIMD3<Double>(x: -0.5, y: -0.5, z: -0.5)
+    private var maxGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.05, y: 5, z: 4)
+    
+    
     
     init(unwrapViewController: UnwrapViewController) {
         self.unwrapViewController = unwrapViewController
@@ -88,11 +95,16 @@ class UnwrapController {
                 }
             }
                             
-            
-            
-            
-            if(self.checkMaxAcceleration() && self.checkMaxRotationRate()) {
+            if (self.lastMotionData.isOutOfYRangeOf(motionType: <#T##MotionType#>, maxValue: <#T##Double#>, minValue: <#T##Double#>) && )
+            if (self.lastMotionData.isUnderMinZValue(motionType: MotionType.gravity, minValue: self.minGrav.z)){
+                if(self.diffMotionData.gravity.z > self.maxGrav.z){
+                    self.decreaseBombStabilityAndColor()
+                }
                 
+            }
+            
+            if(self.isOverMaxAcceleration() && self.isOverMaxRotationRate()) {
+                self.decreaseBombStabilityAndColor()
             }
         }
     }
@@ -102,11 +114,9 @@ class UnwrapController {
         dmManager.currentMotionData.removeObserver(observer)
     }
     
-    func updateBombStabilityAndColor() -> Bool{
+    func decreaseBombStabilityAndColor() -> Bool{
         let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
         self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
-        
-        
 //        return result
         if (result == false) {
             // bomb exploded, show end screen
@@ -116,48 +126,38 @@ class UnwrapController {
         return true
     }
     
-    func checkMaxAcceleration(pDirection: Direction) -> Bool {
-        // too much acceleration (shaking)
-        switch pDirection{
-        case Direction.x:
-            if (self.lastMotionData.accelerationContainsHigherAbsoluteValueXYZDirection(maxX: self.maxAcc, maxY: 0, maxZ: 0)) {
-                return updateBombStabilityAndColor()
-            else {
-                return false
-            }
-        case Direction.y:
-            
-        case Direction.z:
-            
-        case Direction.all:
-            if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxAcc)) {
-                let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
-                self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
-                if (result == false) {
-                        // bomb exploded, show end screen
-                        return false
-                    }
-                    
-                    return true
-            }
-            else {
-                return false
-            }
-        }
 
+    func increaseBombStabilityAndColor() -> Bool{
+        let result = self.gameManager.bomb?.increaseStability(percentage: 5.0)
+        self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
+//        return result
+        if (result == false) {
+            // bomb exploded, show end screen
+            return false
+        }
+            
+        return true
     }
     
-    func checkMaxRotationRate() -> Bool {
+    
+    func isOutofGravRange() -> Bool{
+        return (self.lastMotionData.gravity.y > 0.5 || self.lastMotionData.gravity.y  < -0.5)
+    }
+    
+    func isOverMaxAcceleration() -> Bool {
+        // too much acceleration (shaking)
+        if (self.lastMotionData.accelerationContainsHigherAbsoluteValueinXYZDirection(maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)) {
+            return decreaseBombStabilityAndColor()
+        }
+        else {
+            return false
+        }
+    }
+    
+    func isOverMaxRotationRate() -> Bool {
         // too fast rotation (speed)
-        if (self.lastMotionData.rotationContainsHigherAbsoluteValue(than: self.maxRotRate)) {
-            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
-            self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
-            if (result == false) {
-                // bomb exploded, show end screen
-                return false
-            }
-            
-            return true
+        if (self.lastMotionData.rotationContainsHigherAbsoluteValueinXYZDirection(maxX: self.maxRotRate.x, maxY: self.maxRotRate.y, maxZ: self.maxRotRate.z)) {
+            return decreaseBombStabilityAndColor()
         }
         else {
             return false

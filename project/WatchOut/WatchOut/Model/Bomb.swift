@@ -101,17 +101,19 @@ class Bomb{
         }
     }
     
-    func increaseStability(increaseAmount: Double){
+    func increaseStability(increaseAmount: Double)->Bool{
         // only increase to a maximum of the stabilyLimit
         if(self.stabilityCounter + increaseAmount >= stabilityLimit) {
             self.stabilityCounter = stabilityLimit
+            return false
         }
         else {
             self.stabilityCounter += increaseAmount
+            return true
         }
     }
     
-    func increaseStability(percentage: Double){
+    func increaseStability(percentage: Double)->Bool{
         let increaseAmount = percentage/100.0*stabilityLimit
         return increaseStability(increaseAmount: increaseAmount)
     }
