@@ -41,6 +41,8 @@ class UnwrapController {
             print("Last: \(self.lastMotionData.ToString())")
             print("Diff: \(self.diffMotionData.ToString())")
             
+            
+            
             // too much shaking
             if (true) {
                 
