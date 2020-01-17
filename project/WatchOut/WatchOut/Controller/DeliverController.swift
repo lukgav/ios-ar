@@ -31,6 +31,11 @@ class DeliverController {
     
     // add player parameter later
     func startDelivery(maxAccLimit: Double) {
+        
+        let nextPlayerID: Int! = gameManager.currentPlayer!.id
+        
+        deliverViewController.nextPlayer.text = String(nextPlayerID)
+        
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.lastMotionData = newMotionData
             
