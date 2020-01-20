@@ -15,6 +15,8 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     static let shared = LightSensorManager()
     private let session = ARSession()
     var isRunning: Bool
+    
+    // value will be 1000.0 for a normal lighten room
     var ambientIntensity: Observable<Double>
     
     private let faceConfig = ARFaceTrackingConfiguration()
@@ -52,5 +54,13 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         ambientIntensity = Observable(value: Double(frame.lightEstimate!.ambientIntensity))
+    }
+}
+
+class AmbientIntensityObserver : ObserverProtocol {
+    var id: Int = 2
+    
+    func onValueChanged(_ value: Any?) {
+        print("OnValueChanged \(value)" )
     }
 }

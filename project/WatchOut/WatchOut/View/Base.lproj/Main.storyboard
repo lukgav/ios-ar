@@ -250,6 +250,7 @@
                         <outlet property="curPlayer" destination="UGf-Xq-W0F" id="BWW-JR-UOA"/>
                         <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="HbK-U3-8fW"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="43M-id-rIK"/>
+                        <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="Udo-a8-iKt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="smu-JS-lUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -319,11 +320,49 @@
                         <outlet property="nextPlayer" destination="TV0-xP-V4B" id="swJ-st-gZP"/>
                         <segue destination="O1c-Kr-D4k" kind="show" identifier="UnwrapSegue" id="NUh-b3-TSL"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="zld-ML-x4X"/>
+                        <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="fyu-OB-oIg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoq-yO-tDI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="244.92753623188409" y="497.54464285714283"/>
+        </scene>
+        <!--End Screen View Controller-->
+        <scene sceneID="2JX-xy-FWW">
+            <objects>
+                <viewController id="vRs-xq-NPh" customClass="EndScreenViewController" customModule="WatchOut" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="R43-Ne-dre">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAH-9B-Ujx">
+                                <rect key="frame" x="159" y="655" width="97" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back to Home"/>
+                                <connections>
+                                    <action selector="BackToHomeButtonTouch:" destination="IlJ-Ea-qaH" eventType="touchUpInside" id="hEQ-cR-8Yo"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bomb Exploded Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOT-xC-e5e">
+                                <rect key="frame" x="99" y="135" width="216" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="PzA-q1-2tB"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Jl0-7j-uGE"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="dSj-e4-Dky"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CSk-1H-nIl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="IlJ-Ea-qaH" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="1346" y="-45"/>
         </scene>
     </scenes>
     <resources>
@@ -336,6 +375,7 @@
         <image name="rotation1" width="400" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="fyu-OB-oIg"/>
         <segue reference="HbK-U3-8fW"/>
         <segue reference="NUh-b3-TSL"/>
         <segue reference="zld-ML-x4X"/>

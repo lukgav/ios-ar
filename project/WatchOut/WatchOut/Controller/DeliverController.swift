@@ -12,11 +12,14 @@ class DeliverController {
     
     private let deliverViewController: DeliverViewController
     
+    private let lsManager = LightSensorManager.shared
+    private let ambientIntensityObserver = AmbientIntensityObserver()
+    
     private let dmManager = DeviceMotionManager.shared
-    private let observer = MotionDataObserver()
+    private let motionDataObserver = MotionDataObserver()
+    
     private let gameManager = GameManager.shared
         
-    
     private var lastMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
@@ -36,7 +39,7 @@ class DeliverController {
         
         deliverViewController.nextPlayer.text = String(nextPlayerID)
         
-        dmManager.currentMotionData.addObserver(observer) { newMotionData in
+        dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
             self.lastMotionData = newMotionData
             
             self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
@@ -66,7 +69,7 @@ class DeliverController {
     }
     
     func endDelivery() {
-        dmManager.currentMotionData.removeObserver(observer)
+        dmManager.currentMotionData.removeObserver(motionDataObserver)
     }
     
     // too fast
