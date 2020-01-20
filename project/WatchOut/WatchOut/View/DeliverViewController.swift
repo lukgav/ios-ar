@@ -32,4 +32,8 @@ class DeliverViewController: UIViewController {
     func updateBackgroundColor(newColor: UIColor) {
         self.view.backgroundColor = newColor
     }
+    
+    
+    @IBOutlet weak var nextPlayer: UILabel!
+    
 }

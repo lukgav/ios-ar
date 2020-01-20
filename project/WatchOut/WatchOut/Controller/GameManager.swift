@@ -30,6 +30,8 @@ class GameManager{
         currentPlayer = players?.first
         bomb = Bomb(stabilityLimit: 200.0, timeLimit: 120)
         currentTask = firstTask
+        
+        
     }
     
     /// Resets the current game
@@ -65,5 +67,9 @@ class GameManager{
         }
         
         return currentTask!
+    }
+    
+    func getNextPlayer() -> Player {
+        
     }
 }
