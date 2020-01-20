@@ -22,7 +22,6 @@ class Bomb{
     
     var decreaseOverTime: Bool
     
-    var explosionColor: UIColor
     var currentColor: UIColor
     
     var hasExloded: Bool = false
@@ -44,7 +43,6 @@ class Bomb{
         stabilityCounter = stabilityLimit
         
         currentColor = UIColor.white
-        explosionColor = UIColor.black
     }
     /// Stops the bomb timer
     func stopTimer() {
@@ -119,15 +117,14 @@ class Bomb{
     }
     
     private func stabilityChanged() {
-        // alpha = 0.0 is white, alpha = 1.0 is black
+        // alpha = 0.0 is white, alpha = 1.0 is red
         let percentage = CGFloat(1.0 - self.stabilityCounter/self.stabilityLimit)
         
         if (percentage > 0.0) {
-            self.currentColor = UIColor(red: 1, green: 0, blue: 0, alpha: percentage)
+            self.currentColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: percentage)
         }
         // bomb has exploded
         else {
-            self.currentColor = explosionColor
             self.hasExloded = true
         }
     }

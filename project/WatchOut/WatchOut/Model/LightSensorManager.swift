@@ -25,8 +25,14 @@ class LightSensorManager : NSObject, ARSessionDelegate {
         isRunning = false
         ambientIntensity = Observable(value: 0.0)
         
+<<<<<<< HEAD
 //        session.delegate = self
         
+||||||| merged common ancestors
+        session.delegate = self
+        
+=======
+>>>>>>> 0e69d6c5fdb80f7f91e0cfeb5791f8d82e98854e
         // supportedVideoFormats-Array contains videoformats sorted from best first to worst last
         faceConfig.videoFormat = ARFaceTrackingConfiguration.supportedVideoFormats.last!
         faceConfig.isLightEstimationEnabled = true
@@ -34,6 +40,7 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     
     func startLightSensor() -> Bool {
         if (!isRunning && ARFaceTrackingConfiguration.isSupported) {
+            session.delegate = self
             session.run(faceConfig)
             isRunning = true
             
@@ -53,7 +60,7 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        ambientIntensity = Observable(value: Double(frame.lightEstimate!.ambientIntensity))
+        ambientIntensity.value = Double(frame.lightEstimate!.ambientIntensity)
     }
 }
 

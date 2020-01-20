@@ -12,13 +12,16 @@ class DeliverViewController: UIViewController {
 
     var controller: DeliverController?
     
+    @IBOutlet weak var nextPlayer: UILabel!
+    @IBOutlet weak var countDownTimeLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         controller = DeliverController(deliverViewController: self)
         
-        controller?.startDelivery(maxAccLimit: 100.0)
+        controller?.startDelivery(maxAccLimit: 100.0, countDown: 10.0)
     }
     
     @IBAction func NextTaskTouch(_ sender: Any) {
@@ -33,7 +36,8 @@ class DeliverViewController: UIViewController {
         self.view.backgroundColor = newColor
     }
     
-    
-    @IBOutlet weak var nextPlayer: UILabel!
-    
+    func updateTimerLabel(newTime: Double) {
+        // shows one decimal
+        countDownTimeLabel.text = String(Double(round(10*newTime)/10))
+    }
 }

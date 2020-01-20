@@ -305,6 +305,20 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Countdown:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4l-7M-js0">
+                                <rect key="frame" x="30" y="564" width="134" height="29"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cal-Lr-YHo">
+                                <rect key="frame" x="171" y="564" width="50" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -317,6 +331,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Wup-eZ-gzs"/>
                     <connections>
+                        <outlet property="countDownTimeLabel" destination="Cal-Lr-YHo" id="8dL-uD-QQW"/>
                         <outlet property="nextPlayer" destination="TV0-xP-V4B" id="swJ-st-gZP"/>
                         <segue destination="O1c-Kr-D4k" kind="show" identifier="UnwrapSegue" id="NUh-b3-TSL"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="zld-ML-x4X"/>
