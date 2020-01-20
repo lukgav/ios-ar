@@ -13,13 +13,11 @@ class Player {
     var name: String?
     var id: Int?
     var limit: Double?
-    var isLoser: Bool?
     
-    init(name: String, id: Int, limit: Double, isLoser: Bool) {
+    init(name: String, id: Int, limit: Double) {
         self.name = name
         self.id = id
         self.limit = limit
-        self.isLoser = isLoser
     }
     
     func decreaseLimit(decreaseAmount: Double) -> Bool {
