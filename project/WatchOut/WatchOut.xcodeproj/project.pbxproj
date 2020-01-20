@@ -13,6 +13,7 @@
 		5321CAB323CF5C9A0002130E /* MotionTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAAF23CF5C9A0002130E /* MotionTask.swift */; };
 		5321CAB523CF5FB10002130E /* DeliveryTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAB423CF5FB10002130E /* DeliveryTask.swift */; };
 		5321CAB823CF61BE0002130E /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAB723CF61BE0002130E /* Difficulty.swift */; };
+		5373786023D5E4EE00C18EAF /* LightSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373785F23D5E4EE00C18EAF /* LightSensorManager.swift */; };
 		53843C4623CF53E300A61D98 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53843C4523CF53E300A61D98 /* Observable.swift */; };
 		53ED0EDF23C6172E0040AD3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */; };
 		53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EE023C6172E0040AD3E /* SceneDelegate.swift */; };
@@ -43,6 +44,7 @@
 		5321CAAF23CF5C9A0002130E /* MotionTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MotionTask.swift; sourceTree = "<group>"; };
 		5321CAB423CF5FB10002130E /* DeliveryTask.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeliveryTask.swift; path = WatchOut/Model/DeliveryTask.swift; sourceTree = SOURCE_ROOT; };
 		5321CAB723CF61BE0002130E /* Difficulty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Difficulty.swift; sourceTree = "<group>"; };
+		5373785F23D5E4EE00C18EAF /* LightSensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightSensorManager.swift; sourceTree = "<group>"; };
 		53843C4523CF53E300A61D98 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		53ED0EDB23C6172E0040AD3E /* WatchOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				AC810E3423CE2E8F00258A88 /* MotionData.swift */,
 				53843C4523CF53E300A61D98 /* Observable.swift */,
 				ACC4381723D0AAF00088E558 /* Constants.swift */,
+				5373785F23D5E4EE00C18EAF /* LightSensorManager.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -261,6 +264,7 @@
 				A3981C2D23D1F62B00B43D70 /* DirectionType.swift in Sources */,
 				AC810E2F23CE06AC00258A88 /* HelpViewController.swift in Sources */,
 				ACA386D723CCCA7F00CD724E /* HomeController.swift in Sources */,
+				5373786023D5E4EE00C18EAF /* LightSensorManager.swift in Sources */,
 				53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */,
 				ACA386D323CCCA1800CD724E /* Player.swift in Sources */,
 				ACA386D023CCC93C00CD724E /* DeliverViewController.swift in Sources */,
