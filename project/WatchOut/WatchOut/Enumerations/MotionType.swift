@@ -13,4 +13,14 @@ enum MotionType {
     case acceleration
     case gravity
     case rotation
+    
+    var toString : String {
+        switch self {
+        // Use Internationalization, as appropriate.
+        case .attitude: return "attitude"
+        case .acceleration: return "acceleration"
+        case .gravity: return "gravity"
+        case .rotation: return "rotation"
+        }
+     }
 }

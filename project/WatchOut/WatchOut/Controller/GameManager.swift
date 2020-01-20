@@ -70,6 +70,7 @@ class GameManager{
     }
     
     func getNextPlayer() -> Player {
-        
+        var lPlayer = Player(id: 3, limit: 100)
+        return lPlayer
     }
 }

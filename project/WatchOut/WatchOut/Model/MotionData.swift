@@ -61,7 +61,7 @@ class MotionData {
     
     
     func motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType, maxX: Double, maxY: Double, maxZ: Double) -> Bool {
-        return(isOverMaxXValueOf(motionType: motionType, maxValue: maxX) || isOverYValueOf(motionType: motionType, maxValue: maxY) || isOverMaxZValueOf(motionType: motionType, maxValue: maxZ) )
+        return(isOverMaxXValueOf(motionType: motionType, maxValue: maxX) || isOverMaxYValueOf(motionType: motionType, maxValue: maxY) || isOverMaxZValueOf(motionType: motionType, maxValue: maxZ) )
     }
     
     //Chose MotionType and direction
@@ -81,12 +81,12 @@ class MotionData {
     func isOverMaxXValueOf(motionType: MotionType, maxValue: Double) -> Bool {
         //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
         let minValueNoCare: Double = self.gravity.x
-        return outOfXRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
+        return isOutOfXRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
     }
     func isUnderMinXValueOf(motionType: MotionType, minValue: Double) -> Bool {
         //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
         let maxValueNoCare: Double = self.gravity.y
-        return outOfXRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
+        return isOutOfXRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
     }
     
     // check ranges of Y
@@ -110,13 +110,13 @@ class MotionData {
     func isOverMaxYValueOf(motionType: MotionType, maxValue: Double) -> Bool {
         //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
         let minValueNoCare: Double = self.gravity.y
-        return outOfYRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
+        return isOutOfYRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
     }
     
     func isUnderMinYValueOf(motionType: MotionType, minValue: Double) -> Bool {
         //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
         let maxValueNoCare: Double = self.gravity.y
-        return outOfYRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
+        return isOutOfYRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
     }
     
     // check ranges of Z
@@ -135,12 +135,12 @@ class MotionData {
     func isOverMaxZValueOf(motionType: MotionType, maxValue: Double) -> Bool {
         //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
         let minValueNoCare: Double = self.gravity.z
-        return outOfZRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
+        return isOutOfZRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
     }
     func isUnderMinZValueOf(motionType: MotionType, minValue: Double) -> Bool {
         //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
         let maxValueNoCare: Double = self.gravity.y
-        return outOfZRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
+        return isOutOfZRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
     }
     
     func ToString() -> String {
