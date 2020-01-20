@@ -8,7 +8,7 @@
 
 import UIKit
 
-class EndScreenController {
+class EndScreenViewController {
 
     private let endScreenViewController : EndScreenViewController
     
@@ -16,12 +16,11 @@ class EndScreenController {
     
     init(endScreenController: EndScreenViewController, gameManager: GameManager) {
         self.endScreenViewController = endScreenController
-        self.gameManager = gameManager
     }
     
     // MARK: - Navigation
     
-    func navigateToHome() {
-        endScreenViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
-    }
+//    func navigateToHome() {
+//        endScreenViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+//    }
 }

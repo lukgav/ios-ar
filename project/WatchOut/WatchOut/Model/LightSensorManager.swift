@@ -25,7 +25,7 @@ class LightSensorManager : NSObject, ARSessionDelegate {
         isRunning = false
         ambientIntensity = Observable(value: 0.0)
         
-        session.delegate = self
+//        session.delegate = self
         
         // supportedVideoFormats-Array contains videoformats sorted from best first to worst last
         faceConfig.videoFormat = ARFaceTrackingConfiguration.supportedVideoFormats.last!

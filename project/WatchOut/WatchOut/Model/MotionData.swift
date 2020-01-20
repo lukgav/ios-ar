@@ -26,6 +26,14 @@ class MotionData {
                           gravity: self.gravity - other.gravity,
                           acceleration: self.acceleration - other.acceleration)
     }
+//    func diffInMaginitude(other: MotionData) -> MotionData {
+//        return MotionData(
+//                    attitude: (abs(self.attitude - other.attitude)),
+//                    rotationRate: abs(self.rotationRate - other.rotationRate),
+//                    gravity: abs(self.gravity - other.gravity),
+//                    acceleration: abs(self.acceleration - other.acceleration)
+//                )
+//    }
     
     //Rotation Code (to check max value)
     func rotationContainsHigherAbsoluteValue(than: Double) -> Bool {
