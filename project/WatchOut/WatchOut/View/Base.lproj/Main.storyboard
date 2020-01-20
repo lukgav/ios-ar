@@ -364,12 +364,17 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c7M-Gh-qsp" userLabel="ExplodeImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="PzA-q1-2tB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Jl0-7j-uGE"/>
                     <connections>
+                        <outlet property="explodeGif" destination="c7M-Gh-qsp" id="wzs-Cf-wHq"/>
                         <outlet property="loserName" destination="5m0-CS-8sh" id="ILi-rF-fTd"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="dSj-e4-Dky"/>
                     </connections>
@@ -377,7 +382,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CSk-1H-nIl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="IlJ-Ea-qaH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1346" y="-45"/>
+            <point key="canvasLocation" x="1344.9275362318842" y="-45.535714285714285"/>
         </scene>
     </scenes>
     <resources>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftGifOrigin
 
 class EndScreenViewController: UIViewController {
 
@@ -20,7 +21,8 @@ class EndScreenViewController: UIViewController {
         controller = EndScreenController(endScreenController: self, gameManager: gameManager)
         
         loserName.text = self.gameManager.loserPlayer!.name
-    
+        
+        explodeGif.image = UIImage.gif(name: "explode")
     }
     
     @IBAction func BackToHomeButtonTouch(_ sender: Any) {
@@ -29,5 +31,7 @@ class EndScreenViewController: UIViewController {
     
     
     @IBOutlet weak var loserName: UILabel!
+    
+    @IBOutlet weak var explodeGif: UIImageView!
     
 }
