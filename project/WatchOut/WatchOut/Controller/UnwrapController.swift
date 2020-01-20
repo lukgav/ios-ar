@@ -106,6 +106,7 @@ class UnwrapController {
 //        return result
         if (result == false) {
             // bomb exploded, show end screen
+            self.gameManager.loserPlayer
             return false
         }
             
@@ -119,7 +120,9 @@ class UnwrapController {
 //        return result
         if (result == false) {
             // bomb exploded, show end screen
-            return false
+            self.gameManager.loserPlayer = self.gameManager.currentPlayer
+            self.unwrapViewController.controller?.navigateToEndScreen()
+                    return false
         }
             
         return true
@@ -162,6 +165,13 @@ class UnwrapController {
         let result = dmManager.stopDeviceMotion()
         if (result) {
             unwrapViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+        }
+    }
+    
+    func navigateToEndScreen() {
+        let result = dmManager.stopDeviceMotion()
+        if (result) {
+            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }
 }

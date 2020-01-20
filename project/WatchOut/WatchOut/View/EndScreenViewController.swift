@@ -7,18 +7,31 @@
 //
 
 import UIKit
+import SwiftGifOrigin
 
 class EndScreenViewController: UIViewController {
 
     var controller : EndScreenController?
     
+    let gameManager = GameManager.shared
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        controller = EndScreenController(endScreenController: self)
+        controller = EndScreenController(endScreenController: self, gameManager: gameManager)
+        
+        loserName.text = self.gameManager.loserPlayer!.name
+        
+        explodeGif.image = UIImage.gif(name: "explode")
     }
     
     @IBAction func BackToHomeButtonTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
+    
+    
+    @IBOutlet weak var loserName: UILabel!
+    
+    @IBOutlet weak var explodeGif: UIImageView!
+    
 }

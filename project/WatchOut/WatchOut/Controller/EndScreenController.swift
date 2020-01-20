@@ -12,8 +12,11 @@ class EndScreenController {
 
     private let endScreenViewController : EndScreenViewController
     
-    init(endScreenController: EndScreenViewController) {
+    private let gameManager = GameManager.shared
+    
+    init(endScreenController: EndScreenViewController, gameManager: GameManager) {
         self.endScreenViewController = endScreenController
+        self.gameManager = gameManager
     }
     
     // MARK: - Navigation

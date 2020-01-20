@@ -76,7 +76,8 @@ class DeliverController {
                 let result = self.gameManager.bomb!.setStability(percentage: percentage)
                 
                 if (result) {
-                    // bomb explodeded
+                    // bomb explodes
+                    self.gameManager.loserPlayer = self.gameManager.currentPlayer
                     
                     self.navigateToEndScreen()
                 }
@@ -137,6 +138,7 @@ class DeliverController {
             
             if (result == false) {
                 // bomb exploded
+                self.gameManager.loserPlayer = self.gameManager.currentPlayer
                 self.navigateToEndScreen()
             }
             
@@ -155,8 +157,10 @@ class DeliverController {
             self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
             
             if (result == false) {
-                // bomb exploded
+                // bomb exploded, show end screen
+                self.gameManager.loserPlayer = self.gameManager.currentPlayer
                 self.navigateToEndScreen()
+                        return false
             }
             
             return true
@@ -215,6 +219,13 @@ class DeliverController {
     func navigateToEndScreen() {
         if (self.endDelivery(stopDeviceMotion: true)) {
             deliverViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+        }
+    }
+    
+    func navigateToEndScreen() {
+        let result = dmManager.stopDeviceMotion()
+        if (result) {
+            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }
 }
