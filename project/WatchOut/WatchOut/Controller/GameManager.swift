@@ -77,6 +77,7 @@ class GameManager{
     
     // get the next random Player
     func getNextPlayer() -> Player {
+<<<<<<< HEAD
         let sumPlayer = self.leftPlayers?.count
         //var randomNextPlayer = players!.firstIndex(where: {$0.id == self.currentPlayer?.id})
         var nextPlayer: Player?
@@ -86,5 +87,9 @@ class GameManager{
         var nextPlayerIndex : Int? = leftPlayers!.firstIndex(where: {$0.id == nextPlayer!.id})
         leftPlayers!.remove(at: nextPlayerIndex!)
         return nextPlayer!
+=======
+        var lPlayer = Player(id: 3, limit: 100)
+        return lPlayer
+>>>>>>> 9e20312f94628a257e47405d99933eeda399e454
     }
 }

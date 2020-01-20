@@ -12,11 +12,14 @@ class DeliverController {
     
     private let deliverViewController: DeliverViewController
     
+    private let lsManager = LightSensorManager.shared
+    private let ambientIntensityObserver = AmbientIntensityObserver()
+    
     private let dmManager = DeviceMotionManager.shared
-    private let observer = MotionDataObserver()
+    private let motionDataObserver = MotionDataObserver()
+    
     private let gameManager = GameManager.shared
         
-    
     private var lastMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
@@ -36,7 +39,7 @@ class DeliverController {
         
         deliverViewController.nextPlayer.text = String(nextPlayerID)
         
-        dmManager.currentMotionData.addObserver(observer) { newMotionData in
+        dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
             self.lastMotionData = newMotionData
             
             self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
@@ -67,7 +70,7 @@ class DeliverController {
     }
     
     func endDelivery() {
-        dmManager.currentMotionData.removeObserver(observer)
+        dmManager.currentMotionData.removeObserver(motionDataObserver)
     }
     
     // too fast
@@ -77,6 +80,8 @@ class DeliverController {
             self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
             if (result == false) {
                     // bomb exploded, show end screen
+                self.gameManager.loserPlayer = self.gameManager.currentPlayer
+            self.deliverViewController.controller?.navigateToEndScreen()
                     return false
                 }
                 
@@ -94,7 +99,9 @@ class DeliverController {
             self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
             if (result == false) {
                 // bomb exploded, show end screen
-                return false
+                self.gameManager.loserPlayer = self.gameManager.currentPlayer
+                self.deliverViewController.controller?.navigateToEndScreen()
+                        return false
             }
             
             return true
@@ -116,6 +123,13 @@ class DeliverController {
         let result = dmManager.stopDeviceMotion()
         if (result) {
             deliverViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+        }
+    }
+    
+    func navigateToEndScreen() {
+        let result = dmManager.stopDeviceMotion()
+        if (result) {
+            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }
 }

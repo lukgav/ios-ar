@@ -24,7 +24,21 @@ class UnwrapController {
     
     private var minGrav: SIMD3<Double> =  SIMD3<Double>(x: -0.5, y: -0.5, z: -0.5)
     private var maxGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.05, y: 5, z: 4)
-    
+    struct errorMsg{
+        var outOfRange = "Out of Range "
+        var outOfXRange = "Out of X Range "
+        var outOfYRange = "Out of Y Range  "
+        var outOfZRange = "Out of Z Range  "
+        var tooHigh = "past max value"
+        var tooHighX = "past max X value"
+        var tooHighY = "past max Y value"
+        var tooHighZ = "past max Z value"
+        var tooLow = "under min value"
+        var tooLowX = "under min X value"
+        var tooLowY = "under min Y value"
+        var tooLowZ = "under min Z value"
+    }
+    private var errMsg = errorMsg()
     
     
     init(unwrapViewController: UnwrapViewController) {
@@ -51,66 +65,31 @@ class UnwrapController {
             let acc_limit:Double = 5
             self.lastMotionData = newMotionData
             self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
-            
+//
             print("------------------------------------------------------------")
-            print("Last: \(self.lastMotionData.ToString())")
-            print("Diff: \(self.diffMotionData.ToString())")
+//            print("Last: \(self.lastMotionData.ToString())")
+//            print("Diff: \(self.diffMotionData.ToString())")
             
               // ------------ ------------ z-direction ------------ ------------
                     // - x to check direction gravity
                     // - z to check rate of change in gravity of x
                     // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
-                    
-            // New Code for accelerometer
-            //check all possible errors(Will there be other errors here apart from player errors)
-            if( (newMotionData.gravity.y > 0.5 || newMotionData.gravity.y  < -0.5) && newMotionData.acceleration.y > acc_limit){
-//                PunishPlayer(pBomb: pBomb, pErrorMsg:  perpendicularDirectionError)
-                decreaseStabilityBySetAmount
+                 
+            //check if gravity is out of range in y-direction
+            if (self.lastMotionData.isOutOfYRangeOf(motionType: MotionType.gravity, maxValue: self.maxGrav.y, minValue: self.minGrav.y)){
+                self.decreaseBombStabilityAndColor(pErr: MotionType.gravity.toString + self.errMsg.outOfYRange)
             }
-            else if(pAcc!.z > acc_limit || pAcc!.x > acc_limit){
-                PunishPlayer(pBomb: pBomb, pErrorMsg:  tooFastWrongDirectionError)
+            //Check if phone is face up (check if gravity less than 0 z-direction)
+            if (self.lastMotionData.isUnderMinZValueOf(motionType: MotionType.gravity, minValue: self.minGrav.z)){
+                self.decreaseBombStabilityAndColor(pErr: MotionType.acceleration.toString + self.errMsg.tooLowZ)
             }
-            
-            // Old Code for accelerometer
-            //check all possible errors(Will there be other errors here apart from player errors)
-            if( (pGrav!.y > 0.5 || pGrav!.y < -0.5) && pAcc!.y > acc_limit){
-                PunishPlayer(pBomb: pBomb, pErrorMsg:  perpendicularDirectionError)
+            //Check if value has gone over max Accel or rotation rate
+            if(self.isOverMaxAcceleration()) {
+                self.decreaseBombStabilityAndColor(pErr: MotionType.acceleration.toString + self.errMsg.tooHigh)
             }
-            else if(pAcc!.z > acc_limit || pAcc!.x > acc_limit){
-                PunishPlayer(pBomb: pBomb, pErrorMsg:  tooFastWrongDirectionError)
-            }
-            else{
-            
-            //phone face up (z-grav of phone is in -ve)
-            
-    //        if(pGrav!.z < 0){
-                //clock-wise(twisting away from the user) grav.x becomes positive
-                if (pGoClockWise == false){
-                    PunishPlayer(pBomb: pBomb, pErrorMsg:  oppositeDirectionError)
-                }
-                else{
-    //                pGrav!.x < pOldGrav!.x &&
-                    //is past max rotation speed
-                    if (diffZ > max_grav_diff){
-                        PunishPlayer(pBomb: pBomb, pErrorMsg:  tooFastCorrectDirectionError)
-                    }
-                    //Is change within speed of rotation (max_dev) limits?
-                    else if (diffZ < max_grav_diff){
-                        encouragePlayer()
-                    }
-                }
-            }
-                            
-            if (self.lastMotionData.isOutOfYRangeOf(motionType: <#T##MotionType#>, maxValue: <#T##Double#>, minValue: <#T##Double#>) && )
-            if (self.lastMotionData.isUnderMinZValue(motionType: MotionType.gravity, minValue: self.minGrav.z)){
-                if(self.diffMotionData.gravity.z > self.maxGrav.z){
-                    self.decreaseBombStabilityAndColor()
-                }
-                
-            }
-            
-            if(self.isOverMaxAcceleration() && self.isOverMaxRotationRate()) {
-                self.decreaseBombStabilityAndColor()
+            if(self.isOverMaxRotationRate()){
+                self.decreaseBombStabilityAndColor(pErr: MotionType.rotation.toString + self.errMsg.tooHigh)
+
             }
         }
     }
@@ -120,12 +99,14 @@ class UnwrapController {
         dmManager.currentMotionData.removeObserver(observer)
     }
     
-    func decreaseBombStabilityAndColor() -> Bool{
+    func decreaseBombStabilityAndColor(pErr: String) -> Bool{
+        print(pErr + "\n")
         let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
         self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
 //        return result
         if (result == false) {
             // bomb exploded, show end screen
+            self.gameManager.loserPlayer
             return false
         }
             
@@ -139,7 +120,9 @@ class UnwrapController {
 //        return result
         if (result == false) {
             // bomb exploded, show end screen
-            return false
+            self.gameManager.loserPlayer = self.gameManager.currentPlayer
+            self.unwrapViewController.controller?.navigateToEndScreen()
+                    return false
         }
             
         return true
@@ -152,8 +135,8 @@ class UnwrapController {
     
     func isOverMaxAcceleration() -> Bool {
         // too much acceleration (shaking)
-        if (self.lastMotionData.accelerationContainsHigherAbsoluteValueinXYZDirection(maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)) {
-            return decreaseBombStabilityAndColor()
+        if (self.lastMotionData.motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType.acceleration, maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)) {
+            return true
         }
         else {
             return false
@@ -162,8 +145,8 @@ class UnwrapController {
     
     func isOverMaxRotationRate() -> Bool {
         // too fast rotation (speed)
-        if (self.lastMotionData.rotationContainsHigherAbsoluteValueinXYZDirection(maxX: self.maxRotRate.x, maxY: self.maxRotRate.y, maxZ: self.maxRotRate.z)) {
-            return decreaseBombStabilityAndColor()
+        if (self.lastMotionData.motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType.rotation, maxX: self.maxRotRate.x, maxY: self.maxRotRate.y, maxZ: self.maxRotRate.z)) {
+            return true
         }
         else {
             return false
@@ -182,6 +165,13 @@ class UnwrapController {
         let result = dmManager.stopDeviceMotion()
         if (result) {
             unwrapViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+        }
+    }
+    
+    func navigateToEndScreen() {
+        let result = dmManager.stopDeviceMotion()
+        if (result) {
+            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }
 }
