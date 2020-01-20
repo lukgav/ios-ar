@@ -70,6 +70,10 @@ class GameManager{
     }
     
     func getNextPlayer() -> Player {
-        
+        var sumPlayer = self.players?.count
+        var randomNextPlayer = players!.firstIndex(where: $)
+        while (randomNextPlayer.id == self.currentPlayer.id) {
+            
+        }
     }
 }

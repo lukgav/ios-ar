@@ -58,6 +58,7 @@ class DeliverController {
                 
                 if (result) {
                     // bomb explodes
+                    self.gameManager.currentPlayer?.isLoser
                     
                     self.endDelivery()
                 }

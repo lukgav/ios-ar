@@ -10,12 +10,16 @@ import UIKit
 
 class Player {
    
+    var name: String?
     var id: Int?
     var limit: Double?
+    var isLoser: Bool?
     
-    init(id: Int, limit: Double) {
+    init(name: String, id: Int, limit: Double, isLoser: Bool) {
+        self.name = name
         self.id = id
         self.limit = limit
+        self.isLoser = isLoser
     }
     
     func decreaseLimit(decreaseAmount: Double) -> Bool {
