@@ -25,6 +25,8 @@
 		53ED0EEB23C617330040AD3E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 53ED0EE923C617330040AD3E /* LaunchScreen.storyboard */; };
 		A3981C2B23D1EEE100B43D70 /* MotionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3981C2A23D1EEE100B43D70 /* MotionType.swift */; };
 		A3981C2D23D1F62B00B43D70 /* DirectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3981C2C23D1F62B00B43D70 /* DirectionType.swift */; };
+		AC065D1323D888C30099EB20 /* TwitchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC065D1223D888C30099EB20 /* TwitchViewController.swift */; };
+		AC065D1523D888EF0099EB20 /* TwitchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC065D1423D888EF0099EB20 /* TwitchController.swift */; };
 		AC810E2F23CE06AC00258A88 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC810E2E23CE06AC00258A88 /* HelpViewController.swift */; };
 		AC810E3123CE131400258A88 /* UnwrapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC810E3023CE131400258A88 /* UnwrapController.swift */; };
 		AC810E3323CE1D7600258A88 /* DeviceMotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC810E3223CE1D7600258A88 /* DeviceMotionManager.swift */; };
@@ -60,6 +62,8 @@
 		53ED0EEC23C617330040AD3E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A3981C2A23D1EEE100B43D70 /* MotionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionType.swift; sourceTree = "<group>"; };
 		A3981C2C23D1F62B00B43D70 /* DirectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionType.swift; sourceTree = "<group>"; };
+		AC065D1223D888C30099EB20 /* TwitchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitchViewController.swift; sourceTree = "<group>"; };
+		AC065D1423D888EF0099EB20 /* TwitchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitchController.swift; sourceTree = "<group>"; };
 		AC810E2E23CE06AC00258A88 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		AC810E3023CE131400258A88 /* UnwrapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnwrapController.swift; sourceTree = "<group>"; };
 		AC810E3223CE1D7600258A88 /* DeviceMotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceMotionManager.swift; sourceTree = "<group>"; };
@@ -148,6 +152,7 @@
 				53ED0EE023C6172E0040AD3E /* SceneDelegate.swift */,
 				53ED0EE223C6172E0040AD3E /* HomeViewController.swift */,
 				ACA386CD23CCC92800CD724E /* UnwrapViewController.swift */,
+				AC065D1223D888C30099EB20 /* TwitchViewController.swift */,
 				ACA386CF23CCC93C00CD724E /* DeliverViewController.swift */,
 				AC810E2E23CE06AC00258A88 /* HelpViewController.swift */,
 				5373786123D5EB6C00C18EAF /* EndScreenViewController.swift */,
@@ -164,6 +169,7 @@
 				ACA386DC23CCCE5400CD724E /* GameManager.swift */,
 				ACA386D623CCCA7F00CD724E /* HomeController.swift */,
 				AC810E3023CE131400258A88 /* UnwrapController.swift */,
+				AC065D1423D888EF0099EB20 /* TwitchController.swift */,
 				ACA386DA23CCCAD700CD724E /* DeliverController.swift */,
 				5321CAB423CF5FB10002130E /* DeliveryTask.swift */,
 				5373786323D5EB8700C18EAF /* EndScreenController.swift */,
@@ -255,6 +261,7 @@
 				53843C4623CF53E300A61D98 /* Observable.swift in Sources */,
 				5321CAB823CF61BE0002130E /* Difficulty.swift in Sources */,
 				AC810E3123CE131400258A88 /* UnwrapController.swift in Sources */,
+				AC065D1523D888EF0099EB20 /* TwitchController.swift in Sources */,
 				ACC4381623D0A1780088E558 /* TaskType.swift in Sources */,
 				5373786223D5EB6C00C18EAF /* EndScreenViewController.swift in Sources */,
 				ACA386CE23CCC92800CD724E /* UnwrapViewController.swift in Sources */,
@@ -265,6 +272,7 @@
 				ACA386DB23CCCAD700CD724E /* DeliverController.swift in Sources */,
 				5321CAB023CF5C9A0002130E /* Task.swift in Sources */,
 				5321CAB223CF5C9A0002130E /* UnwrapTask.swift in Sources */,
+				AC065D1323D888C30099EB20 /* TwitchViewController.swift in Sources */,
 				5321CAB123CF5C9A0002130E /* Bomb.swift in Sources */,
 				A3981C2B23D1EEE100B43D70 /* MotionType.swift in Sources */,
 				AC810E3523CE2E8F00258A88 /* MotionData.swift in Sources */,
