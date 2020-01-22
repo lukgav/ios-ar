@@ -25,7 +25,7 @@ class HomeController {
     // MARK: - Navigation
     
     func navigateToFirstTask() {
-        gameManager.startNewGame(playerNames: ["Andi", "Trung", "Luke"], playerCount: playerCount)
+        gameManager.startNewGame(playerCount: playerCount)
         let result = dmManager.startDeviceMotion()
         
         if (result) {
