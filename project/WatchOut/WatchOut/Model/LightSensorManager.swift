@@ -1,4 +1,5 @@
 //
+
 //  LightSensorManager.swift
 //  WatchOut
 //
@@ -24,14 +25,13 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     private override init() {
         isRunning = false
         ambientIntensity = Observable(value: 0.0)
-                
-
+        
         // supportedVideoFormats-Array contains videoformats sorted from best first to worst last
         faceConfig.videoFormat = ARFaceTrackingConfiguration.supportedVideoFormats.last!
         faceConfig.isLightEstimationEnabled = true
     }
     
-    func startLightSensor() -> Bool {
+    func startLightSensor() -> Bool {       if (!isRunning && ARFaceTrackingConfiguration.isSupported) {
         if (!isRunning && ARFaceTrackingConfiguration.isSupported) {
             session.delegate = self
             session.run(faceConfig)

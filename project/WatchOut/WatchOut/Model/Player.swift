@@ -10,9 +10,9 @@ import UIKit
 
 class Player {
    
-    var name: String?
-    var id: Int?
-    var limit: Double?
+    var name: String
+    var id: Int
+    var limit: Double
     
     init(name: String, id: Int, limit: Double) {
         self.name = name
@@ -21,14 +21,11 @@ class Player {
     }
     
     func decreaseLimit(decreaseAmount: Double) -> Bool {
-        if (self.limit! - decreaseAmount > 0.0) {
-            self.limit! -= decreaseAmount
+        if (self.limit - decreaseAmount > 0.0) {
+            self.limit -= decreaseAmount
             return true
         } else {
             return false
         }
     }
-    
-    
-    
 }

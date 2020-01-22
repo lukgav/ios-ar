@@ -18,9 +18,9 @@ class UnwrapViewController: UIViewController {
         // Do any additional setup after loading the view.
         controller = UnwrapController(unwrapViewController: self)
         
-        controller?.startUnwrapAroundZ()
+        //controller?.startUnwrapAroundZ()
         
-//        curPlayer.text = String(currentP)
+        //curPlayer.text = String(currentP)
     }
     func updateBackgroundColor(color: UIColor) {
         self.view.backgroundColor = color
@@ -33,7 +33,6 @@ class UnwrapViewController: UIViewController {
     @IBAction func NextTaskTouch(_ sender: Any) {
         controller?.navigateToNextTask()
     }
-    
     
     @IBOutlet weak var curPlayer: UILabel!
     

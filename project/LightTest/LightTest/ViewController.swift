@@ -14,7 +14,7 @@ import ARKit
 class ViewController: UIViewController, ARSessionDelegate {
 
     var lightEstimate: CGFloat = 0
-    
+    var running: Bool = false
     let session = ARSession()
         
     override func viewDidLoad() {
@@ -24,11 +24,20 @@ class ViewController: UIViewController, ARSessionDelegate {
     }
 
     @IBAction func ButtonTouch(_ sender: Any) {        
+        if(running) {
+            session.pause()
+            running = false
+        }
+        else {
+            let config = ARFaceTrackingConfiguration()
+            
+            config.isLightEstimationEnabled = true
+            config.videoFormat = ARFaceTrackingConfiguration.supportedVideoFormats.last!
+            session.run(config)
+            
+            running = true
+        }
         
-        let temp = (session.currentFrame?.lightEstimate!.ambientColorTemperature)!
-        let intensity = (session.currentFrame?.lightEstimate!.ambientIntensity)!
-        print("Temp: \(temp)")
-        print("Intensity: \(intensity)")
     }
     
     
@@ -38,20 +47,23 @@ class ViewController: UIViewController, ARSessionDelegate {
             fatalError("This feature is only supported on devices with an A12 chip")
         }
         
-        let config = ARFaceTrackingConfiguration()
-        config.isLightEstimationEnabled = true
-        session.run(config)
         session.delegate = self
+        
+        let config = ARFaceTrackingConfiguration()
+        
+        config.isLightEstimationEnabled = true
+        config.videoFormat = ARFaceTrackingConfiguration.supportedVideoFormats.last!
+        session.run(config)
+        
+        running = true
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        print("Update 1")
+        let temp = frame.lightEstimate!.ambientColorTemperature
+        let intensity = frame.lightEstimate!.ambientIntensity
+        print("Temp: \(temp) Intensity: \(intensity)")
+        
     }
-    
-    func session(_ session: ARSession, didUpdate anchors: [ARAnchor]) {
-        print("Update 2")
-    }
-    
     
 //    func takePhoto() {
 //        // Capture Session

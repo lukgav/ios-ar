@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -410,9 +410,9 @@
         <image name="rotation1" width="400" height="250"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Udo-a8-iKt"/>
-        <segue reference="HbK-U3-8fW"/>
+        <segue reference="fyu-OB-oIg"/>
+        <segue reference="1xX-WW-OFJ"/>
         <segue reference="NUh-b3-TSL"/>
-        <segue reference="43M-id-rIK"/>
+        <segue reference="zld-ML-x4X"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -46,10 +46,10 @@ class DeliverController {
     
     func startDelivery(maxAccLimit: Double, countDown: Double) {
         
-        let nextPlayer =  gameManager.getNextPlayer()
+        let nextPlayer =  gameManager.getNextRandomPlayer()
         
         // show next player on view
-        deliverViewController.nextPlayer.text = String(nextPlayer.id!)
+        deliverViewController.nextPlayer.text = String(nextPlayer.id)
         
         // start tracking of motion
         dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
@@ -218,6 +218,7 @@ class DeliverController {
     
     func navigateToEndScreen() {
         if (self.endDelivery(stopDeviceMotion: true)) {
+<<<<<<< HEAD
             deliverViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
         }
     }
@@ -228,4 +229,20 @@ class DeliverController {
 //            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
 //        }
 //    }
+||||||| merged common ancestors
+            deliverViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+        }
+    }
+    
+    func navigateToEndScreen() {
+        let result = dmManager.stopDeviceMotion()
+        if (result) {
+            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
+        }
+    }
+=======
+            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
+        }
+    }
+>>>>>>> 420eb13d03eedd42ffd05b4687f830ea1fb9cbc1
 }
