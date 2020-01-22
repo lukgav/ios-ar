@@ -21,7 +21,7 @@ class DeliverViewController: UIViewController {
         // Do any additional setup after loading the view.
         controller = DeliverController(deliverViewController: self)
         
-        controller?.startDelivery(maxAccLimit: 100.0, countDown: 10.0)
+        controller?.startDelivery(countDownDuration: 10.0)
     }
     
     @IBAction func NextTaskTouch(_ sender: Any) {

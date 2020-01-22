@@ -12,7 +12,6 @@ class GameManager{
     
     var bomb: Bomb?
     var currentPlayer: Player?
-    var loserPlayer: Player?
     var players:[Player] = [Player]()
     
     var currentTask: TaskType?
@@ -22,15 +21,12 @@ class GameManager{
     }
     
     /// Starts a new game
-    func startNewGame(playerNames:[String], playerCount: Int, firstTask: TaskType = .Unwrap, difficulty: Difficulty = .Medium) {
+    func startNewGame(playerCount: Int, firstTask: TaskType = .Unwrap, difficulty: Difficulty = .Medium) {
         
         for playerId in 1...playerCount {
-            for playerName in playerNames {
-                players.append(Player(name: playerName, id: playerId, limit: 50.0))
-            }
+            players.append(Player(name: String(playerId), id: playerId, limit: 50.0))
         }
         
-        loserPlayer = nil
         currentPlayer = players.first
         bomb = Bomb(stabilityLimit: 200.0, timeLimit: 120)
         currentTask = firstTask
@@ -72,10 +68,15 @@ class GameManager{
     func getNextRandomPlayer() -> Player {
         var nextPlayer: Player
         
-        repeat {
-            nextPlayer = players[Int.random(in: 0...players.count-1)]
-        } while nextPlayer.id == self.currentPlayer!.id
-        
-        return nextPlayer
+        if players.count == 1 {
+            return currentPlayer!
+        }
+        else {
+            repeat {
+                nextPlayer = players[Int.random(in: 0...players.count-1)]
+            } while nextPlayer.id == self.currentPlayer!.id
+            
+            return nextPlayer
+        }
     }
 }

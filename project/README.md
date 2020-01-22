@@ -1,3 +1,25 @@
+### Todos:
+
+Trung:
+- Twitch task -------------------------------- DONE? X [TwitchController.swift]
+
+Luke: 
+- Unwrap task -------------------------------- DONE? X [UnWrapController.swift]
+- Convert value of Gravity(-1.0, 1.0) to degrees(0 - 360) -------------------------------- DONE? X [In DeviceMotionManager.swift]
+
+Andi: 
+- Deliver task -------------------------------- DONE? !FAST! [DeliverController.swift]
+- toggle ambient light sensor to replace the start button (and other touch buttons)
+
+Other:
+- End View
+- Player score
+- improve look of UI (Not important)
+
+
+
+
+
 ### Ideas for bomb game:
 
 - game starts

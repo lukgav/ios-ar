@@ -23,7 +23,10 @@ class UnwrapController {
     private var maxAcc: SIMD3<Double> =  SIMD3<Double>(x: 1, y: 1, z: 1.5)
     
     private var minGrav: SIMD3<Double> =  SIMD3<Double>(x: -0.5, y: -0.5, z: -0.5)
-    private var maxGrav: SIMD3<Double> =  SIMD3<Double>(x: 5, y: 5, z: 4)
+    private var maxGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.3, y: 0.3, z: 0.7)
+    
+    private var maxGravDiff: SIMD3<Double> =  SIMD3<Double>(x: 0.03, y: 0.02, z: 0.02)
+    
     struct errorMsg{
         var outOfRange = "Out of Range "
         var outOfXRange = "Out of X Range "
@@ -39,17 +42,14 @@ class UnwrapController {
         var tooLowZ = "under min Z value"
     }
     private var errMsg = errorMsg()
-    private var turningAwayFromUser: Bool = true
+    private var shouldTurnAwayFromUser: Bool = true
     private var turningClockwise: Bool = true
     
     
     init(unwrapViewController: UnwrapViewController) {
         self.unwrapViewController = unwrapViewController
     }
-    
     // MARK: - Unwrap Logic
-    
-    
     
     func StartUnwrapX() {
         
@@ -61,43 +61,64 @@ class UnwrapController {
     
     
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
-    func startUnwrapAroundZ() {
+    func startUnwrapAroundZ(){
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
 //            let acc_limit:Double = 5
-            
+//            print("newGravX: \(newMotionData.gravity.x)")
+            self.currentMotionData = newMotionData
+//            print("currentGravX: \(self.currentMotionData.gravity.x)")
+//            print("oldGravX: \(self.oldMotionData.gravity.x)")
+//            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+//            print("currentGravY: \(self.currentMotionData.gravity.y)")
             self.diffMotionData = self.currentMotionData.diff(other: self.oldMotionData)
-            self.currentMotionData = self.oldMotionData
+//            print("DiffGravX: \(self.diffMotionData.gravity.x)")
+
+            self.oldMotionData = self.currentMotionData
             
 //
             print("------------------------------------------------------------")
 //            print("Last: \(self.oldMotionData.ToString())")
-//            print("Diff: \(self.diffMotionData.ToString())")
+//            print("DiffGravX: \(self.diffMotionData.gravity.x)")
             
               // ------------ ------------ z-direction ------------ ------------
-                    // - x to check direction gravity
+                    // - x in gravity to check direction of movement
                     // - z to check rate of change in gravity of x
                     // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
                  
-            
-            if( self.isDeviceTurningAway() && self.turningAwayFromUser){
+            if(self.isDeviceTurningInCorrectDirection()){
                 //check if gravity is out of range in y-direction
+                print("Going in right direction")
                 if (self.currentMotionData.isOutOfYRangeOf(motionType: MotionType.gravity, maxValue: self.maxGrav.y, minValue: self.minGrav.y)){
                     self.decreaseBombStabilityAndColor(pErr: MotionType.gravity.toString + self.errMsg.outOfYRange)
+                    return
                 }
                 //Check if phone is face up (check if gravity less than 0 z-direction)
                 //            if (self.oldMotionData.isUnderMinZValueOf(motionType: MotionType.gravity, minValue: self.minGrav.z)){
                 //                self.decreaseBombStabilityAndColor(pErr: MotionType.acceleration.toString + self.errMsg.tooLowZ)
                 //            }
-                //Check if value has gone over max Accel or rotation rate
-                if(self.isOverMaxAcceleration()) {
-                    self.decreaseBombStabilityAndColor(pErr: MotionType.acceleration.toString + self.errMsg.tooHigh)
-                }
+                ///Check if value has gone over max chaneg in Grav
+//                if(self.isOverMaxChangeInGravityinDirection(pDirection: Direction.z)){
+//                    self.decreaseBombStabilityAndColor(pErr: MotionType.gravity.toString + self.errMsg.tooHigh)
+//                }
+                ///Check if value has gone over max Accel or rotation rate
+//                if(self.isOverMaxAcceleration()) {
+//                    self.decreaseBombStabilityAndColor(pErr: MotionType.acceleration.toString + self.errMsg.tooHigh)
+//                    return
+//                }
                 //            if(self.isOverMaxRotationRate()){
                 //                self.decreaseBombStabilityAndColor(pErr: MotionType.rotation.toString + self.errMsg.tooHigh)
             }
-
+            else{
+                self.decreaseBombStabilityAndColor(pErr: "Going in wrong direction")
+                return
+            }
 //            }
         }
+        return
+    }
+    
+    func isDeviceTurningInCorrectDirection() -> Bool{
+        return (self.isDeviceTurningAway() && self.shouldTurnAwayFromUser)
     }
     
     func stopUnwrapX() {
@@ -105,83 +126,112 @@ class UnwrapController {
         dmManager.currentMotionData.removeObserver(observer)
     }
     
-    func decreaseBombStabilityAndColor(pErr: String) -> Bool{
+    func decreaseBombStabilityAndColor(pErr: String){
         print(pErr + "\n")
         let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
         self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
 //        return result
-        if (result == false) {
-            // bomb exploded, show end screen
-            //Trung what does this mean!
-//            self.gameManager.loserPlayer
-            return false
-        }
-        return true
+
     }
     //Does not care about direction of device only whether Gravity is increasing
     
-    func whichAxes(pDirection: Direction) -> (Double, Double){
+    func whichAxes(pDirection: Direction) -> (Double, Double, Double){
         var current: Double
         var old: Double
+        var diff: Double
+        
         switch pDirection{
         case .x:
             current = self.currentMotionData.gravity.x
             old = self.oldMotionData.gravity.x
+            diff = self.diffMotionData.gravity.x
         case .y:
             current = self.currentMotionData.gravity.y
             old = self.oldMotionData.gravity.y
+            diff = self.diffMotionData.gravity.y
         case .z:
             current = self.currentMotionData.gravity.z
             old = self.oldMotionData.gravity.z
+            diff = self.diffMotionData.gravity.z
+
         case .all:
             current = self.currentMotionData.gravity.x
             old = self.oldMotionData.gravity.x
+            diff = self.diffMotionData.gravity.x
         }
-        return (current, old)
+        print("current: \(current),old: \(old),diff: \(diff) \n")
+        return (current, old, diff)
     }
     func isGravityIncreasingInDirection(pDirection: Direction) -> Bool{
         var current: Double
         var old: Double
+        var diff: Double
+        var diffTotal: Double
+        (current, old, diffTotal) = whichAxes(pDirection: pDirection)
         
-        (current, old) = whichAxes(pDirection: pDirection)
-        
+        diff =  abs(current - old)
+        print("current: \(current),old: \(old),diff: \(diff) \n")
+//        print("diffX: \(diff), maxGravDiffX: \(maxGravDiff.x)")
+//        return (diff > maxGravDiff.x || diff == 0.0)
+//        return (current > old || isWithinRange(val: diff, min: -0.01, max:0.01))
         return current > old
     }
     
-    func isDeviceTurningAway() -> Bool{
-        return isGravityIncreasingInDirection(pDirection: Direction.x)
+    func isWithinRange(val: Double,min: Double,max: Double) ->Bool{
+        return (val < max) && (val > min)
     }
+    
+    
+    func isGravZNeg() -> Bool{
+        return self.currentMotionData.gravity.z < 0.0
+    }
+    func isGravPos() -> Bool{
+        return self.currentMotionData.gravity.z >= 0.0
+    }
+    
+    func isOverMaxChangeInGravityinDirection(pDirection: Direction) -> Bool{
+        var (current, old, diff): (Double, Double, Double)
+        
+        (current, old, diff) = whichAxes(pDirection: pDirection)
+        
+        return diff < self.maxGrav.x
+    }
+    
+    func isDeviceTurningAway() -> Bool{
+        if(isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZNeg()){
+            return true
+        }
+        else if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravPos()){
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    
     func isDeviceTurningClockwise() -> Bool{
         return isGravityIncreasingInDirection(pDirection: Direction.y)
     }
 
-    func increaseBombStabilityAndColor() -> Bool{
-        let result = self.gameManager.bomb?.increaseStability(percentage: 5.0)
+    func increaseBombStabilityAndColor(){
+        self.gameManager.bomb?.increaseStability(percentage: 5.0)
         self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
 //        return result
-        if (result == false) {
-            // bomb exploded, show end screen
-            self.gameManager.loserPlayer = self.gameManager.currentPlayer
-            self.unwrapViewController.controller?.navigateToEndScreen()
-                    return false
-        }
-            
-        return true
     }
-    
     
     func isOutofGravRange() -> Bool{
-        return (self.oldMotionData.gravity.y > 0.5 || self.oldMotionData.gravity.y  < -0.5)
+        return !isWithinRange(val: self.oldMotionData.gravity.y, min: -0.5, max: 0.5)
+//        return (self.oldMotionData.gravity.y > 0.5 || self.oldMotionData.gravity.y  < -0.5)
     }
+    
+
     
     func isOverMaxAcceleration() -> Bool {
         // too much acceleration (shaking)
         if (self.oldMotionData.motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType.acceleration, maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)) {
             return true
         }
-        else {
-            return false
-        }
+        return false
     }
     
     func isOverMaxRotationRate() -> Bool {
@@ -189,11 +239,8 @@ class UnwrapController {
         if (self.oldMotionData.motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType.rotation, maxX: self.maxRotRate.x, maxY: self.maxRotRate.y, maxZ: self.maxRotRate.z)) {
             return true
         }
-        else {
-            return false
-        }
+        return false
     }
-    
     // MARK: - Navigation
     
     func navigateToNextTask() {
