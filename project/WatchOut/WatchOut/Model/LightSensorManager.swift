@@ -19,6 +19,9 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     // value will be 1000.0 for a normal lighten room
     var ambientIntensity: Observable<Double>
     
+    var intensityArray: [Double] = Array(repeating: 0.0, count: 10)
+    var intervalCounter: Int = 0
+    
     private let faceConfig = ARFaceTrackingConfiguration()
     
     private override init() {
@@ -52,7 +55,26 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     }
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        ambientIntensity.value = Double(frame.lightEstimate!.ambientIntensity)
+        
+        // Average over last 15 Light Values
+        intensityArray[intervalCounter] = Double(frame.lightEstimate!.ambientIntensity)
+        if(intervalCounter >= intensityArray.count-1) {
+            intervalCounter = 0
+            
+            var intensitySum: Double = 0.0
+            for intensity in intensityArray {
+                intensitySum += intensity
+            }
+            let averageIntensity = intensitySum/10
+            
+            ambientIntensity.value = averageIntensity
+        }
+        else {
+            intervalCounter += 1
+        }
+        
+        
+        
     }
 }
 

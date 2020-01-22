@@ -63,15 +63,15 @@ class Bomb{
         }
     }
         
-    /// Returns false, if the bomb exlodes after decreasing the stability
+    /// Returns true, if the bomb exlodes after decreasing the stability
     func decreaseStability(percentage: Double) -> Bool{
         self.stabilityCounter -= percentage*stabilityLimit
         
         if (self.stabilityCounter < 0.0) {
-            return false
+            return true
         }
         
-        return true
+        return false
     }
     
     /// If the added percentage is higher than the StabilityLimit, it will only increase to the StabilityLimit
