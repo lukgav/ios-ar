@@ -40,4 +40,8 @@ class DeliverViewController: UIViewController {
         // shows one decimal
         countDownTimeLabel.text = String(Double(round(10*newTime)/10))
     }
+    
+    func updatePlayerNameLabel(name: String) {
+        nextPlayer.text = name
+    }
 }
