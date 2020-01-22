@@ -1,3 +1,23 @@
+### Todos:
+
+Trung:
+- Twitch task
+
+Luke: 
+- Unwrap task
+
+Andi: 
+- Deliver task
+
+Other:
+- End View
+- Player score
+- improve look of UI (Not important)
+
+
+
+
+
 ### Ideas for bomb game:
 
 - game starts

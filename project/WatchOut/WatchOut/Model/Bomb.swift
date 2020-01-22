@@ -24,7 +24,7 @@ class Bomb{
     
     var currentColor: UIColor
     
-    var hasExloded: Bool = false
+    var hasExploded: Bool = false
     
     let timeLimit: Double
     var timer: Timer?
@@ -64,15 +64,14 @@ class Bomb{
     }
     
     /// Returns false, if the bomb exlodes after decreasing the stability
-    func decreaseStability(decreaseAmount: Double) -> Bool{
-        if (self.stabilityCounter - decreaseAmount > 0.0) {
-            self.stabilityCounter -= decreaseAmount
-            return true
-        }
-        else
-        {
+    func decreaseStability(decreaseAmount: Double) -> Bool {
+        self.stabilityCounter -= decreaseAmount
+        
+        if (self.stabilityCounter < 0.0) {
             return false
         }
+        
+        return true
     }
     
     /// Returns false, if the bomb exlodes after decreasing the stability
@@ -89,17 +88,17 @@ class Bomb{
     
     /// Returns false, if the bomb explodes when setting the new percentage (>100%)
     func setStability(percentage: Double) -> Bool {
-        let newStability = percentage/100.0*stabilityLimit
+        let newStability = percentage*stabilityLimit
         self.stabilityCounter = newStability
-        if (newStability > stabilityLimit) {
+        if (self.stabilityCounter < 0.0) {
             return false
         }
-        else {
-            return true
-        }
+        
+        return true
     }
     
-    func increaseStability(increaseAmount: Double)->Bool{
+    ///
+    func increaseStability(increaseAmount: Double) -> Bool{
         // only increase to a maximum of the stabilyLimit
         if(self.stabilityCounter + increaseAmount >= stabilityLimit) {
             self.stabilityCounter = stabilityLimit
@@ -111,21 +110,21 @@ class Bomb{
         }
     }
     
-    func increaseStability(percentage: Double)->Bool{
+    func increaseStability(percentage: Double) -> Bool{
         let increaseAmount = percentage/100.0*stabilityLimit
         return increaseStability(increaseAmount: increaseAmount)
     }
     
     private func stabilityChanged() {
-        // alpha = 0.0 is white, alpha = 1.0 is red
-        let percentage = CGFloat(1.0 - self.stabilityCounter/self.stabilityLimit)
-        
-        if (percentage > 0.0) {
-            self.currentColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: percentage)
+        // alpha = 0.0 should be white, alpha = 1.0 should be red
+        if (self.stabilityCounter < 0.0) {
+            self.hasExploded = true
         }
-        // bomb has exploded
-        else {
-            self.hasExloded = true
+        
+        let alphaPercentage = CGFloat(1.0 - self.stabilityCounter/self.stabilityLimit)
+        
+        if (alphaPercentage >= 0.0 && alphaPercentage <= 1.0) {
+            self.currentColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: alphaPercentage)
         }
     }
 }
