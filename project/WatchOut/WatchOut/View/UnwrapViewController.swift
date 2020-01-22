@@ -20,7 +20,7 @@ class UnwrapViewController: UIViewController {
         
         controller?.startUnwrapAroundZ()
         
-//        curPlayer.text = String(currentP)
+        //curPlayer.text = String(currentP)
     }
     func updateBackgroundColor(color: UIColor) {
         self.view.backgroundColor = color
