@@ -1,9 +1,11 @@
 ### Todos:
 
-Trung
+Trung:
 - Twitch task
-Luke 
+
+Luke: 
 - Unwrap task
+
 Andi: 
 - Deliver task
 
