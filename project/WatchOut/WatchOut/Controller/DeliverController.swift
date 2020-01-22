@@ -26,8 +26,8 @@ class DeliverController {
     private var lastMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
-    private var maxDiffRotRate: Double = 0.05
-    private var maxDiffAcc: Double = 0.5
+    private var maxDiffRotRate: Double = 0.5
+    private var maxDiffAcc: Double = 1.0
     
     private var accSumCounter: Double = 0.0
         
@@ -57,9 +57,9 @@ class DeliverController {
             self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
             self.lastMotionData = newMotionData
             
-            //print("------------------------------------------------------------")
-            //print("Last: \(self.lastMotionData.ToString())")
-            //print("Diff: \(self.diffMotionData.ToString())")
+            print("------------------------------------------------------------")
+            print("Last: \(self.lastMotionData.ToString())")
+            print("Diff: \(self.diffMotionData.ToString())")
             
             // check too much shaking + too shaking
             // only count acceleration if it was not too fast/much
@@ -71,14 +71,12 @@ class DeliverController {
                 self.accSumCounter += diffAccLength
                 
                 // Set bomb stability to percentage depending on counter
-                let percentage = self.accSumCounter/maxAccLimit
+                let percentage = 1.0 - self.accSumCounter/maxAccLimit
                 
-                let result = self.gameManager.bomb!.setStability(percentage: percentage)
+                let bombExploded = !self.gameManager.bomb!.setStability(percentage: percentage)
                 
-                if (result) {
+                if (bombExploded) {
                     // bomb explodes
-                    self.gameManager.loserPlayer = self.gameManager.currentPlayer
-                    
                     self.navigateToEndScreen()
                 }
                 else {
@@ -134,11 +132,11 @@ class DeliverController {
         if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxDiffAcc)) {
             // decrease bomb stability
             let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
+            
             self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
             
             if (result == false) {
                 // bomb exploded
-                self.gameManager.loserPlayer = self.gameManager.currentPlayer
                 self.navigateToEndScreen()
             }
             
@@ -158,9 +156,8 @@ class DeliverController {
             
             if (result == false) {
                 // bomb exploded, show end screen
-                self.gameManager.loserPlayer = self.gameManager.currentPlayer
                 self.navigateToEndScreen()
-                        return false
+                return false
             }
             
             return true

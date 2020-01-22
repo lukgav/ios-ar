@@ -12,7 +12,6 @@ class GameManager{
     
     var bomb: Bomb?
     var currentPlayer: Player?
-    var loserPlayer: Player?
     var players:[Player] = [Player]()
     
     var currentTask: TaskType?
@@ -28,7 +27,6 @@ class GameManager{
             players.append(Player(name: String(playerId), id: playerId, limit: 50.0))
         }
         
-        loserPlayer = nil
         currentPlayer = players.first
         bomb = Bomb(stabilityLimit: 200.0, timeLimit: 120)
         currentTask = firstTask

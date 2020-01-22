@@ -161,7 +161,6 @@ class UnwrapController {
 //        return result
         if (result == false) {
             // bomb exploded, show end screen
-            self.gameManager.loserPlayer = self.gameManager.currentPlayer
             self.unwrapViewController.controller?.navigateToEndScreen()
                     return false
         }
