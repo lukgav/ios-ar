@@ -8,7 +8,8 @@ Luke:
 - Convert value of Gravity(-1.0, 1.0) to degrees(0 - 360) -------------------------------- DONE? X [In DeviceMotionManager.swift]
 
 Andi: 
-- Deliver task -------------------------------- DONE? X [DeliverController.swift]
+- Deliver task -------------------------------- DONE? !FAST! [DeliverController.swift]
+- toggle ambient light sensor to replace the start button (and other touch buttons)
 
 Other:
 - End View
