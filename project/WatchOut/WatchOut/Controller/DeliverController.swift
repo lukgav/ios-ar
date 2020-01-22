@@ -218,31 +218,7 @@ class DeliverController {
     
     func navigateToEndScreen() {
         if (self.endDelivery(stopDeviceMotion: true)) {
-<<<<<<< HEAD
-            deliverViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
-        }
-    }
-    
-//    func navigateToEndScreen() {
-//        let result = dmManager.stopDeviceMotion()
-//        if (result) {
-//            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
-//        }
-//    }
-||||||| merged common ancestors
-            deliverViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
-        }
-    }
-    
-    func navigateToEndScreen() {
-        let result = dmManager.stopDeviceMotion()
-        if (result) {
             deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }
-=======
-            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
-        }
-    }
->>>>>>> 420eb13d03eedd42ffd05b4687f830ea1fb9cbc1
 }

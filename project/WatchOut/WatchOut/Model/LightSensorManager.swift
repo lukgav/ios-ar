@@ -1,5 +1,4 @@
 //
-
 //  LightSensorManager.swift
 //  WatchOut
 //
@@ -31,7 +30,7 @@ class LightSensorManager : NSObject, ARSessionDelegate {
         faceConfig.isLightEstimationEnabled = true
     }
     
-    func startLightSensor() -> Bool {       if (!isRunning && ARFaceTrackingConfiguration.isSupported) {
+    func startLightSensor() -> Bool {
         if (!isRunning && ARFaceTrackingConfiguration.isSupported) {
             session.delegate = self
             session.run(faceConfig)
