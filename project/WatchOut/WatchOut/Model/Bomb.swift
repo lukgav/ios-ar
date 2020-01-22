@@ -59,37 +59,14 @@ class Bomb{
         
         timer = Timer.scheduledTimer(withTimeInterval: timeInterval, repeats: true) { timer in
             // add time to currentTime every 1/50 secs (timeInterval)
-            self.currentTime += 1.0/50.0
+            self.currentTime += self.timeInterval
         }
     }
-    
-    /// Returns false, if the bomb exlodes after decreasing the stability
-    func decreaseStability(decreaseAmount: Double) -> Bool {
-        self.stabilityCounter -= decreaseAmount
         
-        if (self.stabilityCounter < 0.0) {
-            return false
-        }
-        
-        return true
-    }
-    
     /// Returns false, if the bomb exlodes after decreasing the stability
     func decreaseStability(percentage: Double) -> Bool{
-        let decreaseAmount = percentage/100.0*stabilityLimit
-        return decreaseStability(decreaseAmount: decreaseAmount)
-    }
-    
-    // default value for DecreaseStability
-    func decreaseStabilityBySetAmount() -> Bool{
-        let lPercentage : Double = 4
-        return decreaseStability(percentage: lPercentage)
-    }
-    
-    /// Returns false, if the bomb explodes when setting the new percentage (>100%)
-    func setStability(percentage: Double) -> Bool {
-        let newStability = percentage*stabilityLimit
-        self.stabilityCounter = newStability
+        self.stabilityCounter -= percentage*stabilityLimit
+        
         if (self.stabilityCounter < 0.0) {
             return false
         }
@@ -97,34 +74,48 @@ class Bomb{
         return true
     }
     
-    ///
-    func increaseStability(increaseAmount: Double) -> Bool{
+    /// If the added percentage is higher than the StabilityLimit, it will only increase to the StabilityLimit
+    func increaseStability(percentage: Double) {
+        let increaseAmount = percentage*stabilityLimit
+        
         // only increase to a maximum of the stabilyLimit
         if(self.stabilityCounter + increaseAmount >= stabilityLimit) {
             self.stabilityCounter = stabilityLimit
-            return false
         }
         else {
             self.stabilityCounter += increaseAmount
-            return true
         }
     }
     
-    func increaseStability(percentage: Double) -> Bool{
-        let increaseAmount = percentage/100.0*stabilityLimit
-        return increaseStability(increaseAmount: increaseAmount)
+    /// Returns false, if the bomb explodes when setting the new percentage
+    /// percentage should be between 0.0 and 1.0
+    func setStability(percentage: Double) -> Bool {
+        if (percentage > 0.0 && percentage < 1.0) {
+            let newStability = percentage*stabilityLimit
+            self.stabilityCounter = newStability
+            
+            return true
+        }
+        
+        return false
     }
     
+    /// Updates hasExploded and currentColor
     private func stabilityChanged() {
         // alpha = 0.0 should be white, alpha = 1.0 should be red
         if (self.stabilityCounter < 0.0) {
             self.hasExploded = true
         }
         
-        let alphaPercentage = CGFloat(1.0 - self.stabilityCounter/self.stabilityLimit)
-        
-        if (alphaPercentage >= 0.0 && alphaPercentage <= 1.0) {
-            self.currentColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: alphaPercentage)
+        // begins with 0.0, ends with 1.0
+        let progressPercentage = self.stabilityCounter/self.stabilityLimit
+                
+        if (progressPercentage >= 0.0 && progressPercentage <= 1.0) {
+            let newRed = CGFloat(255/255)
+            let newGreen = CGFloat(progressPercentage)
+            let newBlue = CGFloat(progressPercentage)
+            
+            self.currentColor = UIColor(red: newRed, green: newGreen, blue: newBlue, alpha: 1.0)
         }
     }
 }
