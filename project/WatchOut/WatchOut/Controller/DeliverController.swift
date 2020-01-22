@@ -46,10 +46,10 @@ class DeliverController {
     
     func startDelivery(maxAccLimit: Double, countDown: Double) {
         
-        let nextPlayer =  gameManager.getNextPlayer()
+        let nextPlayer =  gameManager.getNextRandomPlayer()
         
         // show next player on view
-        deliverViewController.nextPlayer.text = String(nextPlayer.id!)
+        deliverViewController.nextPlayer.text = String(nextPlayer.id)
         
         // start tracking of motion
         dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
