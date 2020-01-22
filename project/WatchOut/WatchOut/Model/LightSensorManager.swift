@@ -24,15 +24,8 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     private override init() {
         isRunning = false
         ambientIntensity = Observable(value: 0.0)
-        
-<<<<<<< HEAD
-//        session.delegate = self
-        
-||||||| merged common ancestors
-        session.delegate = self
-        
-=======
->>>>>>> 0e69d6c5fdb80f7f91e0cfeb5791f8d82e98854e
+                
+
         // supportedVideoFormats-Array contains videoformats sorted from best first to worst last
         faceConfig.videoFormat = ARFaceTrackingConfiguration.supportedVideoFormats.last!
         faceConfig.isLightEstimationEnabled = true

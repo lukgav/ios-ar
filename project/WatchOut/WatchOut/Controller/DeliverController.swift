@@ -222,10 +222,10 @@ class DeliverController {
         }
     }
     
-    func navigateToEndScreen() {
-        let result = dmManager.stopDeviceMotion()
-        if (result) {
-            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
-        }
-    }
+//    func navigateToEndScreen() {
+//        let result = dmManager.stopDeviceMotion()
+//        if (result) {
+//            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
+//        }
+//    }
 }
