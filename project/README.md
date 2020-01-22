@@ -1,13 +1,13 @@
 ### Todos:
 
 Trung:
-- Twitch task -------------------------------- DONE? X
+- Twitch task -------------------------------- DONE? X [TwitchController.swift]
 
 Luke: 
-- Unwrap task -------------------------------- DONE? X
-- [In DeviceMotionManager]Convert value of Gravity(-1.0, 1.0) to degrees(0 - 360) -------------------------------- DONE? X
+- Unwrap task -------------------------------- DONE? X [UnWrapController.swift]
+- Convert value of Gravity(-1.0, 1.0) to degrees(0 - 360) -------------------------------- DONE? X [In DeviceMotionManager.swift]
 Andi: 
-- Deliver task -------------------------------- DONE? X
+- Deliver task -------------------------------- DONE? X [DeliverController.swift]
 
 Other:
 - End View
