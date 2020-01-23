@@ -249,19 +249,19 @@ class UnwrapController {
     }
 
     func checkBombExplode(){
-        if(self.gameManager.bomb!.decreaseStability(percentage: 0.0)){
+        if(self.gameManager.decreaseStability(percentage: 0.0)){
             self.navigateToEndScreen()
         }
     }
     func decreaseBombStabilityAndColor(pDmg: Double, pErr: String){
         print(pErr + "\n")
-        self.gameManager.bomb?.decreaseStability(percentage: pDmg)
-        self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
+        self.gameManager.decreaseStability(percentage: pDmg)
+        self.unwrapViewController.updateBackgroundColor(color: self.gameManager.currentColor)
     }
     
     func increaseBombStabilityAndColor(){
-        self.gameManager.bomb?.increaseStability(percentage: 5.0)
-        self.unwrapViewController.updateBackgroundColor(color: self.gameManager.bomb!.currentColor)
+        self.gameManager.increaseStability(percentage: 5.0)
+        self.unwrapViewController.updateBackgroundColor(color: self.gameManager.currentColor)
     }
     
     func isOverMaxAcceleration() -> Bool {
