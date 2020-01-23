@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  SoundTesting
+//  GifTest
 //
 //  Created by Guest User on 23/01/2020.
 //  Copyright © 2020 Guest User. All rights reserved.
