@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +20,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71e-79-bRc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1838" y="181"/>
+            <point key="canvasLocation" x="-1501" y="546"/>
         </scene>
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
@@ -196,6 +196,7 @@
                                 <state key="normal" title="Next Task"/>
                                 <connections>
                                     <action selector="NextTaskTouch:" destination="O1c-Kr-D4k" eventType="touchUpInside" id="p2c-pc-5Tn"/>
+                                    <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="CZO-NZ-fyL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPS-E7-u07" userLabel="quitGameButton">
@@ -248,14 +249,13 @@
                     <navigationItem key="navigationItem" id="f6F-Sg-XTP"/>
                     <connections>
                         <outlet property="curPlayer" destination="UGf-Xq-W0F" id="BWW-JR-UOA"/>
-                        <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="HbK-U3-8fW"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="43M-id-rIK"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="Udo-a8-iKt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="smu-JS-lUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="244.92753623188409" y="-234.375"/>
+            <point key="canvasLocation" x="159" y="181"/>
         </scene>
         <!--DeliverTask-->
         <scene sceneID="5Qs-32-QtB">
@@ -265,6 +265,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+<<<<<<< HEAD
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lnk-Xy-xfZ">
                                 <rect key="frame" x="173" y="658" width="68" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -273,59 +274,78 @@
                                     <action selector="NextTaskTouch:" destination="vaX-O0-H9D" eventType="touchUpInside" id="caA-8Q-ab4"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task 2: Deliver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt9-Qf-6xN">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task 3: Deliver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt9-Qf-6xN">
                                 <rect key="frame" x="66" y="39" width="280" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+=======
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task 2: Deliver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt9-Qf-6xN">
+                                <rect key="frame" x="90" y="45" width="234.5" height="42"/>
+>>>>>>> 6a28ca11350d2e23a776200c45038691a099870f
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oz-2n-pQf">
-                                <rect key="frame" x="171" y="723" width="73" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Quit Game"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oz-2n-pQf">
+                                <rect key="frame" x="158" y="720" width="98" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Quit Game">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
                                 <connections>
                                     <action selector="QuitGameTouch:" destination="vaX-O0-H9D" eventType="touchUpInside" id="XOW-Hn-gq1"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="bombDeliver" translatesAutoresizingMaskIntoConstraints="NO" id="kt8-FJ-oTH">
-                                <rect key="frame" x="66" y="132" width="283" height="163"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bombDeliver" translatesAutoresizingMaskIntoConstraints="NO" id="kt8-FJ-oTH">
+                                <rect key="frame" x="48" y="257" width="318" height="159"/>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next player:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DD9-Cs-kod">
-                                <rect key="frame" x="30" y="514" width="137" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TV0-xP-V4B">
-                                <rect key="frame" x="172" y="514" width="222" height="30"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Countdown:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4l-7M-js0">
-                                <rect key="frame" x="30" y="564" width="134" height="29"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cal-Lr-YHo">
-                                <rect key="frame" x="171" y="564" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khb-mU-agC">
+                                <rect key="frame" x="109.5" y="177" width="195" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Countdown: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4l-7M-js0">
+                                        <rect key="frame" x="0.0" y="0.0" width="145" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cal-Lr-YHo">
+                                        <rect key="frame" x="145" y="0.0" width="50" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Inz-Bi-gnu">
+                                <rect key="frame" x="104.5" y="127" width="205.5" height="30"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Next player: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DD9-Cs-kod">
+                                        <rect key="frame" x="0.0" y="0.0" width="142" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TV0-xP-V4B">
+                                        <rect key="frame" x="142" y="0.0" width="63.5" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="XDV-sF-NPh" firstAttribute="bottom" secondItem="TV0-xP-V4B" secondAttribute="bottom" constant="264" id="5wZ-ux-lDE"/>
-                            <constraint firstItem="TV0-xP-V4B" firstAttribute="leading" secondItem="DD9-Cs-kod" secondAttribute="trailing" constant="5" id="PUJ-l7-2EJ"/>
-                            <constraint firstItem="XDV-sF-NPh" firstAttribute="bottom" secondItem="DD9-Cs-kod" secondAttribute="bottom" constant="264" id="aTh-Vf-dPo"/>
-                            <constraint firstItem="DD9-Cs-kod" firstAttribute="leading" secondItem="XDV-sF-NPh" secondAttribute="leading" constant="30" id="bJ0-65-Ezi"/>
+                            <constraint firstItem="Tt9-Qf-6xN" firstAttribute="top" secondItem="XDV-sF-NPh" secondAttribute="top" constant="45" id="82c-Ti-uRn"/>
+                            <constraint firstItem="Tt9-Qf-6xN" firstAttribute="centerX" secondItem="CTP-kM-czZ" secondAttribute="centerX" id="8dU-5G-KLe"/>
+                            <constraint firstItem="kt8-FJ-oTH" firstAttribute="centerX" secondItem="CTP-kM-czZ" secondAttribute="centerX" id="BNu-5C-30v"/>
+                            <constraint firstItem="Inz-Bi-gnu" firstAttribute="centerX" secondItem="CTP-kM-czZ" secondAttribute="centerX" id="CbA-ZU-JpU"/>
+                            <constraint firstItem="9oz-2n-pQf" firstAttribute="centerX" secondItem="CTP-kM-czZ" secondAttribute="centerX" id="EFq-dG-mBT"/>
+                            <constraint firstItem="Inz-Bi-gnu" firstAttribute="top" secondItem="Tt9-Qf-6xN" secondAttribute="bottom" constant="40" id="RE6-LY-6xL"/>
+                            <constraint firstItem="khb-mU-agC" firstAttribute="top" secondItem="Inz-Bi-gnu" secondAttribute="bottom" constant="20" id="gbh-ZI-nUa"/>
+                            <constraint firstItem="kt8-FJ-oTH" firstAttribute="top" secondItem="khb-mU-agC" secondAttribute="bottom" constant="50" id="hxN-ho-sEk"/>
+                            <constraint firstItem="XDV-sF-NPh" firstAttribute="bottom" secondItem="9oz-2n-pQf" secondAttribute="bottom" constant="50" id="iRx-LU-0wF"/>
+                            <constraint firstItem="khb-mU-agC" firstAttribute="centerX" secondItem="CTP-kM-czZ" secondAttribute="centerX" id="igT-hX-HQ6"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XDV-sF-NPh"/>
                     </view>
@@ -340,7 +360,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoq-yO-tDI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="244.92753623188409" y="497.54464285714283"/>
+            <point key="canvasLocation" x="1139" y="954"/>
         </scene>
         <!--End Screen View Controller-->
         <scene sceneID="2JX-xy-FWW">
@@ -356,6 +376,7 @@
                                 <state key="normal" title="Back to Home"/>
                                 <connections>
                                     <action selector="BackToHomeButtonTouch:" destination="IlJ-Ea-qaH" eventType="touchUpInside" id="hEQ-cR-8Yo"/>
+                                    <action selector="BackToHomeTouch:" destination="vRs-xq-NPh" eventType="touchUpInside" id="Mvv-3r-UCS"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bomb Exploded Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOT-xC-e5e">
@@ -397,13 +418,84 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CSk-1H-nIl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="IlJ-Ea-qaH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1344.9275362318842" y="-45.535714285714285"/>
+            <point key="canvasLocation" x="1106" y="181"/>
+        </scene>
+        <!--TwitchTask-->
+        <scene sceneID="Yns-zF-eXq">
+            <objects>
+                <viewController id="Ds5-lk-ZLf" userLabel="TwitchTask" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Dwt-go-riC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task 2: Twitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PmQ-ns-gZ5">
+                                <rect key="frame" x="92" y="83" width="230" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current player:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="flW-RC-PQm">
+                                <rect key="frame" x="44" y="657" width="176" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V4q-MJ-tsQ">
+                                <rect key="frame" x="228" y="657" width="65" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDk-3z-Kt5">
+                                <rect key="frame" x="173" y="711" width="68" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Next Task"/>
+                                <connections>
+                                    <action selector="nextTaskTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="NeA-sf-N66"/>
+                                    <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="npw-QY-IAp"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRR-1B-coW">
+                                <rect key="frame" x="171" y="779" width="73" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Quit Game"/>
+                                <connections>
+                                    <action selector="QuitGameTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="hSm-Yk-Ez0"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="3Cm-aI-KuT"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="down-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8I9-yZ-K2L">
+                                <rect key="frame" x="87" y="311" width="240" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4WF-5W-FlB">
+                                <rect key="frame" x="132" y="606" width="151" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="StartMovingTheArrow"/>
+                                <connections>
+                                    <action selector="startMovingTheArrow:" destination="uFe-f1-P6b" eventType="touchUpInside" id="bvq-d7-0Oa"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="g9z-64-6dT"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="4YR-H6-TcB"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VYA-9k-GKB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="uFe-f1-P6b" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="72" y="954"/>
         </scene>
     </scenes>
     <resources>
         <image name="Start Button" width="256" height="256"/>
         <image name="StartScreen Background" width="1280" height="720"/>
         <image name="bombDeliver" width="318" height="159"/>
+        <image name="down-arrow" width="654" height="980"/>
         <image name="exit" width="225" height="225"/>
         <image name="name3" width="892" height="432"/>
         <image name="questionmark.circle" catalog="system" width="64" height="60"/>
@@ -411,8 +503,12 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="fyu-OB-oIg"/>
-        <segue reference="1xX-WW-OFJ"/>
+        <segue reference="npw-QY-IAp"/>
         <segue reference="NUh-b3-TSL"/>
-        <segue reference="zld-ML-x4X"/>
+<<<<<<< HEAD
+        <segue reference="3Cm-aI-KuT"/>
+=======
+        <segue reference="dSj-e4-Dky"/>
+>>>>>>> 6a28ca11350d2e23a776200c45038691a099870f
     </inferredMetricsTieBreakers>
 </document>

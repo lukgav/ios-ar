@@ -52,9 +52,11 @@ class DeliverController {
         
         let nextPlayer =  gameManager.getNextRandomPlayer()
         
-        // show next player on view
-        deliverViewController.nextPlayer.text = String(nextPlayer.id)
-                
+        // initialize UI
+        deliverViewController.updatePlayerNameLabel(name: nextPlayer.name)
+        deliverViewController.updateTimerLabel(newTime: countDownDuration)
+        deliverViewController.updateBackgroundColor(newColor: gameManager.bomb!.currentColor)
+        
         // start tracking of motion
         dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
             
@@ -257,7 +259,7 @@ class DeliverController {
     func navigateToEndScreen() {
         print("END")
         if (self.endDelivery(stopDeviceMotion: true)) {
-        //    deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
+            deliverViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }
 }

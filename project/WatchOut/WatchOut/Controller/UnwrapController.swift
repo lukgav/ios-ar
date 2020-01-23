@@ -252,7 +252,7 @@ class UnwrapController {
     func navigateToNextTask() {
         //var nextTaskType = gameManager.switchToNextTask()
 
-        unwrapViewController.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
+        unwrapViewController.performSegue(withIdentifier: Constants.TwitchSegue, sender: self)
     }
 
     func navigateToHome() {
