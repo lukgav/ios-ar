@@ -5,7 +5,6 @@
 //  Created by Guest User on 22/01/2020.
 //  Copyright © 2020 iOS1920. All rights reserved.
 //
-
 import simd
 import CoreMotion
 
@@ -24,283 +23,151 @@ class TwitchController {
     private var maxDiffRotRate: Double = 0.05
     private var maxDiffAcc: Double = 0.5
     
-    private var accSumCounter: Double = 0.0
-    
-    var myArrows: [String] = ["left-arrow", "right-arrow", "up-arrow", "down-arrow"]
-    
-    init(twitchViewController: TwitchViewController) {
-        self.twitchViewController = twitchViewController
-    }
-    
-    func startTwitchToLeft(maxMovingSpeed: Double) {
-        dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
-            
-            self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
-            self.lastMotionData = newMotionData
-            
-            // copy the moving of arrow but dont move too fast and so shaking
-            if(!self.aboveMaxAcceleration() && !self.aboveMaxRotationRate()) {
-                
-                // check if the phone move to the left
-        
-                let diffAccLength = self.diffMotionData.acceleration.x
-                //if (diffAccLength > 0)
-                self.accSumCounter += diffAccLength
-                    
-                    // Set bomb stability to percentage depending on counter
-                    let percentage = self.accSumCounter/maxMovingSpeed
-                    
-                    let result = self.gameManager.bomb?.setStability(percentage: percentage)
-                    
-                    if (result!) {
-                        //bomb explodes
-                        self.navigateToEndScreen()
-                    } else {
-                        self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
-                    }
-                }
-            
-            
-        }
-        
-    }
-    
-    private func endTwtich(stopDeviceMotion: Bool) -> Bool {
-        dmManager.currentMotionData.removeObserver(motionDataObserver)
-        
-        if(stopDeviceMotion) {
-            let dmResult = dmManager.stopDeviceMotion()
-            return dmResult
-        }
-        return false
-    }
-    
-    /// Returns false and handles navigation, if bomb exploded because of too fast acceleration. Also takes care of bomb stability.
-    private func aboveMaxAcceleration() -> Bool {
-        if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxDiffAcc)) {
-            // decrease bomb stability
-            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
-            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
-            
-            if (result == false) {
-                // bomb exploded
-                self.navigateToEndScreen()
-            }
-            
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
-    /// Returns false and handles navigation, if bomb exploded because of too much rotation. Also takes care of bomb stability.
-    private func aboveMaxRotationRate() -> Bool {
-        if (self.lastMotionData.rotationContainsHigherAbsoluteValue(than: self.maxDiffRotRate)) {
-            // decrease bomb stability
-            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
-            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
-            
-            if (result == false) {
-                // bomb exploded, show end screen
-                self.navigateToEndScreen()
-                        return false
-            }
-            
-            return true
-        }
-        else {
-            return false
-        }
-    
-    }
-    // MARK: - Navigation
-    
-    func navigateToNextTask() {
-        //var nextTaskType = gameManager.switchToNextTask()
-        
-        if (self.endTwtich(stopDeviceMotion: false)) {
-            twitchViewController.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
-        }
-    }
-
-<<<<<<< HEAD
-    func navigateToHome() {
-        if (self.endTwtich(stopDeviceMotion: true)) {
-            twitchViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
-        }
-    }
-
-    func navigateToEndScreen() {
-        if (self.endTwtich(stopDeviceMotion: true)) {
-            twitchViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
-        }
-    }
-    
-}
-=======
-
-import simd
-import CoreMotion
-
-class TwitchController {
-    
-     Manager & Controller
-    private let twitchViewController: TwitchViewController
-    
-    private let dmManager = DeviceMotionManager.shared
-    private let motionDataObserver = MotionDataObserver()
-    private let gameManager = GameManager.shared
-    
-    private var lastMotionData: MotionData = MotionData()
-    private var diffMotionData: MotionData = MotionData()
-    
-    private var maxDiffRotRate: Double = 0.05
-    private var maxDiffAcc: Double = 0.5
-    
     private var accSumCounterX: Double = 0.0
     private var accSumCounterZ: Double = 0.0
     private var accSumCounterY: Double = 0.0
     
-    var myArrows: [String] = ["left-arrow", "right-arrow", "up-arrow", "down-arrow"]
+    let twitchDirections: [TwitchDirection] = [.Up]
+    
+    var currentTwitchDirection : TwitchDirection
+    var currentDirectionDone: Bool = false
+    
+    var twitchDoneCounter: Int = 0
+    
+    var accArray: [SIMD3<Double>] = Array(repeating: SIMD3<Double>(0.0,0.0,0.0), count: 20)
+    var intervalCounter: Int = 0
+    
+    var maxPosSpeed: Double = 0.0
+    var maxNegSpeed: Double = 0.0
+    var minDirectionSpeed: Double = 0.0
     
     init(twitchViewController: TwitchViewController) {
         self.twitchViewController = twitchViewController
+        
+        currentTwitchDirection = twitchDirections.randomElement()!
     }
-    
-    func twitchUp(maxMovingSpeed: Double) {
+      
+    func startTwitch(maxMovingSpeed: Double, amount: Int) {
+        
+        maxPosSpeed = maxMovingSpeed
+        maxNegSpeed = maxMovingSpeed * -1.0
+        minDirectionSpeed = maxMovingSpeed * 0.1
+        
+        // initialize ui updates
+        twitchViewController.updateArrowImage(direction: currentTwitchDirection)
+        
         dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
             
             self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
             self.lastMotionData = newMotionData
             
-            print("----------------hihi------------")
-            
-             copy the moving of arrow but dont move too fast and so shaking
-            if(!self.aboveMaxAcceleration() && !self.aboveMaxRotationRate()) {
+            self.accArray[self.intervalCounter] = self.diffMotionData.acceleration
+            if(self.intervalCounter >= self.accArray.count-1) {
+                self.intervalCounter = 0
                 
-                 check if the phone move to the left
-        
-            let diffAccY = self.lastMotionData.acceleration.y
-            let diffAccX = self.lastMotionData.acceleration.x
-            let diffAccZ = self.lastMotionData.acceleration.z
-            
-            print("diffaccY:" + String(diffAccY))
-            print("diffaccX:" + String(diffAccX))
-            print("diffaccZ:" + String(diffAccZ))
-            if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY > 0.1) {
-                let result = self.gameManager.decreaseStability(percentage: 50.0)
-                print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result) {
-                    self.navigateToEndScreen()
-                } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
+                var accSum: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
+                for acc in self.accArray {
+                    accSum += acc
                 }
+                let averageAcc = accSum
+                
+                let lastAccX = averageAcc.x
+                let lastAccY = averageAcc.y
+                let lastAccZ = averageAcc.z
+                
+                print("-----------------------------------")
+                print("averageAccX:" + String(lastAccX))
+                print("averageAccY:" + String(lastAccY))
+                print("averageAccZ:" + String(lastAccZ))
+                
+                if(!self.currentDirectionDone) {
+                    
+                    var bombExploded = false
+                    var userDidCorrectDirection = false
+                    
+                    switch(self.currentTwitchDirection) {
+                        case .Up:
+                            userDidCorrectDirection = self.isUpDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                                                    
+                        case .Right:
+                            userDidCorrectDirection = self.isRightDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                        
+                        case .Down:
+                            userDidCorrectDirection = self.isDownDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                        
+                        case .Left:
+                            userDidCorrectDirection = self.isLeftDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                    }
+                    
+                    // User did correct direction
+//                    if (userDidCorrectDirection) {
+//                        self.currentDirectionDone = true
+//                    }
+//                    // User did wrong direction
+//                    else {
+//                        bombExploded = self.gameManager.decreaseStability(percentage: 0.25)
+//
+//                        if (bombExploded) {
+//                            // Bomb exploded
+//                            self.navigateToEndScreen()
+//                        } else {
+//                            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
+//                        }
+//                    }
+                }
+                // TwitchDirectionDone = true
+//                else {
+//                    if (self.twitchDoneCounter > amount) {
+//                        // Next Task
+//                        self.navigateToNextTask()
+//                    }
+//                    else {
+//                        // Next Twitch
+//                        self.currentDirectionDone = false
+//                        self.twitchDoneCounter += 1
+//                        self.currentTwitchDirection = self.twitchDirections.randomElement()!
+//                        // Update UI
+//                        self.twitchViewController.updateArrowImage(direction: self.currentTwitchDirection)
+//                    }
+//                }
+            }
+            else {
+                self.intervalCounter += 1
             }
         }
-        
     }
     
-    func twitchDown(maxMovingSpeed: Double) {
-        dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
-            
-            self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
-            self.lastMotionData = newMotionData
-            
-            print("----------------hihi------------")
-            
-             copy the moving of arrow but dont move too fast and so shaking
-            if(!self.aboveMaxAcceleration() && !self.aboveMaxRotationRate()) {
-                
-                 check if the phone move to the left
-        
-            let diffAccY = self.lastMotionData.acceleration.y
-            let diffAccX = self.lastMotionData.acceleration.x
-            let diffAccZ = self.lastMotionData.acceleration.z
-            
-            print("diffaccY:" + String(diffAccY))
-            print("diffaccX:" + String(diffAccX))
-            print("diffaccZ:" + String(diffAccZ))
-            if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY < 0.1) {
-                let result = self.gameManager.decreaseStability(percentage: 50.0)
-                print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result) {
-                    self.navigateToEndScreen()
-                } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
-                }
-            }
+    private func isUpDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX > maxNegSpeed && accX < maxPosSpeed && accY > minDirectionSpeed && accZ > maxNegSpeed && accZ < maxPosSpeed) {
+            print("DIRECTION UP CORRECT")
+            return true
         }
-        
+        print("DIRECTION UP WRONG")
+        return false
     }
     
-    func twitchLeft(maxMovingSpeed: Double) {
-        dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
-            
-            self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
-            self.lastMotionData = newMotionData
-            
-            print("----------------hihi------------")
-            
-             copy the moving of arrow but dont move too fast and so shaking
-            if(!self.aboveMaxAcceleration() && !self.aboveMaxRotationRate()) {
-                
-                 check if the phone move to the left
-        
-            let diffAccY = self.lastMotionData.acceleration.y
-            let diffAccX = self.lastMotionData.acceleration.x
-            let diffAccZ = self.lastMotionData.acceleration.z
-            
-            print("diffaccY:" + String(diffAccY))
-            print("diffaccX:" + String(diffAccX))
-            print("diffaccZ:" + String(diffAccZ))
-            if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY > 0.1) {
-                let result = self.gameManager.decreaseStability(percentage: 50.0)
-                print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result) {
-                    self.navigateToEndScreen()
-                } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
-                }
-            }
+    private func isRightDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX > 0.1 || accY > 0.1 || accZ > 0.1) {
+            return true
         }
-        
+        return false
     }
     
-    func twitchRight(maxMovingSpeed: Double) {
-        dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
-            
-            self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
-            self.lastMotionData = newMotionData
-            
-            print("----------------hihi------------")
-            
-             copy the moving of arrow but dont move too fast and so shaking
-            if(!self.aboveMaxAcceleration() && !self.aboveMaxRotationRate()) {
-                
-                 check if the phone move to the left
-        
-            let diffAccY = self.lastMotionData.acceleration.y
-            let diffAccX = self.lastMotionData.acceleration.x
-            let diffAccZ = self.lastMotionData.acceleration.z
-            
-            print("diffaccY:" + String(diffAccY))
-            print("diffaccX:" + String(diffAccX))
-            print("diffaccZ:" + String(diffAccZ))
-            if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY > 0.1) {
-                let result = self.gameManager.decreaseStability(percentage: 50.0)
-                print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result) {
-                    self.navigateToEndScreen()
-                } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
-                }
-            }
+    private func isDownDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX > 0.1 || accY > 0.1 || accZ > 0.1) {
+            return true
         }
-        
+        return false
     }
     
-    private func endTwtich(stopDeviceMotion: Bool) -> Bool {
+    private func isLeftDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX > 0.1 || accY > 0.1 || accZ > 0.1) {
+            return true
+        }
+        return false
+    }
+    
+    private func endTwitch(stopDeviceMotion: Bool) -> Bool {
         dmManager.currentMotionData.removeObserver(motionDataObserver)
         
         if(stopDeviceMotion) {
@@ -310,66 +177,23 @@ class TwitchController {
         return false
     }
     
-    / Returns false and handles navigation, if bomb exploded because of too fast acceleration. Also takes care of bomb stability.
-    private func aboveMaxAcceleration() -> Bool {
-        if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxDiffAcc)) {
-             decrease bomb stability
-            let result = self.gameManager.decreaseStability(percentage: 5.0)
-            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
-            
-            if (result == false) {
-                 bomb exploded
-                self.navigateToEndScreen()
-            }
-            
-            return true
-        }
-        else {
-            return false
-        }
-    }
-    
-    / Returns false and handles navigation, if bomb exploded because of too much rotation. Also takes care of bomb stability.
-    private func aboveMaxRotationRate() -> Bool {
-        if (self.lastMotionData.rotationContainsHigherAbsoluteValue(than: self.maxDiffRotRate)) {
-             decrease bomb stability
-            let result = self.gameManager.decreaseStability(percentage: 5.0)
-            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
-            
-            if (result == false) {
-                 bomb exploded, show end screen
-                self.navigateToEndScreen()
-                        return false
-            }
-            
-            return true
-        }
-        else {
-            return false
-        }
-    
-    }
-     MARK: - Navigation
+    // MARK: - Navigation
     
     func navigateToNextTask() {
-        var nextTaskType = gameManager.switchToNextTask()
-        
-        if (self.endTwtich(stopDeviceMotion: false)) {
+        if (self.endTwitch(stopDeviceMotion: false)) {
             twitchViewController.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
         }
     }
 
     func navigateToHome() {
-        if (self.endTwtich(stopDeviceMotion: true)) {
+        if (self.endTwitch(stopDeviceMotion: true)) {
             twitchViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
         }
     }
 
     func navigateToEndScreen() {
-        if (self.endTwtich(stopDeviceMotion: true)) {
+        if (self.endTwitch(stopDeviceMotion: true)) {
             twitchViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }
-    
 }
->>>>>>> d5654fd64ba5fb5defe110f002d1fbf6547269f8

@@ -34,5 +34,69 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1EC4676B-2883-4A12-B71B-EB9B565B7D96"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WatchOut/Controller/TwitchController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "141"
+            endingLineNumber = "141"
+            landmarkName = "isUpDirection(accX:accY:accZ:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2800C7AE-763C-44E8-9DF3-551CF5AADACB"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "WatchOut/Controller/TwitchController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "startTwitch(maxMovingSpeed:amount:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2800C7AE-763C-44E8-9DF3-551CF5AADACB - ccba81b79316552e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (WatchOut.MotionData) -&gt; () in WatchOut.TwitchController.startTwitch(maxMovingSpeed: Swift.Double, amount: Swift.Int) -&gt; ()"
+                  moduleName = "WatchOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ios1920/Desktop/ios-ar/project/WatchOut/WatchOut/Controller/TwitchController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "1136">
+               </Location>
+               <Location
+                  uuid = "2800C7AE-763C-44E8-9DF3-551CF5AADACB - ccba81b79316552e"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (WatchOut.MotionData) -&gt; () in WatchOut.TwitchController.startTwitch(maxMovingSpeed: Swift.Double, amount: Swift.Int) -&gt; ()"
+                  moduleName = "WatchOut"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/ios1920/Desktop/ios-ar/project/WatchOut/WatchOut/Controller/TwitchController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "3488">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

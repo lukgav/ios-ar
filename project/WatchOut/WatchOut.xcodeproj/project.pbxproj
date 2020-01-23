@@ -15,6 +15,7 @@
 		5373786023D5E4EE00C18EAF /* LightSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373785F23D5E4EE00C18EAF /* LightSensorManager.swift */; };
 		5373786223D5EB6C00C18EAF /* EndScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373786123D5EB6C00C18EAF /* EndScreenViewController.swift */; };
 		5373786423D5EB8700C18EAF /* EndScreenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373786323D5EB8700C18EAF /* EndScreenController.swift */; };
+		537B05F223DA0EE400FD8E29 /* TwitchDirection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537B05F123DA0EE400FD8E29 /* TwitchDirection.swift */; };
 		53843C4623CF53E300A61D98 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53843C4523CF53E300A61D98 /* Observable.swift */; };
 		53ED0EDF23C6172E0040AD3E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */; };
 		53ED0EE123C6172E0040AD3E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53ED0EE023C6172E0040AD3E /* SceneDelegate.swift */; };
@@ -52,6 +53,7 @@
 		5373785F23D5E4EE00C18EAF /* LightSensorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightSensorManager.swift; sourceTree = "<group>"; };
 		5373786123D5EB6C00C18EAF /* EndScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreenViewController.swift; sourceTree = "<group>"; };
 		5373786323D5EB8700C18EAF /* EndScreenController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndScreenController.swift; sourceTree = "<group>"; };
+		537B05F123DA0EE400FD8E29 /* TwitchDirection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwitchDirection.swift; sourceTree = "<group>"; };
 		53843C4523CF53E300A61D98 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		53ED0EDB23C6172E0040AD3E /* WatchOut.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WatchOut.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		53ED0EDE23C6172E0040AD3E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				ACC4381523D0A1780088E558 /* TaskType.swift */,
 				A3981C2A23D1EEE100B43D70 /* MotionType.swift */,
 				A3981C2C23D1F62B00B43D70 /* DirectionType.swift */,
+				537B05F123DA0EE400FD8E29 /* TwitchDirection.swift */,
 			);
 			path = Enumerations;
 			sourceTree = "<group>";
@@ -292,6 +295,7 @@
 				ACA386D323CCCA1800CD724E /* Player.swift in Sources */,
 				ACA386D023CCC93C00CD724E /* DeliverViewController.swift in Sources */,
 				AC810E3323CE1D7600258A88 /* DeviceMotionManager.swift in Sources */,
+				537B05F223DA0EE400FD8E29 /* TwitchDirection.swift in Sources */,
 				5373786423D5EB8700C18EAF /* EndScreenController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
