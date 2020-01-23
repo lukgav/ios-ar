@@ -55,7 +55,7 @@ class DeliverController {
         // initialize UI
         deliverViewController.updatePlayerNameLabel(name: nextPlayer.name)
         deliverViewController.updateTimerLabel(newTime: countDownDuration)
-        deliverViewController.updateBackgroundColor(newColor: gameManager.bomb!.currentColor)
+        deliverViewController.updateBackgroundColor(newColor: gameManager.currentColor)
         
         // start tracking of motion
         dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
@@ -80,7 +80,7 @@ class DeliverController {
             }
             
             // Bomb is alive, update the color
-            self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+            self.deliverViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
         }
         
         // start tracking of light
@@ -147,7 +147,7 @@ class DeliverController {
         if(diffAccLength >= self.maxDiffAcc) {
             print("Acceleration BIG Error")
             
-            let result = self.gameManager.bomb!.decreaseStability(percentage: 0.1)
+            let result = self.gameManager.decreaseStability(percentage: 0.1)
             return result
         }
             
@@ -158,7 +158,7 @@ class DeliverController {
             // calculate percentage depending on how big the error is
             // e.g. fixed 1% * relative error between min and max (also %)
             let percentage = (diffAccLength - self.minDiffAcc)/(self.maxDiffAcc - self.minDiffAcc)*0.1
-            let result = self.gameManager.bomb!.decreaseStability(percentage: percentage)
+            let result = self.gameManager.decreaseStability(percentage: percentage)
             
             return result
         }
@@ -181,7 +181,7 @@ class DeliverController {
         if(diffRotRateLength >= self.maxDiffRotRate) {
             print("Rotation BIG Error")
             
-            let result = self.gameManager.bomb!.decreaseStability(percentage: 0.05)
+            let result = self.gameManager.decreaseStability(percentage: 0.05)
             return result
         }
             
@@ -192,7 +192,7 @@ class DeliverController {
             // calculate percentage depending on how big the error is
             // e.g. fixed 1% * relative error between min and max (also %)
             let percentage = (diffRotRateLength - self.minDiffRotRate)/(self.maxDiffRotRate - self.minDiffRotRate)*0.05
-            let result = self.gameManager.bomb!.decreaseStability(percentage: percentage)
+            let result = self.gameManager.decreaseStability(percentage: percentage)
             
             return result
         }
