@@ -29,7 +29,7 @@ class GameManager{
     }
     
     /// Starts a new game
-    func startNewGame(playerCount: Int, firstTask: TaskType = .Unwrap, difficulty: Difficulty = .Medium) {
+    func startNewGame(playerCount: Int, firstTask: TaskType = .Twitch, difficulty: Difficulty = .Medium) {
         
         for playerId in 1...playerCount {
             players.append(Player(name: String(playerId), id: playerId, limit: 50.0))
@@ -72,6 +72,8 @@ class GameManager{
                 currentTask = TaskType.Deliver
             case .Deliver:
                 currentTask = .Unwrap
+            case .Twitch:
+                currentTask = .Twitch
         }
         return currentTask!
     }
@@ -92,6 +94,7 @@ class GameManager{
         }
     }
     
+
     /// Starts the bomb timer
     func startBombTimer() {
         // only start a new timer if none exists
@@ -173,4 +176,5 @@ class GameManager{
             soundManager.playTickSound(newUpdateInterval: 3*progressPercentage)
         }
     }
+
 }

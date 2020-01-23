@@ -27,13 +27,15 @@ class HomeController {
     func navigateToFirstTask() {
         gameManager.startNewGame(playerCount: playerCount)
         let result = dmManager.startDeviceMotion()
-        
+
         if (result) {
             switch(gameManager.currentTask) {
                 case .Unwrap:
                     homeViewController.performSegue(withIdentifier: Constants.UnwrapSegue, sender: self)
                 case .Deliver:
                     homeViewController.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
+                case .Twitch:
+                    homeViewController.performSegue(withIdentifier: Constants.TwitchSegue, sender: self)
                 case .none:
                     return
             }

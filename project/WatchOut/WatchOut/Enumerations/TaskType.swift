@@ -8,4 +8,5 @@
 enum TaskType {
     case Unwrap
     case Deliver
+    case Twitch
 }
