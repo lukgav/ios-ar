@@ -265,7 +265,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-<<<<<<< HEAD
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lnk-Xy-xfZ">
                                 <rect key="frame" x="173" y="658" width="68" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -277,10 +276,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task 3: Deliver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt9-Qf-6xN">
                                 <rect key="frame" x="66" y="39" width="280" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-=======
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Task 2: Deliver" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tt9-Qf-6xN">
-                                <rect key="frame" x="90" y="45" width="234.5" height="42"/>
->>>>>>> 6a28ca11350d2e23a776200c45038691a099870f
+
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -505,10 +501,7 @@
         <segue reference="fyu-OB-oIg"/>
         <segue reference="npw-QY-IAp"/>
         <segue reference="NUh-b3-TSL"/>
-<<<<<<< HEAD
         <segue reference="3Cm-aI-KuT"/>
-=======
-        <segue reference="dSj-e4-Dky"/>
->>>>>>> 6a28ca11350d2e23a776200c45038691a099870f
+
     </inferredMetricsTieBreakers>
 </document>
