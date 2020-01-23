@@ -32,8 +32,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "253"
             endingLineNumber = "253"
-            landmarkName = "UnwrapController"
-            landmarkType = "3">
+            landmarkName = "navigateToNextTask()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -48,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "158"
             endingLineNumber = "158"
-            landmarkName = "whichAxes(pDirection:)"
+            landmarkName = "isGravityIncreasingInDirection(pDirection:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

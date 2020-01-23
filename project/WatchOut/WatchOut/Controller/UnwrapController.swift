@@ -102,7 +102,7 @@ class UnwrapController {
     }
     
     func isDeviceTurningInCorrectDirection() -> Bool{
-        return (self.isDeviceTurningAwayFromUser()) //&& self.shouldTurnAwayFromUser)
+        return (self.isDeviceTurningAwayFromUserTest()) //&& self.shouldTurnAwayFromUser)
     }
     
     func stopUnwrapX() {
@@ -175,8 +175,8 @@ class UnwrapController {
     func isGravZNeg() -> Bool{
         return self.currentMotionData.gravity.z < 0.0
     }
-    func isGravPos() -> Bool{
-        return self.currentMotionData.gravity.z >= 0.0
+    func isGravZPos() -> Bool{
+        return self.currentMotionData.gravity.z > 0.0
     }
     
     func isOverMaxChangeInGravityinDirection(pDirection: Direction) -> Bool{
@@ -192,7 +192,7 @@ class UnwrapController {
             print("Grav is INCREASING")
             return true
         }
-        else if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravPos()){
+        else if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZPos()){
             print("Grav is DECREASING")
             return true
         }

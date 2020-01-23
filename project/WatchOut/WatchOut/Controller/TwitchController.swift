@@ -54,7 +54,6 @@ class TwitchController {
                     
                     if (result!) {
                         //bomb explodes
-                        self.gameManager.loserPlayer = self.gameManager.currentPlayer
                         self.navigateToEndScreen()
                     } else {
                         self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
@@ -85,7 +84,6 @@ class TwitchController {
             
             if (result == false) {
                 // bomb exploded
-                self.gameManager.loserPlayer = self.gameManager.currentPlayer
                 self.navigateToEndScreen()
             }
             
@@ -105,7 +103,6 @@ class TwitchController {
             
             if (result == false) {
                 // bomb exploded, show end screen
-                self.gameManager.loserPlayer = self.gameManager.currentPlayer
                 self.navigateToEndScreen()
                         return false
             }
