@@ -55,12 +55,12 @@ class TwitchController {
             print("diffaccX:" + String(diffAccX))
             print("diffaccZ:" + String(diffAccZ))
             if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY > 0.1) {
-                let result = self.gameManager.bomb?.decreaseStability(percentage: 50.0)
+                let result = self.gameManager.decreaseStability(percentage: 50.0)
                 print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result!) {
+                if (result) {
                     self.navigateToEndScreen()
                 } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
                 }
             }
         }
@@ -88,12 +88,12 @@ class TwitchController {
             print("diffaccX:" + String(diffAccX))
             print("diffaccZ:" + String(diffAccZ))
             if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY < 0.1) {
-                let result = self.gameManager.bomb?.decreaseStability(percentage: 50.0)
+                let result = self.gameManager.decreaseStability(percentage: 50.0)
                 print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result!) {
+                if (result) {
                     self.navigateToEndScreen()
                 } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
                 }
             }
         }
@@ -121,12 +121,12 @@ class TwitchController {
             print("diffaccX:" + String(diffAccX))
             print("diffaccZ:" + String(diffAccZ))
             if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY > 0.1) {
-                let result = self.gameManager.bomb?.decreaseStability(percentage: 50.0)
+                let result = self.gameManager.decreaseStability(percentage: 50.0)
                 print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result!) {
+                if (result) {
                     self.navigateToEndScreen()
                 } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
                 }
             }
         }
@@ -154,12 +154,12 @@ class TwitchController {
             print("diffaccX:" + String(diffAccX))
             print("diffaccZ:" + String(diffAccZ))
             if (diffAccX > 0.1 || diffAccZ > 0.1 || diffAccY > 0.1) {
-                let result = self.gameManager.bomb?.decreaseStability(percentage: 50.0)
+                let result = self.gameManager.decreaseStability(percentage: 50.0)
                 print("current stab" + String(self.gameManager.bomb!.stabilityCounter))
-                if (result!) {
+                if (result) {
                     self.navigateToEndScreen()
                 } else {
-                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+                    self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
                 }
             }
         }
@@ -180,8 +180,8 @@ class TwitchController {
     private func aboveMaxAcceleration() -> Bool {
         if (self.lastMotionData.accelerationContainsHigherAbsoluteValue(than: self.maxDiffAcc)) {
             // decrease bomb stability
-            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
-            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+            let result = self.gameManager.decreaseStability(percentage: 5.0)
+            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
             
             if (result == false) {
                 // bomb exploded
@@ -199,8 +199,8 @@ class TwitchController {
     private func aboveMaxRotationRate() -> Bool {
         if (self.lastMotionData.rotationContainsHigherAbsoluteValue(than: self.maxDiffRotRate)) {
             // decrease bomb stability
-            let result = self.gameManager.bomb?.decreaseStability(percentage: 5.0)
-            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.bomb!.currentColor)
+            let result = self.gameManager.decreaseStability(percentage: 5.0)
+            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
             
             if (result == false) {
                 // bomb exploded, show end screen
