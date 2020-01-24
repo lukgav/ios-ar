@@ -7,12 +7,11 @@
 //
 
 import UIKit
-//import SwiftGifOrigin
 
 class EndScreenViewController: UIViewController {
 
-    @IBOutlet weak var loserName: UILabel!
-    @IBOutlet weak var explodeGif: UIImageView!
+    
+    @IBOutlet weak var youLoseLabel: UILabel!
     
     var controller : EndScreenController?
     
@@ -21,12 +20,17 @@ class EndScreenViewController: UIViewController {
 
         controller = EndScreenController(endScreenViewController: self)
         
-        //loserName.text = self.gameManager.loserPlayer!.name
-        
-        //explodeGif.image = UIImage.gif(name: "explode")
+        controller?.showLoserPlayer()
+    }
+    
+    func updateLoserLabel(newText: String) {
+        youLoseLabel.text = newText
     }
         
     @IBAction func BackToHomeTouch(_ sender: Any) {
         controller?.navigateToHome()
+    }
+    @IBAction func StartNewGameTouch(_ sender: Any) {
+        controller?.navigateToFirstTask()
     }
 }

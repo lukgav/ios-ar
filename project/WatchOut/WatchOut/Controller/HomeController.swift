@@ -25,7 +25,15 @@ class HomeController {
     // MARK: - Navigation
     
     func navigateToFirstTask() {
-        gameManager.startNewGame(playerCount: playerCount)
+        // create dummy player names
+        var playerNames: [String] = [String]()
+        for i in 1...playerCount {
+            playerNames.append(String("Player \(i)"))
+        }
+        
+        var players = gameManager.createPlayers(playerNames: playerNames)
+        
+        gameManager.startNewGame(players: players)
         let result = dmManager.startDeviceMotion()
 
         if (result) {

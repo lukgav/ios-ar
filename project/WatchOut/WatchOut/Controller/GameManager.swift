@@ -29,12 +29,12 @@ class GameManager{
     }
     
     /// Starts a new game
-    func startNewGame(playerCount: Int, firstTask: TaskType = .Unwrap, difficulty: Difficulty = .Medium) {
-        for playerId in 1...playerCount {
-            players.append(Player(name: String(playerId), id: playerId, limit: 50.0))
-        }
+
+    func startNewGame(players: [Player], firstTask: TaskType = .Twitch, difficulty: Difficulty = .Medium) {
         
-        currentPlayer = players.first
+        self.players = players
+        
+        currentPlayer = self.players.first
         bomb = Bomb(stabilityLimit: 200.0, timeLimit: 120)
         currentTask = firstTask
         
@@ -49,6 +49,14 @@ class GameManager{
         currentTask = nil
         soundManager.stopTickSound()
         soundManager.playBombSound()
+    }
+    
+    func createPlayers(playerNames: [String]) -> [Player] {
+        var newPlayers = [Player]()
+        for playerId in 0...playerNames.count {
+            newPlayers.append(Player(name: playerNames[playerId], id: playerId+1, limit: 50.0))
+        }
+        return newPlayers
     }
     
     /// Switches to next Player
