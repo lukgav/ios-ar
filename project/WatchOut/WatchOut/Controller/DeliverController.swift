@@ -40,17 +40,18 @@ class DeliverController {
     private let ignoreCount: Int = 2
     private var isAmbientIntensityDark: Bool = false
     
+    private let nextPlayer: Player
+    
     init(deliverViewController: DeliverViewController) {
         self.deliverViewController = deliverViewController
         
         timer = Timer()
+        nextPlayer =  gameManager.getNextRandomPlayer()
     }
     
     // MARK: - Delivery Logic
     
     func startDelivery(countDownDuration: Double) {
-        
-        let nextPlayer =  gameManager.getNextRandomPlayer()
         
         // initialize UI
         deliverViewController.updatePlayerNameLabel(name: nextPlayer.name)
@@ -243,9 +244,9 @@ class DeliverController {
     // MARK: - Navigation
     
     func navigateToNextTask() {
-        //var nextTaskType = gameManager.switchToNextTask()
-        
         if (self.endDelivery(stopDeviceMotion: false)) {
+            // Change to the next Player
+            gameManager.switchToNextPlayer(nextPlayer: nextPlayer)
             deliverViewController.performSegue(withIdentifier: Constants.UnwrapSegue, sender: self)
         }
     }
