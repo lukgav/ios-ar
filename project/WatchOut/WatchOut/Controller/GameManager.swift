@@ -29,8 +29,7 @@ class GameManager{
     }
     
     /// Starts a new game
-    func startNewGame(playerCount: Int, firstTask: TaskType = .Twitch, difficulty: Difficulty = .Medium) {
-        
+    func startNewGame(playerCount: Int, firstTask: TaskType = .Unwrap, difficulty: Difficulty = .Medium) {
         for playerId in 1...playerCount {
             players.append(Player(name: String(playerId), id: playerId, limit: 50.0))
         }
@@ -121,7 +120,6 @@ class GameManager{
         if (bomb!.stabilityCounter < 0.0) {
             return true
         }
-        
         return false
     }
     

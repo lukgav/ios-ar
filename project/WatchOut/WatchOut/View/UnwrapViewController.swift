@@ -11,7 +11,8 @@ import UIKit
 class UnwrapViewController: UIViewController {
 
     var controller: UnwrapController?
-        
+
+    @IBOutlet weak var currentPlayer: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -22,10 +23,6 @@ class UnwrapViewController: UIViewController {
         
         //curPlayer.text = String(currentP)
     }
-    func updateBackgroundColor(color: UIColor) {
-        self.view.backgroundColor = color
-    }
-    
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
@@ -34,6 +31,11 @@ class UnwrapViewController: UIViewController {
         controller?.navigateToNextTask()
     }
     
-    @IBOutlet weak var curPlayer: UILabel!
+    func updateBackgroundColor(pColor: UIColor) {
+        self.view.backgroundColor = pColor
+    }
+    func updatePlayerNameLabel(name: String) {
+        currentPlayer.text = name
+    }
     
 }

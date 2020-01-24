@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -197,7 +197,6 @@
                                 <state key="normal" title="Next Task"/>
                                 <connections>
                                     <action selector="NextTaskTouch:" destination="O1c-Kr-D4k" eventType="touchUpInside" id="p2c-pc-5Tn"/>
-                                    <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="CZO-NZ-fyL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPS-E7-u07" userLabel="quitGameButton">
@@ -249,9 +248,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="f6F-Sg-XTP"/>
                     <connections>
-                        <outlet property="curPlayer" destination="UGf-Xq-W0F" id="BWW-JR-UOA"/>
+                        <outlet property="currentPlayer" destination="UGf-Xq-W0F" id="EHh-md-Mpd"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="43M-id-rIK"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="Udo-a8-iKt"/>
+                        <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="1lH-xT-F4U"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="smu-JS-lUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -493,10 +493,10 @@
         <image name="up-arrow" width="654" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l6U-fX-RWf"/>
-        <segue reference="YD3-0V-XhB"/>
+        <segue reference="1lH-xT-F4U"/>
+        <segue reference="Udo-a8-iKt"/>
         <segue reference="npw-QY-IAp"/>
-        <segue reference="8jX-h0-hCH"/>
-        <segue reference="3Cm-aI-KuT"/>
+        <segue reference="NUh-b3-TSL"/>
+        <segue reference="43M-id-rIK"/>
     </inferredMetricsTieBreakers>
 </document>
