@@ -250,6 +250,7 @@
                     <navigationItem key="navigationItem" id="f6F-Sg-XTP"/>
                     <connections>
                         <outlet property="currentPlayer" destination="UGf-Xq-W0F" id="ukP-p4-FMf"/>
+                        <outlet property="directionWrap" destination="91L-tL-39f" id="NV4-xl-Jyb"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="43M-id-rIK"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="Udo-a8-iKt"/>
                     </connections>

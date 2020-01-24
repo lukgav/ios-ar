@@ -5,6 +5,8 @@
 //  Created by Guest User on 14/01/2020.
 //  Copyright © 2020 iOS1920. All rights reserved.
 //
+import Foundation
+
 class UnwrapController {
  
     struct errorMsg{
@@ -37,17 +39,18 @@ class UnwrapController {
     private var maxRotRate: SIMD3<Double> =  SIMD3<Double>(x: 1.2, y: 1.2, z: 1.2)
     private var maxAcc: SIMD3<Double> =  SIMD3<Double>(x: 1, y: 1, z: 1.5)
     
+    //---------------------Values currently set for Going in X direction---------------------
     private var minGrav: SIMD3<Double> =  SIMD3<Double>(x: -0.2, y: -0.2, z: -0.2)
     private var maxGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.2, y: 0.2, z: 0.2)
-    
-    private var maxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.3, y: 0.3, z: 0.3)
-    private var minDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.1, y: 0.1, z: 0.1)
-    
+    private var topMaxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.4, y: 0.4, z: 0.4)
+    private var bottomMaxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.15, y: 0.15, z: 0.15)
+    //---------------------Values currently set for Going in X direction---------------------
+
     private var maxNumTurns: Int = 0
     private var turnCounter: Int = 0
     
     private var errMsg = errorMsg()
-    private var shouldTurnAwayFromUser: Bool = true
+    private var shouldTurnClockwise: Bool = true
     private let dmgVal: Double = 0.05
     
     init(unwrapViewController: UnwrapViewController) {
@@ -61,17 +64,23 @@ class UnwrapController {
         self.maxNumTurns = Int.random(in: 0...3)
     }
     func getRandomDirection(){
-        self.shouldTurnAwayFromUser = Bool.random()
+        self.shouldTurnClockwise = Bool.random()
 //            Int.random(in: 0...3)
+    }
+    func getRandomCoOrd()->Direction{
+//        var val =
+        return Direction.z
     }
     
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
-    func startUnwrapAroundZ(){
-        
+    func startUnwrap(){
         let nextPlayer =  gameManager.getNextRandomPlayer()
         
         unwrapViewController.updatePlayerNameLabel(name: nextPlayer.name)
         unwrapViewController.updateBackgroundColor(pColor: gameManager.currentColor)
+        // TODO: randomize direction AND clockWise Boolean
+        unwrapViewController.updateTurningImage(direction: Direction.z, goClockwise: self.shouldTurnClockwise)
+        
         
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
 //            print("newGravX: \(newMotionData.gravity.x)")
@@ -121,15 +130,21 @@ class UnwrapController {
     }
     
     func isDeviceTurningInCorrectDirection() -> Bool{
-        if(self.isDeviceTurningAwayFromUser() && self.shouldTurnAwayFromUser){
+        var isGoinginIntendedDirection: Bool = false
+        print("--------------ShouldGoClockwise: \(self.shouldTurnClockwise)--------")
+        if(self.isDeviceTurningClockwise(turningDirection: .x, stateDirection: .z) && self.shouldTurnClockwise){
+            print("Turing clockwise")
             return true
         }
-        else if(!self.isDeviceTurningAwayFromUser() && !self.shouldTurnAwayFromUser){
+        //OR Is device turning anticlockwise and should it be turning anticlockwise?
+        else if(!self.isDeviceTurningClockwise(turningDirection: .x, stateDirection: .z) && !self.shouldTurnClockwise){
+            print("Turing anticlockwise")
             return true
         }
         else{
             return false
         }
+        return isGoinginIntendedDirection
     }
     
 //    func stopUnwrapX() {
@@ -144,7 +159,7 @@ class UnwrapController {
 
     //Does not care about direction of device only whether Gravity is increasing
     
-    func whichAxes(pDirection: Direction) -> (Double, Double, Double){
+    func whichGravAxes(pDirection: Direction) -> (Double, Double, Double){
         var current: Double
         var old: Double
         var diff: Double
@@ -162,13 +177,12 @@ class UnwrapController {
             current = self.currentMotionData.gravity.z
             old = self.oldMotionData.gravity.z
             diff = self.diffMotionData.gravity.z
-
-        case .all:
-            current = self.currentMotionData.gravity.x
-            old = self.oldMotionData.gravity.x
-            diff = self.diffMotionData.gravity.x
-        }
 //        print("current: \(current),old: \(old),diff: \(diff) \n")
+        }
+        current =  self.roundtoThousandth(pNum: current)
+        old =  self.roundtoThousandth(pNum: old)
+        diff =  self.roundtoThousandth(pNum: diff)
+        
         return (current, old, diff)
     }
     
@@ -177,11 +191,17 @@ class UnwrapController {
         var old: Double
         var diffDir: Double
         var diffTotal: Double
-        (current, old, diffTotal) = whichAxes(pDirection: pDirection)
+        (current, old, diffTotal) = whichGravAxes(pDirection: pDirection)
         
         diffDir =  abs(current - old)
-        return current > old
-//        return diffTotal >= 0
+//        diffTotal = abs(diffTotal)
+//        print(diffTotal)
+        return current >= old
+//        return diffTotal >= 0.0
+    }
+    
+    func roundtoThousandth(pNum: Double)->Double{
+        return round(100*pNum) / 100
     }
     
     func isWithinRange(val: Double,min: Double,max: Double) ->Bool{
@@ -221,11 +241,11 @@ class UnwrapController {
 
     func checkChangeinGrav(){
         //X Direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.minDiffGrav.x, maxVal: self.maxDiffGrav.x)
+        checkDiffGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.bottomMaxDiffGrav.x, maxVal: self.topMaxDiffGrav.x)
         //Z direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.minDiffGrav.z, maxVal: self.maxDiffGrav.z)
+        checkDiffGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.bottomMaxDiffGrav.z, maxVal: self.topMaxDiffGrav.z)
         //Y Direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.minDiffGrav.y, maxVal: self.maxDiffGrav.y)
+        checkDiffGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.bottomMaxDiffGrav.y, maxVal: self.topMaxDiffGrav.y)
     }
     func checkDiffGravinDirection(val: Double, minVal: Double, maxVal: Double){
         if(val > maxVal){
@@ -233,8 +253,8 @@ class UnwrapController {
         }
         else if(isWithinRange(val: val, min: minVal ,max: maxVal)){
             var lDmg: Double
-            lDmg = (self.dmgVal/2) * val
-            decreaseBombStabilityAndColor(pDmg: lDmg, pErr: "Over max change in gravity ")
+            lDmg = (self.dmgVal/10) * val
+            decreaseBombStabilityAndColor(pDmg: lDmg, pErr: "Too much Change in gravity ")
         }
     }
     
@@ -249,7 +269,23 @@ class UnwrapController {
         return !isWithinRange(val: self.oldMotionData.gravity.y, min: self.minGrav.y, max: self.maxGrav.y)
     }
     
-    func isDeviceTurningAwayFromUser() -> Bool{
+    func isDeviceTurningClockwise(turningDirection: Direction, stateDirection: Direction) -> Bool{
+        var (current, old, diff): (Double,Double,Double)
+        (current, old, diff) = whichGravAxes(pDirection: stateDirection)
+        if(isGravityIncreasingInDirection(pDirection: turningDirection) && current < 0.0){
+    //            print("Grav is INCREASING X")
+                return true
+            }
+        else if(!isGravityIncreasingInDirection(pDirection: turningDirection) && current > 0.0){
+    //            print("Grav is DECREASING along X")
+                return true
+            }
+            else{
+                return false
+            }
+        }
+    
+    func isDeviceTurningClockwiseX() -> Bool{
         if(isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZNeg()){
 //            print("Grav is INCREASING X")
             return true
@@ -263,20 +299,29 @@ class UnwrapController {
         }
     }
     
-    func isDeviceTurningClockwise() -> Bool{
+    func isDeviceTurningAntiClockwiseX()-> Bool{
+        if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZPos()){
+    //            print("Grav is DECREASING along X")
+            return true
+        }
+        else{
+            return false
+        }
+    }
+    
+    func isDeviceTurningClockwiseZ() -> Bool{
         if( isGravityIncreasingInDirection(pDirection: Direction.z) && self.currentMotionData.gravity.y < 0.0){
             //            print("Grav is INCREASING along Z")
             return true
         }
         else if (!isGravityIncreasingInDirection(pDirection: Direction.z) && self.currentMotionData.gravity.y > 0.0){
             //            print("Grav is DECREASING along Z")
-
             return true
         }
         return false
     }
 
-    func isDeviceTurningFlatParallel() -> Bool{
+    func isDeviceTurningClockwiseY() -> Bool{
         if( isGravityIncreasingInDirection(pDirection: Direction.y) && self.currentMotionData.gravity.x < 0.0){
             //            print("Grav is INCREASING along Y")
             return true
@@ -340,23 +385,3 @@ class UnwrapController {
         }
     }
 }
-
-
-
-/// OLD CODE for Unwrap function
-
-                //Check if phone is face up (check if gravity less than 0 z-direction)
-                //            if (self.oldMotionData.isUnderMinZValueOf(motionType: MotionType.gravity, minValue: self.minGrav.z)){
-                //                self.decreaseBombStabilityAndColor(pErr: MotionType.acceleration.toString + self.errMsg.tooLowZ)
-                //            }
-                ///Check if value has gone over max chaneg in Grav
-//                if(self.isOverMaxChangeInGravityinDirection(pDirection: Direction.z)){
-//                    self.decreaseBombStabilityAndColor(pErr: MotionType.gravity.toString + self.errMsg.tooHigh)
-//                }
-                ///Check if value has gone over max Accel or rotation rate
-//                if(self.isOverMaxAcceleration()) {
-//                    self.decreaseBombStabilityAndColor(pErr: MotionType.acceleration.toString + self.errMsg.tooHigh)
-//                    return
-//                }
-                //            if(self.isOverMaxRotationRate()){
-                //                self.decreaseBombStabilityAndColor(pErr: MotionType.rotation.toString + self.errMsg.tooHigh)

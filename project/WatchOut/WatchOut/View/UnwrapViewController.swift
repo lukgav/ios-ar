@@ -14,6 +14,7 @@ class UnwrapViewController: UIViewController {
 
 //    @IBOutlet weak var currentPlayer: UILabel!
     @IBOutlet var currentPlayer: UILabel!
+    @IBOutlet var directionWrap: UIImageView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,10 +22,11 @@ class UnwrapViewController: UIViewController {
         // Do any additional setup after loading the view.
         controller = UnwrapController(unwrapViewController: self)
         
-        controller?.startUnwrapAroundZ()
+        controller?.startUnwrap()
         
         //curPlayer.text = String(currentP)
     }
+    
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
@@ -40,4 +42,42 @@ class UnwrapViewController: UIViewController {
         currentPlayer.text = name
     }
     
+    func loadImage(pImageName: String){
+        directionWrap.image = UIImage.init(named: pImageName)
+        UIView.animate(withDuration: 2, animations:
+            {
+                self.directionWrap.frame.origin.y -= 100
+            },
+                       completion: nil)
+    }
+    
+    func updateTurningImage(direction: Direction, goClockwise: Bool) {
+        switch direction {
+        case Direction.x:
+            if(goClockwise && !goClockwise){
+                loadImage(pImageName: "rotationX")
+            }
+            else{
+                loadImage(pImageName: "rotationXMir")
+            }
+
+        case Direction.y:
+           if(goClockwise && !goClockwise){
+                loadImage(pImageName: "rotationY")
+            }
+            else{
+                loadImage(pImageName: "rotationYMir")
+            }
+        case Direction.z:
+            if(goClockwise  && !goClockwise){
+                loadImage(pImageName: "rotationZMir")
+            }
+            else{
+                loadImage(pImageName: "rotationZ")
+            }
+        }
+    }
+    
+    
 }
+

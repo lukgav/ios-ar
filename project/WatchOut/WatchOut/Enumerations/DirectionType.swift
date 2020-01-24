@@ -12,5 +12,4 @@ enum Direction {
     case x
     case y
     case z
-    case all
 }
