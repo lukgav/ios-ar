@@ -30,25 +30,9 @@
             filePath = "WatchOut/Controller/UnwrapController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "194"
-            endingLineNumber = "194"
+            startingLineNumber = "245"
+            endingLineNumber = "245"
             landmarkName = "isGravityIncreasingInDirection(pDirection:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C646704E-93CA-4E17-A3C8-0664E60024AB"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WatchOut/Controller/UnwrapController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "isDeviceTurningClockwiseZ()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -62,8 +46,8 @@
             filePath = "WatchOut/Controller/UnwrapController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "191"
+            endingLineNumber = "191"
             landmarkName = "isDeviceTurningInCorrectDirection(turningDirection:stateDirection:)"
             landmarkType = "7">
          </BreakpointContent>

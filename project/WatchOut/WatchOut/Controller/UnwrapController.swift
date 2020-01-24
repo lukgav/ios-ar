@@ -74,6 +74,24 @@ class UnwrapController {
     
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
     func startUnwrap(){
+        
+        self.loadUI()
+        dmManager.currentMotionData.addObserver(observer) { newMotionData in
+            self.loadNewData(pNewMotionData: newMotionData)
+            self.checkTaskFinishedCondition()
+            self.printData()
+            
+            /// Players mistakes and consequences are checked below
+//            self.checkBombExplode()
+            self.UnwrapInDirection(pDirection: .x)
+            //Update oldMotionData and background color. Do here AFTER all computation is done
+            self.oldMotionData = self.currentMotionData
+            self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
+        }
+        return
+    }
+    
+    func loadUI(){
         let nextPlayer =  gameManager.getNextRandomPlayer()
         
         unwrapViewController.updatePlayerNameLabel(name: nextPlayer.name)
@@ -81,21 +99,6 @@ class UnwrapController {
         // TODO: randomize direction AND clockWise Boolean
         unwrapViewController.updateTurningImage(direction: Direction.z, goClockwise: self.shouldTurnClockwise)
         
-        dmManager.currentMotionData.addObserver(observer) { newMotionData in
-//            print("newGravX: \(newMotionData.gravity.x)")
-            self.loadNewData(pNewMotionData: newMotionData)
-            self.checkTaskFinishedCondition()
-            self.printData()
-            
-            /// Players mistakes and consequences are checked below
-//            self.checkBombExplode()
-            self.checkUnwrapMotion()
-            //Update oldMotionData and background color. Do here AFTER all computation is done
-            self.oldMotionData = self.currentMotionData
-            self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
-
-        }
-        return
     }
     
     func loadNewData(pNewMotionData: MotionData){
@@ -114,6 +117,53 @@ class UnwrapController {
         print("currentGravZ: \(self.currentMotionData.gravity.z)")
         print("currentGravY: \(self.currentMotionData.gravity.y)")
     }
+    
+        
+
+    
+    func checkUnwrapMotion(){
+        ///Works in x direction
+//        UnwrapInDirection(pDirection: .x)//        checkUnwrapInYDirection()
+        /// DOES NOT WORK IN Y Direction
+        UnwrapInDirection(pDirection: .y)
+        /// DOES NOT WORK IN Z Direction
+//        UnwrapInDirection(pDirection: .z)
+    }
+    
+    func UnwrapInDirection(pDirection: Direction){
+        switch pDirection{
+        case .x:
+            //This orientation works!
+            self.checkUnwrapInDirection(pTurningDir: .x, pStateDir: .z, pWobbleDir: .y)
+        case .z:
+            //Need to check these values to make sure if this the correct orientation
+            self.checkUnwrapInDirection(pTurningDir: .z, pStateDir: .y, pWobbleDir: .x)
+        case .y:
+            //Need to check these values to make sure if this the correct orientation
+            self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .x, pWobbleDir: .z)
+        }
+    }
+    
+    func checkUnwrapInDirection(pTurningDir: Direction, pStateDir: Direction, pWobbleDir: Direction){
+        // ------------ ------------ z-direction ------------ ------------
+        // - x in gravity to check direction of movement
+        // - z to check rate of change in gravity of x
+        // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
+            
+        if(self.isDeviceTurningInCorrectDirection(turningDirection: pTurningDir, stateDirection: pStateDir)){
+                //check if gravity is out of range in y-direction
+        //                print("Going in right direction")
+            self.checkGravPosition(pDirection: pWobbleDir)
+            self.checkChangeinGrav()
+        }
+        else{
+            self.decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Going in wrong direction")
+        }
+    }
+    
+    
+
+
     
     func numOfTurnsMoved(){
         if(self.currentMotionData.gravity.z >= 0.999){
@@ -206,51 +256,6 @@ class UnwrapController {
     func isWithinRange(val: Double,min: Double,max: Double) ->Bool{
         return (val < max) && (val > min)
     }
-    
-    func UnwrapInDirection(pDirection: Direction){
-        switch pDirection{
-        case .x:
-            //This orientation works!
-            self.checkUnwrapInDirection(pTurningDir: .x, pStateDir: .z, pWobbleDir: .y)
-        case .z:
-            //Need to check these values to make sure if this the correct orientation
-            self.checkUnwrapInDirection(pTurningDir: .z, pStateDir: .y, pWobbleDir: .x)
-        case .y:
-            //Need to check these values to make sure if this the correct orientation
-            self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .x, pWobbleDir: .z)
-        }
-    }
-    
-    func checkUnwrapInXDirection(){
-        self.checkUnwrapInDirection(pTurningDir: .x, pStateDir: .z, pWobbleDir: .y)
-    }
-    
-    func checkUnwrapInDirection(pTurningDir: Direction, pStateDir: Direction, pWobbleDir: Direction){
-        // ------------ ------------ z-direction ------------ ------------
-        // - x in gravity to check direction of movement
-        // - z to check rate of change in gravity of x
-        // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
-            
-        if(self.isDeviceTurningInCorrectDirection(turningDirection: pTurningDir, stateDirection: pStateDir)){
-                //check if gravity is out of range in y-direction
-        //                print("Going in right direction")
-            self.checkGravPosition(pDirection: pWobbleDir)
-            self.checkChangeinGrav()
-        }
-        else{
-            self.decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Going in wrong direction")
-        }
-    }
-    
-    
-    func checkUnwrapMotion(){
-        ///Works in x direction
-//        UnwrapInDirection(pDirection: .x)//        checkUnwrapInYDirection()
-        /// DOES NOT WORK IN Y Direction
-        UnwrapInDirection(pDirection: .y)
-        /// DOES NOT WORK IN Z Direction
-//        UnwrapInDirection(pDirection: .z)
-    }
 
     func checkChangeinGrav(){
         //X Direction
@@ -300,44 +305,7 @@ class UnwrapController {
                 return false
             }
         }
-    
-//    func isDeviceTurningClockwiseX() -> Bool{
-//        if(isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZNeg()){
-////            print("Grav is INCREASING X")
-//            return true
-//        }
-//        else if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZPos()){
-////            print("Grav is DECREASING along X")
-//            return true
-//        }
-//        else{
-//            return false
-//        }
-//    }
-    
-    func isDeviceTurningClockwiseZ() -> Bool{
-        if( isGravityIncreasingInDirection(pDirection: Direction.z) && self.currentMotionData.gravity.y < 0.0){
-            //            print("Grav is INCREASING along Z")
-            return true
-        }
-        else if (!isGravityIncreasingInDirection(pDirection: Direction.z) && self.currentMotionData.gravity.y > 0.0){
-            //            print("Grav is DECREASING along Z")
-            return true
-        }
-        return false
-    }
 
-    func isDeviceTurningClockwiseY() -> Bool{
-        if( isGravityIncreasingInDirection(pDirection: Direction.y) && self.currentMotionData.gravity.x < 0.0){
-            //            print("Grav is INCREASING along Y")
-            return true
-        }
-        else if (!isGravityIncreasingInDirection(pDirection: Direction.y) && self.currentMotionData.gravity.x > 0.0){
-            //            print("Grav is DECREASING along Y")
-            return true
-        }
-        return false
-    }
     
     func checkBombExplode(){
         if(self.gameManager.decreaseStability(percentage: 0.0)){
