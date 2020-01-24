@@ -197,7 +197,6 @@
                                 <state key="normal" title="Next Task"/>
                                 <connections>
                                     <action selector="NextTaskTouch:" destination="O1c-Kr-D4k" eventType="touchUpInside" id="p2c-pc-5Tn"/>
-                                    <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="CZO-NZ-fyL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPS-E7-u07" userLabel="quitGameButton">
@@ -252,6 +251,7 @@
                         <outlet property="curPlayer" destination="UGf-Xq-W0F" id="BWW-JR-UOA"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="43M-id-rIK"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="Udo-a8-iKt"/>
+                        <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="cYO-1R-dfZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="smu-JS-lUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -444,42 +444,111 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDk-3z-Kt5">
-                                <rect key="frame" x="173" y="711" width="68" height="30"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8I9-yZ-K2L">
+                                <rect key="frame" x="139" y="283" width="137" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Next Task"/>
-                                <connections>
-                                    <action selector="nextTaskTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="NeA-sf-N66"/>
-                                    <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="npw-QY-IAp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRR-1B-coW">
-                                <rect key="frame" x="171" y="779" width="73" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Quit Game"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRR-1B-coW">
+                                <rect key="frame" x="158" y="720" width="98" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Quit Game">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="QuitGameTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="hSm-Yk-Ez0"/>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="3Cm-aI-KuT"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8I9-yZ-K2L">
-                                <rect key="frame" x="139" y="283" width="137" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="g9z-64-6dT" firstAttribute="bottom" secondItem="lRR-1B-coW" secondAttribute="bottom" constant="50" id="38e-zc-S8g"/>
+                            <constraint firstItem="lRR-1B-coW" firstAttribute="centerX" secondItem="Dwt-go-riC" secondAttribute="centerX" id="KNQ-VJ-pJN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="g9z-64-6dT"/>
                     </view>
                     <navigationItem key="navigationItem" id="4YR-H6-TcB"/>
                     <connections>
                         <outlet property="arrow" destination="8I9-yZ-K2L" id="ZIp-NJ-ZCS"/>
+                        <outlet property="view" destination="Dwt-go-riC" id="Jcg-XG-l6I"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="YD3-0V-XhB"/>
+                        <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="vCN-Ym-yPR"/>
+                        <segue destination="1fD-Ch-pe9" kind="show" identifier="TwitchAltSegue" id="KMe-92-Me7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VYA-9k-GKB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="uFe-f1-P6b" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-55.072463768115945" y="1119.6428571428571"/>
+            <point key="canvasLocation" x="-300" y="1000"/>
+        </scene>
+        <!--TwitchTask_alt-->
+        <scene sceneID="icY-qW-ZGC">
+            <objects>
+                <viewController id="1fD-Ch-pe9" userLabel="TwitchTask_alt" customClass="TwitchAltViewController" customModule="WatchOut" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Kq-gp-lOF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task 2: Twitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwU-7H-tq4">
+                                <rect key="frame" x="92" y="83" width="230" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current player:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYR-sd-Wp7">
+                                <rect key="frame" x="44" y="657" width="176" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1l-P0-qhf">
+                                <rect key="frame" x="228" y="657" width="65" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzf-cF-Kvu">
+                                <rect key="frame" x="158" y="754" width="98" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Quit Game">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="QuitGameTouch:" destination="5Uy-qy-7QS" eventType="touchUpInside" id="KoU-Ud-fqm"/>
+                                    <action selector="QuitGameTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="M5W-Bw-h7G"/>
+                                    <action selector="QuitGameTouch:" destination="1fD-Ch-pe9" eventType="touchUpInside" id="OHv-WM-4sp"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8N5-bT-T0k">
+                                <rect key="frame" x="139" y="283" width="137" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Pzf-cF-Kvu" secondAttribute="bottom" constant="50" id="Kjo-Id-bH4"/>
+                            <constraint firstItem="Pzf-cF-Kvu" firstAttribute="centerX" secondItem="5Kq-gp-lOF" secondAttribute="centerX" id="fsU-RF-kpc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="K8q-Zx-41X"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="MhF-6O-x1T"/>
+                    <connections>
+                        <outlet property="arrow" destination="8N5-bT-T0k" id="5Pu-0E-JwS"/>
+                        <outlet property="curPlayerName" destination="E1l-P0-qhf" id="zWY-sh-7Fu"/>
+                        <outlet property="view" destination="5Kq-gp-lOF" id="rHH-SE-Rsw"/>
+                        <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="bKa-ld-WVA"/>
+                        <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="QxU-an-KBl"/>
+                        <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="kcK-Au-egc"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="v43-3v-tdU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yyU-bI-42M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="5Uy-qy-7QS" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-300" y="1825"/>
         </scene>
     </scenes>
     <resources>
@@ -493,10 +562,10 @@
         <image name="up-arrow" width="654" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l6U-fX-RWf"/>
-        <segue reference="YD3-0V-XhB"/>
-        <segue reference="npw-QY-IAp"/>
-        <segue reference="8jX-h0-hCH"/>
-        <segue reference="3Cm-aI-KuT"/>
+        <segue reference="bKa-ld-WVA"/>
+        <segue reference="kcK-Au-egc"/>
+        <segue reference="QxU-an-KBl"/>
+        <segue reference="NUh-b3-TSL"/>
+        <segue reference="v43-3v-tdU"/>
     </inferredMetricsTieBreakers>
 </document>
