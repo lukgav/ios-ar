@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -248,7 +248,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="f6F-Sg-XTP"/>
                     <connections>
-                        <outlet property="curPlayer" destination="UGf-Xq-W0F" id="BWW-JR-UOA"/>
+                        <outlet property="currentPlayer" destination="UGf-Xq-W0F" id="ukP-p4-FMf"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="43M-id-rIK"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="Udo-a8-iKt"/>
                         <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="cYO-1R-dfZ"/>
@@ -562,10 +562,18 @@
         <image name="up-arrow" width="654" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
+<<<<<<< HEAD
         <segue reference="bKa-ld-WVA"/>
         <segue reference="kcK-Au-egc"/>
         <segue reference="QxU-an-KBl"/>
         <segue reference="NUh-b3-TSL"/>
         <segue reference="v43-3v-tdU"/>
+=======
+        <segue reference="CZO-NZ-fyL"/>
+        <segue reference="Udo-a8-iKt"/>
+        <segue reference="npw-QY-IAp"/>
+        <segue reference="8jX-h0-hCH"/>
+        <segue reference="43M-id-rIK"/>
+>>>>>>> 4ce77c59803b792b72172076511c487666be7287
     </inferredMetricsTieBreakers>
 </document>

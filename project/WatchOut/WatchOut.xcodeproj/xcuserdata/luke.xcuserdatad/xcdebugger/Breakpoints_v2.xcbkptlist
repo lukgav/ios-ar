@@ -30,8 +30,8 @@
             filePath = "WatchOut/Controller/UnwrapController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "253"
-            endingLineNumber = "253"
+            startingLineNumber = "293"
+            endingLineNumber = "293"
             landmarkName = "checkBombExplode()"
             landmarkType = "7">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "WatchOut/Controller/UnwrapController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
             landmarkName = "isGravityIncreasingInDirection(pDirection:)"
             landmarkType = "7">
          </BreakpointContent>

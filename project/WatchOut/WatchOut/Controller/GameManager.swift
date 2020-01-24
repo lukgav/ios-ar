@@ -29,13 +29,12 @@ class GameManager{
     }
     
     /// Starts a new game
-    func startNewGame(playerCount: Int, firstTask: TaskType = .Twitch, difficulty: Difficulty = .Medium) {
+
+    func startNewGame(players: [Player], firstTask: TaskType = .Unwrap, difficulty: Difficulty = .Medium) {
         
-        for playerId in 1...playerCount {
-            players.append(Player(name: String(playerId), id: playerId, limit: 50.0))
-        }
+        self.players = players
         
-        currentPlayer = players.first
+        currentPlayer = self.players.first
         bomb = Bomb(stabilityLimit: 200.0, timeLimit: 120)
         currentTask = firstTask
         currentColor = UIColor.white
@@ -53,17 +52,17 @@ class GameManager{
         soundManager.playBombSound()
     }
     
+    func createPlayers(playerNames: [String]) -> [Player] {
+        var newPlayers = [Player]()
+        for playerId in 0...(playerNames.count - 1) {
+            newPlayers.append(Player(name: playerNames[playerId], id: playerId+1, limit: 50.0))
+        }
+        return newPlayers
+    }
+    
     /// Switches to next Player
-    func switchToNextPlayer() {
-        let currentIndex = players.firstIndex(where: {$0 === currentPlayer})!
-        
-        if (currentIndex + 1 >= players.count) {
-            currentPlayer = players[0]
-        }
-        else
-        {
-            currentPlayer = players[currentIndex+1]
-        }
+    func switchToNextPlayer(nextPlayer: Player) {
+        currentPlayer = nextPlayer
     }
     
     /// Switches to next Task and returns it
@@ -122,7 +121,6 @@ class GameManager{
         if (bomb!.stabilityCounter < 0.0) {
             return true
         }
-        
         return false
     }
     
