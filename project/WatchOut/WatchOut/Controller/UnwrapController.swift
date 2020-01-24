@@ -40,8 +40,8 @@ class UnwrapController {
     private var minGrav: SIMD3<Double> =  SIMD3<Double>(x: -0.2, y: -0.2, z: -0.2)
     private var maxGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.2, y: 0.2, z: 0.2)
     
-    private var maxGravDiff: SIMD3<Double> =  SIMD3<Double>(x: 0.3, y: 0.3, z: 0.3)
-    private var minGravDiff: SIMD3<Double> =  SIMD3<Double>(x: 0.1, y: 0.1, z: 0.1)
+    private var maxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.3, y: 0.3, z: 0.3)
+    private var minDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.1, y: 0.1, z: 0.1)
     
     private var maxNumTurns: Int = 0
     private var turnCounter: Int = 0
@@ -221,11 +221,11 @@ class UnwrapController {
 
     func checkChangeinGrav(){
         //X Direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.minGrav.x, maxVal: self.maxGrav.x)
+        checkDiffGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.minDiffGrav.x, maxVal: self.maxDiffGrav.x)
         //Z direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.minGrav.z, maxVal: self.maxGrav.z)
+        checkDiffGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.minDiffGrav.z, maxVal: self.maxDiffGrav.z)
         //Y Direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.minGrav.y, maxVal: self.maxGrav.y)
+        checkDiffGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.minDiffGrav.y, maxVal: self.maxDiffGrav.y)
     }
     func checkDiffGravinDirection(val: Double, minVal: Double, maxVal: Double){
         if(val > maxVal){

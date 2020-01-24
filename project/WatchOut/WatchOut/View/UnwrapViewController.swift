@@ -12,7 +12,9 @@ class UnwrapViewController: UIViewController {
 
     var controller: UnwrapController?
 
-    @IBOutlet weak var currentPlayer: UILabel!
+//    @IBOutlet weak var currentPlayer: UILabel!
+    @IBOutlet var currentPlayer: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

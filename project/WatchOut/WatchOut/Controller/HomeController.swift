@@ -27,7 +27,7 @@ class HomeController {
     func navigateToFirstTask() {
         // create dummy player names
         var playerNames: [String] = [String]()
-        for i in 1...playerCount {
+        for i in 0...playerCount {
             playerNames.append(String("Player \(i)"))
         }
         

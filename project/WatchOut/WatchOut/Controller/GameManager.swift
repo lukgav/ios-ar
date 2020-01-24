@@ -30,7 +30,7 @@ class GameManager{
     
     /// Starts a new game
 
-    func startNewGame(players: [Player], firstTask: TaskType = .Twitch, difficulty: Difficulty = .Medium) {
+    func startNewGame(players: [Player], firstTask: TaskType = .Unwrap, difficulty: Difficulty = .Medium) {
         
         self.players = players
         
@@ -53,7 +53,7 @@ class GameManager{
     
     func createPlayers(playerNames: [String]) -> [Player] {
         var newPlayers = [Player]()
-        for playerId in 0...playerNames.count {
+        for playerId in 0...(playerNames.count - 1) {
             newPlayers.append(Player(name: playerNames[playerId], id: playerId+1, limit: 50.0))
         }
         return newPlayers
