@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,7 +20,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71e-79-bRc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-955" y="96"/>
+            <point key="canvasLocation" x="-1913" y="530"/>
         </scene>
         <!--Home-->
         <scene sceneID="tne-QT-ifu">
@@ -129,7 +129,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-13" y="96"/>
+            <point key="canvasLocation" x="-954" y="96"/>
         </scene>
         <!--Help-->
         <scene sceneID="dPV-3b-TTa">
@@ -182,7 +182,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7kz-Vb-Zyb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="945" y="96"/>
+            <point key="canvasLocation" x="-1223" y="1198"/>
         </scene>
         <!--UnwrapTask-->
         <scene sceneID="Af5-KP-3Yr">
@@ -197,7 +197,6 @@
                                 <state key="normal" title="Next Task"/>
                                 <connections>
                                     <action selector="NextTaskTouch:" destination="O1c-Kr-D4k" eventType="touchUpInside" id="p2c-pc-5Tn"/>
-                                    <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="CZO-NZ-fyL"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPS-E7-u07" userLabel="quitGameButton">
@@ -249,14 +248,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="f6F-Sg-XTP"/>
                     <connections>
-                        <outlet property="curPlayer" destination="UGf-Xq-W0F" id="BWW-JR-UOA"/>
+                        <outlet property="currentPlayer" destination="UGf-Xq-W0F" id="ukP-p4-FMf"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="43M-id-rIK"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="Udo-a8-iKt"/>
+                        <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="cYO-1R-dfZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="smu-JS-lUO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-955" y="881"/>
+            <point key="canvasLocation" x="229" y="68"/>
         </scene>
         <!--DeliverTask-->
         <scene sceneID="5Qs-32-QtB">
@@ -266,7 +266,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lnk-Xy-xfZ">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lnk-Xy-xfZ">
                                 <rect key="frame" x="173" y="658" width="68" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Next Task"/>
@@ -355,7 +355,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoq-yO-tDI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="945" y="881"/>
+            <point key="canvasLocation" x="986" y="1076"/>
         </scene>
         <!--End Screen View Controller-->
         <scene sceneID="2JX-xy-FWW">
@@ -398,34 +398,46 @@
                                     <action selector="BackToHomeTouch:" destination="vRs-xq-NPh" eventType="touchUpInside" id="Mvv-3r-UCS"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bomb Exploded Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOT-xC-e5e">
+                                <rect key="frame" x="99" y="135" width="216" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5m0-CS-8sh">
+                                <rect key="frame" x="186" y="318" width="42" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="has lost this time. Good luck next time." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUC-fh-Uvv">
+                                <rect key="frame" x="59" y="357" width="296" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c7M-Gh-qsp" userLabel="ExplodeImageView">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="00W-4F-H9T" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="6Sv-wk-kHo"/>
-                            <constraint firstItem="hAH-9B-Ujx" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="AIO-jB-dN5"/>
-                            <constraint firstItem="c7M-Gh-qsp" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="BtY-kP-r2A"/>
-                            <constraint firstItem="c7M-Gh-qsp" firstAttribute="top" secondItem="00W-4F-H9T" secondAttribute="bottom" constant="20" id="IHC-iN-LMY"/>
-                            <constraint firstItem="PzA-q1-2tB" firstAttribute="bottom" secondItem="hAH-9B-Ujx" secondAttribute="bottom" constant="50" id="INb-pm-7kT"/>
-                            <constraint firstItem="c7M-Gh-qsp" firstAttribute="leading" secondItem="R43-Ne-dre" secondAttribute="leading" constant="30" id="ISn-dM-coy"/>
-                            <constraint firstItem="hAH-9B-Ujx" firstAttribute="top" secondItem="oao-jF-gU7" secondAttribute="bottom" constant="30" id="M76-dh-zST"/>
-                            <constraint firstAttribute="trailing" secondItem="c7M-Gh-qsp" secondAttribute="trailing" constant="30" id="dld-ub-pcO"/>
-                            <constraint firstItem="00W-4F-H9T" firstAttribute="top" secondItem="PzA-q1-2tB" secondAttribute="top" constant="60" id="gAf-fO-zvb"/>
-                            <constraint firstItem="oao-jF-gU7" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="nRE-mJ-RER"/>
-                        </constraints>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="PzA-q1-2tB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Jl0-7j-uGE"/>
                     <connections>
-                        <outlet property="YouLoseLabel" destination="00W-4F-H9T" id="6uB-be-rHM"/>
-                        <outlet property="youLoseLabel" destination="00W-4F-H9T" id="ms2-hN-yqA"/>
+                        <outlet property="explodeGif" destination="c7M-Gh-qsp" id="wzs-Cf-wHq"/>
+                        <outlet property="loserName" destination="5m0-CS-8sh" id="ILi-rF-fTd"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="dSj-e4-Dky"/>
-                        <segue destination="O1c-Kr-D4k" kind="show" identifier="UnwrapSegue" id="TUa-Wy-c2f"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CSk-1H-nIl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="IlJ-Ea-qaH" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-13.043478260869566" y="1652.6785714285713"/>
+            <point key="canvasLocation" x="1106" y="181"/>
         </scene>
         <!--TwitchTask-->
         <scene sceneID="Yns-zF-eXq">
@@ -456,61 +468,128 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDk-3z-Kt5">
-                                <rect key="frame" x="173" y="711" width="68" height="30"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8I9-yZ-K2L">
+                                <rect key="frame" x="139" y="283" width="137" height="128"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Next Task"/>
-                                <connections>
-                                    <action selector="nextTaskTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="NeA-sf-N66"/>
-                                    <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="npw-QY-IAp"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRR-1B-coW">
-                                <rect key="frame" x="171" y="779" width="73" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Quit Game"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lRR-1B-coW">
+                                <rect key="frame" x="158" y="720" width="98" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Quit Game">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="QuitGameTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="hSm-Yk-Ez0"/>
                                     <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="3Cm-aI-KuT"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8I9-yZ-K2L">
-                                <rect key="frame" x="139" y="283" width="137" height="128"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="g9z-64-6dT" firstAttribute="bottom" secondItem="lRR-1B-coW" secondAttribute="bottom" constant="50" id="38e-zc-S8g"/>
+                            <constraint firstItem="lRR-1B-coW" firstAttribute="centerX" secondItem="Dwt-go-riC" secondAttribute="centerX" id="KNQ-VJ-pJN"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="g9z-64-6dT"/>
                     </view>
                     <navigationItem key="navigationItem" id="4YR-H6-TcB"/>
                     <connections>
                         <outlet property="arrow" destination="8I9-yZ-K2L" id="ZIp-NJ-ZCS"/>
+                        <outlet property="view" destination="Dwt-go-riC" id="Jcg-XG-l6I"/>
                         <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="YD3-0V-XhB"/>
+                        <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="vCN-Ym-yPR"/>
+                        <segue destination="1fD-Ch-pe9" kind="show" identifier="TwitchAltSegue" id="KMe-92-Me7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VYA-9k-GKB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="uFe-f1-P6b" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="-13" y="881"/>
+            <point key="canvasLocation" x="-300" y="1000"/>
+        </scene>
+        <!--TwitchTask_alt-->
+        <scene sceneID="icY-qW-ZGC">
+            <objects>
+                <viewController id="1fD-Ch-pe9" userLabel="TwitchTask_alt" customClass="TwitchAltViewController" customModule="WatchOut" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5Kq-gp-lOF">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Task 2: Twitch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LwU-7H-tq4">
+                                <rect key="frame" x="92" y="83" width="230" height="42"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="35"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Current player:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qYR-sd-Wp7">
+                                <rect key="frame" x="44" y="657" width="176" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E1l-P0-qhf">
+                                <rect key="frame" x="228" y="657" width="65" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pzf-cF-Kvu">
+                                <rect key="frame" x="158" y="754" width="98" height="38"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                <state key="normal" title="Quit Game">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="QuitGameTouch:" destination="5Uy-qy-7QS" eventType="touchUpInside" id="KoU-Ud-fqm"/>
+                                    <action selector="QuitGameTouch:" destination="uFe-f1-P6b" eventType="touchUpInside" id="M5W-Bw-h7G"/>
+                                    <action selector="QuitGameTouch:" destination="1fD-Ch-pe9" eventType="touchUpInside" id="OHv-WM-4sp"/>
+                                </connections>
+                            </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="up-arrow" translatesAutoresizingMaskIntoConstraints="NO" id="8N5-bT-T0k">
+                                <rect key="frame" x="139" y="283" width="137" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="Pzf-cF-Kvu" secondAttribute="bottom" constant="50" id="Kjo-Id-bH4"/>
+                            <constraint firstItem="Pzf-cF-Kvu" firstAttribute="centerX" secondItem="5Kq-gp-lOF" secondAttribute="centerX" id="fsU-RF-kpc"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="K8q-Zx-41X"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="MhF-6O-x1T"/>
+                    <connections>
+                        <outlet property="arrow" destination="8N5-bT-T0k" id="5Pu-0E-JwS"/>
+                        <outlet property="curPlayerName" destination="E1l-P0-qhf" id="zWY-sh-7Fu"/>
+                        <outlet property="view" destination="5Kq-gp-lOF" id="rHH-SE-Rsw"/>
+                        <segue destination="Ds5-lk-ZLf" kind="show" identifier="TwitchSegue" id="bKa-ld-WVA"/>
+                        <segue destination="vaX-O0-H9D" kind="show" identifier="DeliverSegue" id="QxU-an-KBl"/>
+                        <segue destination="vRs-xq-NPh" kind="show" identifier="BombExplodedSegue" id="kcK-Au-egc"/>
+                        <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="v43-3v-tdU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yyU-bI-42M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="5Uy-qy-7QS" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="-300" y="1825"/>
         </scene>
     </scenes>
     <resources>
-        <image name="I" width="16" height="16"/>
         <image name="Start Button" width="256" height="256"/>
         <image name="StartScreen Background" width="1280" height="720"/>
         <image name="bombDeliver" width="318" height="159"/>
         <image name="exit" width="225" height="225"/>
-        <image name="explosion" width="1280" height="720"/>
         <image name="name3" width="892" height="432"/>
         <image name="questionmark.circle" catalog="system" width="64" height="60"/>
         <image name="rotation1" width="400" height="250"/>
         <image name="up-arrow" width="654" height="980"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="l6U-fX-RWf"/>
-        <segue reference="fyu-OB-oIg"/>
-        <segue reference="1xX-WW-OFJ"/>
+        <segue reference="CZO-NZ-fyL"/>
+        <segue reference="Udo-a8-iKt"/>
+        <segue reference="npw-QY-IAp"/>
         <segue reference="8jX-h0-hCH"/>
-        <segue reference="2Ws-nA-oM2"/>
+        <segue reference="43M-id-rIK"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -7,18 +7,17 @@
 //
 import UIKit
 
-class TwitchViewController: UIViewController {
+class TwitchAltViewController: UIViewController {
 
     var controller: TwitchController?
     
-    
-    @IBOutlet weak var curPlayerName: UILabel!
     @IBOutlet weak var arrow: UIImageView!
+    @IBOutlet weak var curPlayerName: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        controller = TwitchController(twitchViewController: self, isAlt: false)
+        controller = TwitchController(twitchAltViewController: self, isAlt: true)
         
         //var frontOfBaseTimer = Timer.schedu
         controller?.startTwitch()
@@ -52,7 +51,7 @@ class TwitchViewController: UIViewController {
     func updateBackgroundColor(newColor: UIColor) {
         self.view.backgroundColor = newColor
     }
-
+        
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
