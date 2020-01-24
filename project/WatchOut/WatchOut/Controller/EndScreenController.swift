@@ -22,9 +22,9 @@ class EndScreenController {
     // MARK: - Navigation
     
     func showLoserPlayer() {
-        var loserPlayer = gameManager.currentPlayer
+        let currentPlayer = gameManager.currentPlayer
         
-        var newText = String("\(loserPlayer?.name) lost!")
+        let newText = String("\(currentPlayer?.name) lost!")
         endScreenViewController.updateLoserLabel(newText: newText)
     }
     

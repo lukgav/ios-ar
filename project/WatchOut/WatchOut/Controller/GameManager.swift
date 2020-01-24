@@ -59,16 +59,8 @@ class GameManager{
     }
     
     /// Switches to next Player
-    func switchToNextPlayer() {
-        let currentIndex = players.firstIndex(where: {$0 === currentPlayer})!
-        
-        if (currentIndex + 1 >= players.count) {
-            currentPlayer = players[0]
-        }
-        else
-        {
-            currentPlayer = players[currentIndex+1]
-        }
+    func switchToNextPlayer(nextPlayer: Player) {
+        currentPlayer = nextPlayer
     }
     
     /// Switches to next Task and returns it
