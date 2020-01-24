@@ -26,76 +26,102 @@ class MotionData {
                           gravity: self.gravity - other.gravity,
                           acceleration: self.acceleration - other.acceleration)
     }
-//    func diffInMaginitude(other: MotionData) -> MotionData {
-//        return MotionData(
-//                    attitude: (abs(self.attitude - other.attitude)),
-//                    rotationRate: abs(self.rotationRate - other.rotationRate),
-//                    gravity: abs(self.gravity - other.gravity),
-//                    acceleration: abs(self.acceleration - other.acceleration)
-//                )
-//    }
+
+
     
+    
+
+
+    func isMotionOutOfRangeInDirection(pMotion: SIMD3<Double>, maxX: Double, maxY: Double, maxZ: Double, pMinValue: Double) -> Bool {
+        return(
+            isOutOfRangeInDirection(pMotion: pMotion, pDirection: Direction.x, maxValue: maxX, minValue: pMinValue) ||
+            isOutOfRangeInDirection(pMotion: pMotion, pDirection: Direction.y, maxValue: maxX, minValue: pMinValue) ||
+            isOutOfRangeInDirection(pMotion: pMotion, pDirection: Direction.z, maxValue: maxX, minValue: pMinValue)
+        )
+    }
+    
+    func isOutOfRangeInDirection(pMotion: SIMD3<Double>, pDirection: Direction, maxValue: Double, minValue: Double)-> Bool{
+        switch pDirection{
+        case .x:
+            return (abs(pMotion.x) > maxValue || abs(pMotion.x) < minValue )
+        case .y:
+            return (abs(pMotion.y) > maxValue || abs(pMotion.y) < minValue )
+        case .z:
+            return (abs(pMotion.z) > maxValue || abs(pMotion.z) < minValue )
+        }
+    }
+
+        
     //Rotation Code (to check max value)
     func rotationContainsHigherAbsoluteValue(than: Double) -> Bool {
         let rotation = MotionType.rotation
-        return motionContainsHigherAbsoluteValueinXYZDirection(motionType: rotation, maxX: than, maxY: than, maxZ: than)
-    }
+        return isMotionGreaterThanAbsoluteValue(pMotion: self.rotationRate, maxValue: than)
+        
+        }
     
     //Acceleration Code(to check max value)
     func accelerationContainsHigherAbsoluteValue(than: Double) -> Bool {
         let acceleration = MotionType.acceleration
-        return motionContainsHigherAbsoluteValueinXYZDirection(motionType: acceleration, maxX: than, maxY: than, maxZ: than)
+        return isMotionGreaterThanAbsoluteValue(pMotion: self.acceleration, maxValue: than)
+        
     }
     
     //Gravity Code(to check max value)
     func gravityContainsHigherAbsoluteValue(than: Double) -> Bool {
-        let gravity = MotionType.gravity
-        return motionContainsHigherAbsoluteValueinXYZDirection(motionType: gravity, maxX: than, maxY: than, maxZ: than)
+        return isMotionGreaterThanAbsoluteValue(pMotion: self.gravity, maxValue: than)
     }
-    
-    
     //General Motion(Could be any of teh four motion types listed in MotionData
-    func motionContainsHigherAbsoluteValue(motionType: MotionType, maxValue: Double) -> Bool {
-        return motionContainsHigherAbsoluteValueinXYZDirection(motionType: motionType, maxX: maxValue, maxY: maxValue, maxZ: maxValue)
+    func isMotionGreaterThanAbsoluteValue(pMotion: SIMD3<Double>, maxValue: Double) -> Bool {
+        return isMotionGreaterThanMaxInEveryDirection(pMotion: pMotion, maxX: maxValue, maxY: maxValue, maxZ: maxValue)
     }
-
-    func isMotionOutOfRange(motionType: MotionType, maxX: Double, maxY: Double, maxZ: Double, pMinValue: Double) -> Bool {
+    func isMotionGreaterThanMaxInEveryDirection(pMotion: SIMD3<Double>, maxX: Double, maxY: Double, maxZ: Double) -> Bool {
         return(
-            isOutOfXRangeOf(motionType: motionType, maxValue: maxX, minValue: pMinValue) ||
-            isOutOfYRangeOf(motionType: motionType, maxValue: maxY, minValue: pMinValue) ||
-            isOutOfZRangeOf(motionType: motionType, maxValue: maxZ, minValue: pMinValue)
+            isGreaterThanMaxInDirection(pMotion: pMotion, pDirection: .x, maxValue: maxX) ||
+            isGreaterThanMaxInDirection(pMotion: pMotion, pDirection: .y, maxValue: maxX) ||
+            isGreaterThanMaxInDirection(pMotion: pMotion, pDirection: .z, maxValue: maxX)
         )
     }
-    
-    
-    func motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType, maxX: Double, maxY: Double, maxZ: Double) -> Bool {
-        return(isOverMaxXValueOf(motionType: motionType, maxValue: maxX) || isOverMaxYValueOf(motionType: motionType, maxValue: maxY) || isOverMaxZValueOf(motionType: motionType, maxValue: maxZ) )
+    func isGreaterThanMaxInDirection(pMotion: SIMD3<Double>, pDirection: Direction, maxValue: Double)-> Bool{
+        switch pDirection{
+        case .x:
+            return (abs(pMotion.x) >= maxValue)
+        case .y:
+            return (abs(pMotion.y) >= maxValue)
+        case .z:
+            return (abs(pMotion.z) >= maxValue)
     }
     
     //Chose MotionType and direction
     // check ranges of X
-    func isOutOfXRangeOf(motionType: MotionType, maxValue: Double, minValue: Double) -> Bool {
-        switch motionType{
-        case MotionType.attitude:
-            return (abs(rotationRate.x) > maxValue)
-        case MotionType.acceleration:
-            return (abs(acceleration.x) > maxValue)
-        case MotionType.gravity:
-            return (abs(gravity.x) > maxValue || abs(gravity.z) < minValue )
-        case MotionType.rotation:
-            return (abs(rotationRate.x) > maxValue)
-        }
+    
+
+        
+
+    
+//    func isOutOfXRangeOf(motionType: MotionType, maxValue: Double, minValue: Double) -> Bool {
+//        switch motionType{
+//        case MotionType.attitude:
+//            return isOutOfRangeinDirection()
+//            return (abs(rotationRate.x) > maxValue)
+//        case MotionType.acceleration:
+//            return (abs(acceleration.x) > maxValue)
+//        case MotionType.gravity:
+//            return (abs(gravity.x) > maxValue || abs(gravity.z) < minValue )
+//        case MotionType.rotation:
+//            return (abs(rotationRate.x) > maxValue)
+//        }
     }
-    func isOverMaxXValueOf(motionType: MotionType, maxValue: Double) -> Bool {
-        //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
-        let minValueNoCare: Double = self.gravity.x
-        return isOutOfXRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
-    }
-    func isUnderMinXValueOf(motionType: MotionType, minValue: Double) -> Bool {
-        //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
-        let maxValueNoCare: Double = self.gravity.y
-        return isOutOfXRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
-    }
+        
+//    func isOverMaxXValueOf(motionType: MotionType, maxValue: Double) -> Bool {
+//        //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
+//        let minValueNoCare: Double = self.gravity.x
+//        return isOutOfXRangeOf(motionType: motionType, maxValue: maxValue, minValue: minValueNoCare)
+//    }
+//    func isUnderMinXValueOf(motionType: MotionType, minValue: Double) -> Bool {
+//        //TODO: Change Default min value to work with all motionTypes(May have to use another switch statment within this...(Blech)
+//        let maxValueNoCare: Double = self.gravity.y
+//        return isOutOfXRangeOf(motionType: motionType, maxValue: maxValueNoCare, minValue: minValue)
+//    }
     
     // check ranges of Y
     func isOutOfYRangeOf(motionType: MotionType, maxValue: Double, minValue: Double) -> Bool {
@@ -167,8 +193,6 @@ class MotionData {
         
         return String("Att: \(attX),\(attY),\(attZ), Rot: \(rotRateX),\(rotRateY),\(rotRateZ), Grav: \(gravX),\(gravY),\(gravZ), Att: \(accX),\(accY),\(accZ)")
     }
-    
-    
 }
 
 class MotionDataObserver : ObserverProtocol {
@@ -178,3 +202,5 @@ class MotionDataObserver : ObserverProtocol {
         print("OnValueChanged \(value)" )
     }
 }
+
+

@@ -23,22 +23,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "5D7A7E3D-E733-42FE-837E-DB999B5AD043"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WatchOut/Controller/UnwrapController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "338"
-            endingLineNumber = "338"
-            landmarkName = "checkBombExplode()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "B3E627FC-1E3F-4F9E-B547-6B410359D41A"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -64,7 +48,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "294"
             endingLineNumber = "294"
-            landmarkName = "isDeviceTurningClockwiseX()"
+            landmarkName = "isDeviceTurningClockwiseZ()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

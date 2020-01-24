@@ -207,20 +207,6 @@ class UnwrapController {
     func isWithinRange(val: Double,min: Double,max: Double) ->Bool{
         return (val < max) && (val > min)
     }
-    func isGravZNeg() -> Bool{
-        return self.currentMotionData.gravity.z < 0.0
-    }
-    func isGravZPos() -> Bool{
-        return self.currentMotionData.gravity.z > 0.0
-    }
-    
-    func isGravityIncreasingInXDirection() -> Bool{
-        return self.currentMotionData.gravity.x > self.oldMotionData.gravity.x
-    }
-    
-    func isGravityDecreasingInXDirection() -> Bool{
-        return self.currentMotionData.gravity.x < self.oldMotionData.gravity.x
-    }
     
     func checkUnwrapMotion(){
         // ------------ ------------ z-direction ------------ ------------
@@ -241,13 +227,13 @@ class UnwrapController {
 
     func checkChangeinGrav(){
         //X Direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.bottomMaxDiffGrav.x, maxVal: self.topMaxDiffGrav.x)
+        checkChangeinGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.bottomMaxDiffGrav.x, maxVal: self.topMaxDiffGrav.x)
         //Z direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.bottomMaxDiffGrav.z, maxVal: self.topMaxDiffGrav.z)
+        checkChangeinGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.bottomMaxDiffGrav.z, maxVal: self.topMaxDiffGrav.z)
         //Y Direction
-        checkDiffGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.bottomMaxDiffGrav.y, maxVal: self.topMaxDiffGrav.y)
+        checkChangeinGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.bottomMaxDiffGrav.y, maxVal: self.topMaxDiffGrav.y)
     }
-    func checkDiffGravinDirection(val: Double, minVal: Double, maxVal: Double){
+    func checkChangeinGravinDirection(val: Double, minVal: Double, maxVal: Double){
         if(val > maxVal){
             decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Over max change in gravity ")
         }
@@ -285,29 +271,19 @@ class UnwrapController {
             }
         }
     
-    func isDeviceTurningClockwiseX() -> Bool{
-        if(isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZNeg()){
-//            print("Grav is INCREASING X")
-            return true
-        }
-        else if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZPos()){
-//            print("Grav is DECREASING along X")
-            return true
-        }
-        else{
-            return false
-        }
-    }
-    
-    func isDeviceTurningAntiClockwiseX()-> Bool{
-        if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZPos()){
-    //            print("Grav is DECREASING along X")
-            return true
-        }
-        else{
-            return false
-        }
-    }
+//    func isDeviceTurningClockwiseX() -> Bool{
+//        if(isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZNeg()){
+////            print("Grav is INCREASING X")
+//            return true
+//        }
+//        else if(!isGravityIncreasingInDirection(pDirection: Direction.x) && isGravZPos()){
+////            print("Grav is DECREASING along X")
+//            return true
+//        }
+//        else{
+//            return false
+//        }
+//    }
     
     func isDeviceTurningClockwiseZ() -> Bool{
         if( isGravityIncreasingInDirection(pDirection: Direction.z) && self.currentMotionData.gravity.y < 0.0){
@@ -350,7 +326,8 @@ class UnwrapController {
     
     func isOverMaxAcceleration() -> Bool {
         // too much acceleration (shaking)
-        if (self.oldMotionData.motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType.acceleration, maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)) {
+        var oldMotion = self.oldMotionData
+        if(oldMotion.isMotionGreaterThanMaxInEveryDirection(pMotion: oldMotion.acceleration, maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)){
             return true
         }
         return false
@@ -358,7 +335,8 @@ class UnwrapController {
     
     func isOverMaxRotationRate() -> Bool {
         // too fast rotation (speed)
-        if (self.oldMotionData.motionContainsHigherAbsoluteValueinXYZDirection(motionType: MotionType.rotation, maxX: self.maxRotRate.x, maxY: self.maxRotRate.y, maxZ: self.maxRotRate.z)) {
+        var oldMotion = self.oldMotionData
+        if(oldMotion.isMotionGreaterThanMaxInEveryDirection(pMotion: oldMotion.rotationRate, maxX: self.maxRotRate.x, maxY: self.maxRotRate.y, maxZ: self.maxRotRate.z)){
             return true
         }
         return false

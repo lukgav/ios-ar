@@ -14,6 +14,8 @@ class HomeController {
     private let observer = MotionDataObserver()
     private let gameManager = GameManager.shared
     
+    
+
     var playerCount: Int = 1
     
     let homeViewController : HomeViewController
