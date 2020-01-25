@@ -118,9 +118,12 @@ class UnwrapController {
     }
     
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
-    func startUnwrap(){
+    func startUnwrap(pCountDownDuration: Double){
         self.setUpUnwrap()
         self.loadUI()
+        self.startCountdown(duration: pCountDownDuration)
+        self.stopCountdown()
+        
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.loadNewData(pNewMotionData: newMotionData)
             self.checkTaskFinishedCondition()
@@ -135,6 +138,7 @@ class UnwrapController {
         return
     }
     
+    // MARK: - BELOW: Load, update Unwrap values, UI and print data etc...
     func setUpUnwrap(){
         getRandomTurns()
         getRandomClockwiseTurn()
@@ -155,18 +159,6 @@ class UnwrapController {
         self.currentMotionData = pNewMotionData
         self.diffMotionData = self.currentMotionData.diff(other: self.oldMotionData)
     }
-    func checkTaskFinishedCondition(){
-        self.numOfTurnsMoved()
-        self.checkifTaskisFinished()
-    }
-    
-//    func printData(pMotionType: MotionType, pDirection: Direction ){
-//        if(){
-//
-//        }else{
-//
-//        }
-//    }
     
     func printGravData(pDirection: Direction){
         switch pDirection{
@@ -197,7 +189,10 @@ class UnwrapController {
         }
     }
     
+    // MARK: - ABOVE: Load, update Unwrap values, UI and print data etc...
+
     
+    // MARK: - BELOW: Check Unwrap Direction
     func checkUnwrapMotion(){
         ///Works in x direction
 //        UnwrapInDirection(pDirection: .x)//        checkUnwrapInYDirection()
@@ -243,13 +238,8 @@ class UnwrapController {
             turnCounter += 1
         }
     }
-    func checkifTaskisFinished(){
-        // + 1
-        if (turnCounter >= maxNumTurns + 1){
-            print("Good job! Task is finished! ")
-//            self.navigateToNextTask()
-        }
-    }
+
+
     
     func isDeviceTurningInCorrectDirection(pTurningDirection: Direction, pStateDirection: Direction) -> Bool{
         var isGoinginIntendedDirection: Bool = false
@@ -269,10 +259,6 @@ class UnwrapController {
         return isGoinginIntendedDirection
     }
     
-    func stopUnwrap() {
-        print("stop")
-        dmManager.currentMotionData.removeObserver(observer)
-    }
 
     func whichGravAxes(pDirection: Direction) -> (Double, Double, Double){
         var current: Double
@@ -301,6 +287,8 @@ class UnwrapController {
         return (current, old, diff)
     }
     
+
+    
     func isGravityIncreasingInDirection(pDirection: Direction) -> Bool{
         var current: Double
         var old: Double
@@ -315,6 +303,23 @@ class UnwrapController {
 //        return diffTotal >= 0.0
     }
     
+// MARK: - check Clockwise or Anti-Clockwise direction and if that matches teh directionthe playe should go in
+    func isDeviceTurningClockwise(turningDirection: Direction, stateDirection: Direction) -> Bool{
+        var (current, old, diff): (Double,Double,Double)
+        (current, old, diff) = whichGravAxes(pDirection: stateDirection)
+        if(isGravityIncreasingInDirection(pDirection: turningDirection) && current < 0.0){
+    //            print("Grav is INCREASING X")
+                return true
+        }
+        else if(!isGravityIncreasingInDirection(pDirection: turningDirection) && current > 0.0){
+    //            print("Grav is DECREASING along X")
+                return true
+            }
+            else{
+                return false
+            }
+        }
+    
     func roundtoThousandth(pNum: Double)->Double{
         return round(100*pNum) / 100
     }
@@ -323,6 +328,8 @@ class UnwrapController {
         return (val < max) && (val > min)
     }
 
+    // MARK: - Check if Turning is going to fast
+    /// Check if change in Gravity in one or more directions is too much
     func checkChangeinGrav(){
         //X Direction
         checkChangeinGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.bottomMaxDiffGrav.x, maxVal: self.topMaxDiffGrav.x)
@@ -342,7 +349,8 @@ class UnwrapController {
             decreaseBombStabilityAndColor(pDmg: lDmg, pErr: "Too much Change in gravity ")
         }
     }
-    
+
+    // MARK: - Check if Player is wobbling too much
     func checkGravPosition(pDirection: Direction)-> Bool{
         let curMotion = self.currentMotionData
         if(curMotion.isOutOfRangeInDirection(pMotion: curMotion.gravity, pDirection: pDirection, maxValue: self.maxGrav.y, minValue: self.minGrav.y)){
@@ -356,38 +364,7 @@ class UnwrapController {
         return !isWithinRange(val: self.oldMotionData.gravity.y, min: self.minGrav.y, max: self.maxGrav.y)
     }
     
-    func isDeviceTurningClockwise(turningDirection: Direction, stateDirection: Direction) -> Bool{
-        var (current, old, diff): (Double,Double,Double)
-        (current, old, diff) = whichGravAxes(pDirection: stateDirection)
-        if(isGravityIncreasingInDirection(pDirection: turningDirection) && current < 0.0){
-    //            print("Grav is INCREASING X")
-                return true
-        }
-        else if(!isGravityIncreasingInDirection(pDirection: turningDirection) && current > 0.0){
-    //            print("Grav is DECREASING along X")
-                return true
-            }
-            else{
-                return false
-            }
-        }
-
-    
-    func checkBombExplode(){
-        if(self.gameManager.decreaseStability(percentage: 0.0)){
-            self.navigateToEndScreen()
-        }
-    }
-    func decreaseBombStabilityAndColor(pDmg: Double, pErr: String){
-        print(pErr + "\n")
-        self.gameManager.decreaseStability(percentage: pDmg)
-//        self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
-    }
-    
-    func increaseBombStabilityAndColor(){
-        self.gameManager.increaseStability(percentage: self.dmgVal)
-    }
-    
+    //MARK: - Check other sensors and if they are over max magnitude
     func isOverMaxAcceleration() -> Bool {
         // too much acceleration (shaking)
         var oldMotion = self.oldMotionData
@@ -406,6 +383,47 @@ class UnwrapController {
         return false
     }
     
+    // MARK:   - Check Finish Condition
+    
+    
+    func checkBombExplode(){
+        if(self.gameManager.decreaseStability(percentage: 0.0)){
+            self.navigateToEndScreen()
+        }
+    }
+    
+    func checkTaskFinishedCondition(){
+        self.numOfTurnsMoved()
+        self.checkifTaskisFinished()
+    }
+    
+    func checkifTaskisFinished(){
+        // + 1
+        if (turnCounter >= maxNumTurns + 1){
+            print("Good job! Task is finished! ")
+            self.stopUnwrap()
+//            self.navigateToNextTask()
+        }
+    }
+    
+    func stopUnwrap() {
+        print("stop")
+        dmManager.currentMotionData.removeObserver(observer)
+    }
+    
+    
+    // MARK: - Interact with Bomb and GameManager
+    
+    func decreaseBombStabilityAndColor(pDmg: Double, pErr: String){
+        print(pErr + "\n")
+        self.gameManager.decreaseStability(percentage: pDmg)
+//        self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
+    }
+    
+    func increaseBombStabilityAndColor(){
+        self.gameManager.increaseStability(percentage: self.dmgVal)
+    }
+    
     // MARK: - Countdown Logic
     
     private func startCountdown(duration: Double) {
@@ -417,23 +435,22 @@ class UnwrapController {
         self.timer = Timer.scheduledTimer(withTimeInterval: self.timerInterval, repeats: true) { timer in
             self.countDownTime -= self.timerInterval
             
-            if (self.countDownTime < 0.0) {
-                // Timer ran out
-                
-                self.navigateToEndScreen()
+            if (self.countDownTime <= 0.0) {
+                return
+//                self.startUnwrap()
             }
             else {
-                if (self.countDownTime < duration - self.timerInterval*5) {
-                    print("CAN PUT FINGER ON LIGHT SENSOR")
-                }
-                
-                //print("CountDownTime: \(self.countDownTime)")
-                self.deliverViewController.updateTimerLabel(newTime: self.countDownTime)
+//                if (self.countDownTime < duration - self.timerInterval*5) {
+//                    print("Allow user to read data")
+//                }
+                print("CountDownTime: \(self.countDownTime)")
+                self.unwrapViewController.updateTimer(newTime: self.countDownTime)
             }
+            
         }
-        
         // Add the timer to the current run loop.
         RunLoop.current.add(self.timer, forMode: RunLoop.Mode.default)
+        return
     }
     
     private func stopCountdown() {
