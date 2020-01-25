@@ -24,7 +24,7 @@ class EndScreenController {
     func showLoserPlayer() {
         let currentPlayer = gameManager.currentPlayer
         
-        let newText = String("\(currentPlayer?.name) lost!")
+        let newText = String("\(currentPlayer!.name) lost!")
         endScreenViewController.updateLoserLabel(newText: newText)
     }
     

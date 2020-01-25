@@ -10,7 +10,6 @@ import UIKit
 
 class EndScreenViewController: UIViewController {
 
-    
     @IBOutlet weak var youLoseLabel: UILabel!
     
     var controller : EndScreenController?

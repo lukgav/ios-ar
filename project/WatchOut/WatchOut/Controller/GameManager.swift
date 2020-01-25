@@ -48,8 +48,8 @@ class GameManager{
         players = [Player]()
         bomb = nil
         currentTask = nil
-        soundManager.stopTickSound()
-        soundManager.playBombSound()
+        //soundManager.stopTickSound()
+        //soundManager.playBombSound()
     }
     
     func createPlayers(playerNames: [String]) -> [Player] {
@@ -172,7 +172,7 @@ class GameManager{
             
             // Tick Sound
             
-            soundManager.playTickSound(newUpdateInterval: 3*progressPercentage)
+            //soundManager.playTickSound(newUpdateInterval: 3*progressPercentage)
         }
     }
 }

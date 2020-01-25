@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="lb8-1T-B9W">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -158,8 +158,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KgF-HW-XxT" userLabel="rulesTextView">
-                                <rect key="frame" x="35" y="131" width="345" height="582"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="KgF-HW-XxT" userLabel="rulesTextView">
+                                <rect key="frame" x="25" y="198" width="364" height="446"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <string key="text">Welcome to WatchOut!  Each player will have to complete 3 tasks in a certain amount of time.  If you fail one of the tasks, the bomb explodes and you lose.  Task 1: Unwrap (rotate) the smartphone in the right direction.   Task 2: Twitch the smartphone in the right direction in a certain amount of times.  Task 3: Deliver the bomb to the next player before the time runs out. Hold the light sensor of your smartphone while you are carrying it to the next player.</string>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -170,7 +170,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="KgF-HW-XxT" firstAttribute="centerY" secondItem="5UF-EQ-umh" secondAttribute="centerY" id="4Tq-vJ-zCA"/>
+                            <constraint firstAttribute="trailing" secondItem="KgF-HW-XxT" secondAttribute="trailing" constant="25" id="6H9-Ic-a0D"/>
                             <constraint firstItem="jV5-ZX-bgb" firstAttribute="centerX" secondItem="5UF-EQ-umh" secondAttribute="centerX" id="Wce-Pa-DmS"/>
+                            <constraint firstItem="KgF-HW-XxT" firstAttribute="leading" secondItem="5UF-EQ-umh" secondAttribute="leading" constant="25" id="ekx-tC-JdD"/>
                             <constraint firstItem="jV5-ZX-bgb" firstAttribute="top" secondItem="mZq-vg-sTk" secondAttribute="top" constant="45" id="hu8-9x-pdM"/>
                             <constraint firstItem="TPV-pX-SKZ" firstAttribute="centerX" secondItem="5UF-EQ-umh" secondAttribute="centerX" id="rRc-ot-Kq0"/>
                             <constraint firstItem="KgF-HW-XxT" firstAttribute="centerX" secondItem="5UF-EQ-umh" secondAttribute="centerX" id="wfo-8B-6Qy"/>
@@ -366,9 +368,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oao-jF-gU7" userLabel="StartNewGameButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oao-jF-gU7" userLabel="StartNewGameButton">
                                 <rect key="frame" x="96" y="696" width="222" height="48"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
                                 <state key="normal" title="Start New Game">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -377,22 +378,20 @@
                                     <action selector="StartNewGameTouch:" destination="vRs-xq-NPh" eventType="touchUpInside" id="d6q-tJ-Jfb"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" image="explosion" highlightedImage="I" translatesAutoresizingMaskIntoConstraints="NO" id="c7M-Gh-qsp" userLabel="ExplodeImageView">
-                                <rect key="frame" x="30" y="184" width="354" height="360"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="explosion" highlightedImage="I" translatesAutoresizingMaskIntoConstraints="NO" id="c7M-Gh-qsp" userLabel="ExplodeImageView">
+                                <rect key="frame" x="15" y="241" width="384" height="360"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="360" id="rBZ-E5-OHz"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="You Lose!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00W-4F-H9T" userLabel="YouLoseLabel">
-                                <rect key="frame" x="98.5" y="104" width="217" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You Lose!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="00W-4F-H9T" userLabel="YouLoseLabel">
+                                <rect key="frame" x="30" y="70" width="354" height="60"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="50"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAH-9B-Ujx" userLabel="BackToHomeButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAH-9B-Ujx" userLabel="BackToHomeButton">
                                 <rect key="frame" x="140" y="774" width="134" height="38"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="21"/>
                                 <state key="normal" title="Back to Home">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -402,35 +401,27 @@
                                     <action selector="BackToHomeTouch:" destination="vRs-xq-NPh" eventType="touchUpInside" id="Mvv-3r-UCS"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Bomb Exploded Placeholder" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tOT-xC-e5e">
-                                <rect key="frame" x="99" y="135" width="216" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5m0-CS-8sh">
-                                <rect key="frame" x="186" y="318" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="has lost this time. Good luck next time." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GUC-fh-Uvv">
-                                <rect key="frame" x="59" y="357" width="296" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="PzA-q1-2tB" firstAttribute="trailing" secondItem="00W-4F-H9T" secondAttribute="trailing" constant="30" id="DRW-kX-tlG"/>
+                            <constraint firstItem="hAH-9B-Ujx" firstAttribute="top" secondItem="oao-jF-gU7" secondAttribute="bottom" constant="30" id="E0Y-dA-lil"/>
+                            <constraint firstItem="oao-jF-gU7" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="KRV-bQ-quO"/>
+                            <constraint firstItem="c7M-Gh-qsp" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="L94-UH-o2j"/>
+                            <constraint firstAttribute="trailing" secondItem="c7M-Gh-qsp" secondAttribute="trailing" constant="15" id="Lfh-Cd-Uzm"/>
+                            <constraint firstItem="00W-4F-H9T" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="MpK-dq-YwT"/>
+                            <constraint firstItem="c7M-Gh-qsp" firstAttribute="centerY" secondItem="R43-Ne-dre" secondAttribute="centerY" id="UBu-sZ-ZoV"/>
+                            <constraint firstItem="c7M-Gh-qsp" firstAttribute="leading" secondItem="R43-Ne-dre" secondAttribute="leading" constant="15" id="iJB-zd-vh0"/>
+                            <constraint firstItem="00W-4F-H9T" firstAttribute="leading" secondItem="PzA-q1-2tB" secondAttribute="leading" constant="30" id="n2x-fQ-4Hm"/>
+                            <constraint firstItem="hAH-9B-Ujx" firstAttribute="centerX" secondItem="R43-Ne-dre" secondAttribute="centerX" id="oyJ-Qx-Sof"/>
+                            <constraint firstItem="00W-4F-H9T" firstAttribute="top" secondItem="PzA-q1-2tB" secondAttribute="top" constant="70" id="z5b-Hj-dhG"/>
+                            <constraint firstAttribute="bottom" secondItem="hAH-9B-Ujx" secondAttribute="bottom" constant="30" id="zBY-ZS-BDR"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="PzA-q1-2tB"/>
                     </view>
                     <navigationItem key="navigationItem" id="Jl0-7j-uGE"/>
                     <connections>
-                        <outlet property="explodeGif" destination="c7M-Gh-qsp" id="wzs-Cf-wHq"/>
-                        <outlet property="loserName" destination="5m0-CS-8sh" id="ILi-rF-fTd"/>
+                        <outlet property="youLoseLabel" destination="00W-4F-H9T" id="fIT-ij-EGT"/>
                         <segue destination="BYZ-38-t0r" kind="show" identifier="HomeSegue" id="dSj-e4-Dky"/>
                     </connections>
                 </viewController>
@@ -591,7 +582,7 @@
         <segue reference="cYO-1R-dfZ"/>
         <segue reference="Udo-a8-iKt"/>
         <segue reference="QxU-an-KBl"/>
-        <segue reference="8jX-h0-hCH"/>
+        <segue reference="NUh-b3-TSL"/>
         <segue reference="dSj-e4-Dky"/>
     </inferredMetricsTieBreakers>
 </document>
