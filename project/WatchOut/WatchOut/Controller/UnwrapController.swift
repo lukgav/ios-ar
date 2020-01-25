@@ -74,17 +74,16 @@ class UnwrapController {
     
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
     func startUnwrap(){
-        
+        let lDirection: Direction =  .z
         self.loadUI()
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.loadNewData(pNewMotionData: newMotionData)
             self.checkTaskFinishedCondition()
-            self.printData()
-            
+            self.prinGravtData(pDirection: lDirection)
             /// Players mistakes and consequences are checked below
 //            self.checkBombExplode()
-            self.UnwrapInDirection(pDirection: .x)
-            //Update oldMotionData and background color. Do here AFTER all computation is done
+//            self.UnwrapInDirection(pDirection: lDirection)
+            ///Update oldMotionData and background color. Do here AFTER all computation is done
             self.oldMotionData = self.currentMotionData
             self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
         }
@@ -110,12 +109,99 @@ class UnwrapController {
         self.checkifTaskisFinished()
     }
     
-    func printData(){
-        print("currentGravX: \(self.currentMotionData.gravity.x)")
-        print("oldGravX: \(self.oldMotionData.gravity.x)")
-        print("DiffGravX: \(self.diffMotionData.gravity.x)")
-        print("currentGravZ: \(self.currentMotionData.gravity.z)")
-        print("currentGravY: \(self.currentMotionData.gravity.y)")
+    func printMotionData(pMotionType: MotionType) -> MotionType{
+        switch pMotionType{
+        case .acceleration:
+            print("---------------------------------------------------")
+            print("oldGravX: \(self.oldMotionData.gravity.x)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("DiffGravX: \(self.diffMotionData.gravity.x)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+        case .attitude:
+            print("---------------------------------------------------")
+            print("oldGravX: \(self.oldMotionData.gravity.x)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("DiffGravX: \(self.diffMotionData.gravity.x)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+        case .gravity:
+            print("---------------------------------------------------")
+            print("oldGravX: \(self.oldMotionData.gravity.x)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("DiffGravX: \(self.diffMotionData.gravity.x)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+        case .rotationrate:
+            print("---------------------------------------------------")
+            print("oldGravX: \(self.oldMotionData.gravity.x)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("DiffGravX: \(self.diffMotionData.gravity.x)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+        }
+    }
+    
+    func printData(pDirection: Direction, pMotion: SIMD3<Double>){
+        switch pDirection{
+        case .x:
+            print("---------------------------------------------------")
+            print("oldGravX: \(self.oldMotionData.gravity.x)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("DiffGravX: \(self.diffMotionData.gravity.x)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+        case .y:
+            print("---------------------------------------------------")
+            print("oldGravY: \(self.oldMotionData.gravity.y)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+            print("DiffGravY: \(self.diffMotionData.gravity.y)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+        case .z:
+            print("---------------------------------------------------")
+            print("oldGravZ: \(self.oldMotionData.gravity.z)")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("DiffGravZ: \(self.diffMotionData.gravity.z)")
+            print("-------------")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+        }
+    }
+    
+    func printGravData(pDirection: Direction){
+        switch pDirection{
+        case .x:
+            print("---------------------------------------------------")
+            print("oldGravX: \(self.oldMotionData.gravity.x)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("DiffGravX: \(self.diffMotionData.gravity.x)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+        case .y:
+            print("---------------------------------------------------")
+            print("oldGravY: \(self.oldMotionData.gravity.y)")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+            print("DiffGravY: \(self.diffMotionData.gravity.y)")
+            print("-------------")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+        case .z:
+            print("---------------------------------------------------")
+            print("oldGravZ: \(self.oldMotionData.gravity.z)")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
+            print("DiffGravZ: \(self.diffMotionData.gravity.z)")
+            print("-------------")
+            print("currentGravY: \(self.currentMotionData.gravity.y)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+        }
     }
     
         
@@ -125,7 +211,7 @@ class UnwrapController {
         ///Works in x direction
 //        UnwrapInDirection(pDirection: .x)//        checkUnwrapInYDirection()
         /// DOES NOT WORK IN Y Direction
-        UnwrapInDirection(pDirection: .y)
+//        UnwrapInDirection(pDirection: .y)
         /// DOES NOT WORK IN Z Direction
 //        UnwrapInDirection(pDirection: .z)
     }
@@ -137,10 +223,10 @@ class UnwrapController {
             self.checkUnwrapInDirection(pTurningDir: .x, pStateDir: .z, pWobbleDir: .y)
         case .z:
             //Need to check these values to make sure if this the correct orientation
-            self.checkUnwrapInDirection(pTurningDir: .z, pStateDir: .y, pWobbleDir: .x)
+            self.checkUnwrapInDirection(pTurningDir: .z, pStateDir: .x, pWobbleDir: .y)
         case .y:
             //Need to check these values to make sure if this the correct orientation
-            self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .x, pWobbleDir: .z)
+            self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .z, pWobbleDir: .x)
         }
     }
     
@@ -150,7 +236,7 @@ class UnwrapController {
         // - z to check rate of change in gravity of x
         // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
             
-        if(self.isDeviceTurningInCorrectDirection(turningDirection: pTurningDir, stateDirection: pStateDir)){
+        if(self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)){
                 //check if gravity is out of range in y-direction
         //                print("Going in right direction")
             self.checkGravPosition(pDirection: pWobbleDir)
@@ -178,16 +264,16 @@ class UnwrapController {
         }
     }
     
-    func isDeviceTurningInCorrectDirection(turningDirection: Direction, stateDirection: Direction) -> Bool{
+    func isDeviceTurningInCorrectDirection(pTurningDirection: Direction, pStateDirection: Direction) -> Bool{
         var isGoinginIntendedDirection: Bool = false
         print("--------------ShouldGoClockwise: \(self.shouldTurnClockwise)--------")
-        if(self.isDeviceTurningClockwise(turningDirection: .x, stateDirection: .z) && self.shouldTurnClockwise){
-            print("Turing clockwise")
+        if(self.isDeviceTurningClockwise(turningDirection: pTurningDirection, stateDirection: pStateDirection) && self.shouldTurnClockwise){
+            print("-----------------Turning clockwise-----------------")
             return true
         }
         //OR Is device turning anticlockwise and should it be turning anticlockwise?
-        else if(!self.isDeviceTurningClockwise(turningDirection: .x, stateDirection: .z) && !self.shouldTurnClockwise){
-            print("Turing anticlockwise")
+        else if(!self.isDeviceTurningClockwise(turningDirection: pTurningDirection, stateDirection: pStateDirection) && !self.shouldTurnClockwise){
+            print("-----------------Turning anticlockwise-----------------")
             return true
         }
         else{
@@ -280,7 +366,7 @@ class UnwrapController {
     func checkGravPosition(pDirection: Direction)-> Bool{
         let curMotion = self.currentMotionData
         if(curMotion.isOutOfRangeInDirection(pMotion: curMotion.gravity, pDirection: pDirection, maxValue: self.maxGrav.y, minValue: self.minGrav.y)){
-            decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: MotionType.gravity.toString + ": " +  self.errMsg.outOfYRange)
+            decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: MotionType.gravity.toString + ": " +  self.errMsg.outOfRange + "in " + pDirection.toString)
             return true
         }
         return false

@@ -12,4 +12,14 @@ enum Direction {
     case x
     case y
     case z
+    
+    var toString : String {
+        switch self {
+        // Use Internationalization, as appropriate.
+        case .x: return "X-Dir"
+        case .y: return "Y-Dir"
+        case .z: return "Z-Dir"
+        }
+     }
+    
 }

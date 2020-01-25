@@ -30,10 +30,10 @@
             filePath = "WatchOut/Controller/UnwrapController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "isGravityIncreasingInDirection(pDirection:)"
-            landmarkType = "7">
+            startingLineNumber = "267"
+            endingLineNumber = "267"
+            landmarkName = "UnwrapController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -46,9 +46,9 @@
             filePath = "WatchOut/Controller/UnwrapController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "191"
-            endingLineNumber = "191"
-            landmarkName = "isDeviceTurningInCorrectDirection(turningDirection:stateDirection:)"
+            startingLineNumber = "213"
+            endingLineNumber = "213"
+            landmarkName = "checkUnwrapInDirection(pTurningDir:pStateDir:pWobbleDir:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
