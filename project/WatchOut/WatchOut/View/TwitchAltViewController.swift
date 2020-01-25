@@ -12,14 +12,12 @@ class TwitchAltViewController: UIViewController {
     var controller: TwitchController?
     
     @IBOutlet weak var arrow: UIImageView!
-    @IBOutlet weak var curPlayerName: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        controller = TwitchController(twitchAltViewController: self, isAlt: true)
+        controller = TwitchController(twitchAltViewController: self)
         
-        //var frontOfBaseTimer = Timer.schedu
         controller?.startTwitch()
     }
     

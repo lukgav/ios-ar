@@ -150,7 +150,6 @@ class UnwrapController {
     func loadUI(){
         let nextPlayer =  gameManager.getNextRandomPlayer()
         
-        unwrapViewController.updatePlayerNameLabel(name: nextPlayer.name)
         unwrapViewController.updateBackgroundColor(pColor: gameManager.currentColor)
         // TODO: randomize direction AND clockWise Boolean
         unwrapViewController.updateTurningImage(direction: self.unwrapDirection, goClockwise: self.shouldTurnClockwise)

@@ -23,11 +23,7 @@ class DeliverViewController: UIViewController {
         
         controller?.startDelivery(countDownDuration: 10.0)
     }
-    
-    @IBAction func NextTaskTouch(_ sender: Any) {
-        controller?.navigateToNextTask()
-    }
-    
+        
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }

@@ -34,18 +34,18 @@ class TwitchController {
     
     var isAlt: Bool
         
-    init(twitchViewController: TwitchViewController, isAlt: Bool) {
+    init(twitchViewController: TwitchViewController) {
         self.twitchViewController = twitchViewController
         
         currentTwitchDirection = twitchDirections.randomElement()!
-        self.isAlt = isAlt
+        self.isAlt = false
     }
     
-    init(twitchAltViewController: TwitchAltViewController, isAlt: Bool) {
+    init(twitchAltViewController: TwitchAltViewController) {
         self.twitchAltViewController = twitchAltViewController
         
         currentTwitchDirection = twitchDirections.randomElement()!
-        self.isAlt = isAlt
+        self.isAlt = true
     }
       
     func startTwitch() {
@@ -62,7 +62,7 @@ class TwitchController {
         // wait before looking for direction
         
         var date = Date()
-        date.addTimeInterval(2.0)
+        date.addTimeInterval(1.0)
         let timer = Timer(fire: date, interval: 0.0, repeats: false,
                            block: { (timer) in
                                     print("START TWITCH: OBSERVE MOTION")

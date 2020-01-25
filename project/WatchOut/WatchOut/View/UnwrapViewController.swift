@@ -14,7 +14,6 @@ class UnwrapViewController: UIViewController {
 
 //    @IBOutlet weak var currentPlayer: UILabel!
     @IBOutlet weak var countDownTimeLabel: UILabel!
-    @IBOutlet var currentPlayer: UILabel!
     @IBOutlet var directionWrap: UIImageView!
     
     override func viewDidLoad() {
@@ -38,9 +37,6 @@ class UnwrapViewController: UIViewController {
     
     func updateBackgroundColor(pColor: UIColor) {
         self.view.backgroundColor = pColor
-    }
-    func updatePlayerNameLabel(name: String) {
-        currentPlayer.text = name
     }
     
     func updateTimerLabel(newTime: Double) {
