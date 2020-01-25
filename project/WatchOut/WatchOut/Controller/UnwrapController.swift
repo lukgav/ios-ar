@@ -79,10 +79,10 @@ class UnwrapController {
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.loadNewData(pNewMotionData: newMotionData)
             self.checkTaskFinishedCondition()
-            self.prinGravtData(pDirection: lDirection)
+            self.printGravData(pDirection: lDirection)
             /// Players mistakes and consequences are checked below
 //            self.checkBombExplode()
-//            self.UnwrapInDirection(pDirection: lDirection)
+            self.UnwrapInDirection(pDirection: lDirection)
             ///Update oldMotionData and background color. Do here AFTER all computation is done
             self.oldMotionData = self.currentMotionData
             self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
@@ -109,71 +109,13 @@ class UnwrapController {
         self.checkifTaskisFinished()
     }
     
-    func printMotionData(pMotionType: MotionType) -> MotionType{
-        switch pMotionType{
-        case .acceleration:
-            print("---------------------------------------------------")
-            print("oldGravX: \(self.oldMotionData.gravity.x)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
-            print("DiffGravX: \(self.diffMotionData.gravity.x)")
-            print("-------------")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("currentGravY: \(self.currentMotionData.gravity.y)")
-        case .attitude:
-            print("---------------------------------------------------")
-            print("oldGravX: \(self.oldMotionData.gravity.x)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
-            print("DiffGravX: \(self.diffMotionData.gravity.x)")
-            print("-------------")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("currentGravY: \(self.currentMotionData.gravity.y)")
-        case .gravity:
-            print("---------------------------------------------------")
-            print("oldGravX: \(self.oldMotionData.gravity.x)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
-            print("DiffGravX: \(self.diffMotionData.gravity.x)")
-            print("-------------")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("currentGravY: \(self.currentMotionData.gravity.y)")
-        case .rotationrate:
-            print("---------------------------------------------------")
-            print("oldGravX: \(self.oldMotionData.gravity.x)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
-            print("DiffGravX: \(self.diffMotionData.gravity.x)")
-            print("-------------")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("currentGravY: \(self.currentMotionData.gravity.y)")
-        }
-    }
-    
-    func printData(pDirection: Direction, pMotion: SIMD3<Double>){
-        switch pDirection{
-        case .x:
-            print("---------------------------------------------------")
-            print("oldGravX: \(self.oldMotionData.gravity.x)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
-            print("DiffGravX: \(self.diffMotionData.gravity.x)")
-            print("-------------")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("currentGravY: \(self.currentMotionData.gravity.y)")
-        case .y:
-            print("---------------------------------------------------")
-            print("oldGravY: \(self.oldMotionData.gravity.y)")
-            print("currentGravY: \(self.currentMotionData.gravity.y)")
-            print("DiffGravY: \(self.diffMotionData.gravity.y)")
-            print("-------------")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
-        case .z:
-            print("---------------------------------------------------")
-            print("oldGravZ: \(self.oldMotionData.gravity.z)")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("DiffGravZ: \(self.diffMotionData.gravity.z)")
-            print("-------------")
-            print("currentGravY: \(self.currentMotionData.gravity.y)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
-        }
-    }
+//    func printData(pMotionType: MotionType, pDirection: Direction ){
+//        if(){
+//
+//        }else{
+//
+//        }
+//    }
     
     func printGravData(pDirection: Direction){
         switch pDirection{
@@ -195,17 +137,15 @@ class UnwrapController {
             print("currentGravX: \(self.currentMotionData.gravity.x)")
         case .z:
             print("---------------------------------------------------")
-            print("oldGravZ: \(self.oldMotionData.gravity.z)")
-            print("currentGravZ: \(self.currentMotionData.gravity.z)")
-            print("DiffGravZ: \(self.diffMotionData.gravity.z)")
+            print("oldGravX: \(self.oldMotionData.gravity.x)")
+            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("DiffGravZX: \(self.diffMotionData.gravity.x)")
             print("-------------")
             print("currentGravY: \(self.currentMotionData.gravity.y)")
-            print("currentGravX: \(self.currentMotionData.gravity.x)")
+            print("currentGravZ: \(self.currentMotionData.gravity.z)")
         }
     }
     
-        
-
     
     func checkUnwrapMotion(){
         ///Works in x direction
@@ -221,12 +161,12 @@ class UnwrapController {
         case .x:
             //This orientation works!
             self.checkUnwrapInDirection(pTurningDir: .x, pStateDir: .z, pWobbleDir: .y)
-        case .z:
-            //Need to check these values to make sure if this the correct orientation
-            self.checkUnwrapInDirection(pTurningDir: .z, pStateDir: .x, pWobbleDir: .y)
         case .y:
             //Need to check these values to make sure if this the correct orientation
             self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .z, pWobbleDir: .x)
+        case .z:
+            //Need to check these values to make sure if this the correct orientation
+            self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .x, pWobbleDir: .z)
         }
     }
     
