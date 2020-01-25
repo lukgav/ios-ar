@@ -46,12 +46,41 @@ class UnwrapController {
     private var bottomMaxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.15, y: 0.15, z: 0.15)
     //---------------------Values currently set for Going in X direction---------------------
 
+    ///----------------- These values are set at random in setupUnwrap -----------------
+    private var unwrapDirection: Direction = .x
     private var maxNumTurns: Int = 0
     private var turnCounter: Int = 0
+    private var shouldTurnClockwise: Bool = false
+    ///-----------------These values are set at random in setupUnwrap -----------------
+    
+    private var xRandCount: Int = 0
+    private var yRandCount: Int = 0
+    private var zRandCount: Int = 0
+    
+    /// These are used for the timer BEFORE the player starts
+    private var timer : Timer
+    private var countDownTime: Double = 0
+    private var timerInterval: Double = 1/10.0
+    /// These are used for the timer BEFORE the player starts
     
     private var errMsg = errorMsg()
-    private var shouldTurnClockwise: Bool = true
     private let dmgVal: Double = 0.05
+
+    
+    
+    // TODO:
+    //--------Backend-------
+    // - Give player time to see read screen
+    //      - a 5 second timer?
+    // - Turning in anti-clockwise does not work(WHen stattionary still getting damage)
+    //--------UI--------
+    // What to show on screen:
+    // - Player who is playing
+    // - Num of turns to do
+    // - Direction to turn
+    //   - Clockwise/anticlockwise
+    //   - along x, y or z direction
+    
     
     init(unwrapViewController: UnwrapViewController) {
         self.unwrapViewController = unwrapViewController
@@ -63,31 +92,53 @@ class UnwrapController {
     func getRandomTurns(){
         self.maxNumTurns = Int.random(in: 0...3)
     }
-    func getRandomDirection(){
+    func getRandomClockwiseTurn(){
         self.shouldTurnClockwise = Bool.random()
 //            Int.random(in: 0...3)
     }
-    func getRandomCoOrd()->Direction{
-//        var val =
-        return Direction.z
+    
+    func getRandomDirection(){
+        let dir = Direction.allCases.randomElement()!
+//        dir = val
+        self.iterateCounter(pDirection: dir)
+        print("Random Direction: \(dir)")
+//        print("xCount:\(xRandCount) yCount:\(yRandCount) zCount: \(zRandCount)")
+        self.unwrapDirection =  dir
+    }
+    
+    func iterateCounter(pDirection: Direction){
+        switch pDirection{
+        case .x:
+            xRandCount += 1
+        case .y:
+            yRandCount += 1
+        case .z:
+            zRandCount += 1
+        }
     }
     
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
     func startUnwrap(){
-        let lDirection: Direction =  .z
+        self.setUpUnwrap()
         self.loadUI()
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.loadNewData(pNewMotionData: newMotionData)
             self.checkTaskFinishedCondition()
-            self.printGravData(pDirection: lDirection)
+//            self.printGravData(pDirection: self.unwrapDirection)
             /// Players mistakes and consequences are checked below
 //            self.checkBombExplode()
-            self.UnwrapInDirection(pDirection: lDirection)
+//            self.UnwrapInDirection(pDirection: self.unwrapDirection)
             ///Update oldMotionData and background color. Do here AFTER all computation is done
             self.oldMotionData = self.currentMotionData
             self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
         }
         return
+    }
+    
+    func setUpUnwrap(){
+        getRandomTurns()
+        getRandomClockwiseTurn()
+        getRandomDirection()
     }
     
     func loadUI(){
@@ -96,7 +147,7 @@ class UnwrapController {
         unwrapViewController.updatePlayerNameLabel(name: nextPlayer.name)
         unwrapViewController.updateBackgroundColor(pColor: gameManager.currentColor)
         // TODO: randomize direction AND clockWise Boolean
-        unwrapViewController.updateTurningImage(direction: Direction.z, goClockwise: self.shouldTurnClockwise)
+        unwrapViewController.updateTurningImage(direction: self.unwrapDirection, goClockwise: self.shouldTurnClockwise)
         
     }
     
@@ -187,10 +238,6 @@ class UnwrapController {
         }
     }
     
-    
-
-
-    
     func numOfTurnsMoved(){
         if(self.currentMotionData.gravity.z >= 0.999){
             turnCounter += 1
@@ -222,18 +269,11 @@ class UnwrapController {
         return isGoinginIntendedDirection
     }
     
-//    func stopUnwrapX() {
-//        print("stop")
-//        dmManager.newMotionData.removeObserver(observer)
-//    }
-    
     func stopUnwrap() {
         print("stop")
         dmManager.currentMotionData.removeObserver(observer)
     }
 
-    //Does not care about direction of device only whether Gravity is increasing
-    
     func whichGravAxes(pDirection: Direction) -> (Double, Double, Double){
         var current: Double
         var old: Double
@@ -365,6 +405,44 @@ class UnwrapController {
         }
         return false
     }
+    
+    // MARK: - Countdown Logic
+    
+    private func startCountdown(duration: Double) {
+        
+        print("Timer started")
+        
+        self.countDownTime = duration
+        
+        self.timer = Timer.scheduledTimer(withTimeInterval: self.timerInterval, repeats: true) { timer in
+            self.countDownTime -= self.timerInterval
+            
+            if (self.countDownTime < 0.0) {
+                // Timer ran out
+                
+                self.navigateToEndScreen()
+            }
+            else {
+                if (self.countDownTime < duration - self.timerInterval*5) {
+                    print("CAN PUT FINGER ON LIGHT SENSOR")
+                }
+                
+                //print("CountDownTime: \(self.countDownTime)")
+                self.deliverViewController.updateTimerLabel(newTime: self.countDownTime)
+            }
+        }
+        
+        // Add the timer to the current run loop.
+        RunLoop.current.add(self.timer, forMode: RunLoop.Mode.default)
+    }
+    
+    private func stopCountdown() {
+        timer.invalidate()
+        print("Timer stopped")
+    }
+    
+    
+    
     // MARK: - Navigation
 
     func navigateToNextTask() {

@@ -214,7 +214,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rotation1" translatesAutoresizingMaskIntoConstraints="NO" id="91L-tL-39f" userLabel="unwrapImagePlaceHolderImageView">
-                                <rect key="frame" x="30" y="152" width="354" height="250"/>
+                                <rect key="frame" x="30" y="152" width="354" height="500"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current player: " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pVM-oT-aBl">
                                 <rect key="frame" x="30" y="514" width="175" height="30"/>

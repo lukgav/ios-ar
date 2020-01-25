@@ -8,7 +8,7 @@
 
 import Foundation
 
-enum Direction {
+enum Direction: CaseIterable{
     case x
     case y
     case z
@@ -21,5 +21,6 @@ enum Direction {
         case .z: return "Z-Dir"
         }
      }
+    
     
 }
