@@ -29,8 +29,11 @@ class EndScreenController {
     }
     
     func navigateToHome() {
-        gameManager.endCurrentGame()
         endScreenViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+    }
+    
+    func endCurrentGame() {
+        gameManager.endCurrentGame()
     }
     
     func navigateToFirstTask() {

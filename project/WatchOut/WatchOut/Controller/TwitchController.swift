@@ -176,8 +176,7 @@ class TwitchController {
         dmManager.currentMotionData.removeObserver(motionDataObserver)
         
         if(stopDeviceMotion) {
-            let dmResult = dmManager.stopDeviceMotion()
-            return dmResult
+            return dmManager.stopDeviceMotion()
         }
         return true
     }
@@ -197,6 +196,7 @@ class TwitchController {
     }
 
     func navigateToHome() {
+        gameManager.quitCurrentGame()
         if (self.endTwitch(stopDeviceMotion: true)) {
             if(self.isAlt) {
                 twitchAltViewController?.performSegue(withIdentifier: Constants.HomeSegue, sender: self)

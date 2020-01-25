@@ -33,7 +33,7 @@ class HomeController {
             playerNames.append(String("Player \(i)"))
         }
         
-        var players = gameManager.createPlayers(playerNames: playerNames)
+        let players = gameManager.createPlayers(playerNames: playerNames)
         
         gameManager.startNewGame(players: players)
         let result = dmManager.startDeviceMotion()

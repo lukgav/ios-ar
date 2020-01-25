@@ -35,21 +35,20 @@ class GameManager{
         self.players = players
         
         currentPlayer = self.players.first
-        bomb = Bomb(stabilityLimit: 200.0, timeLimit: 120)
+        bomb = Bomb(stabilityLimit: 100.0, timeLimit: 120)
         currentTask = firstTask
         currentColor = UIColor.white
         
         bomb?.stabilityChangedClosure = stabilityChanged
     }
     
-    /// Resets the current game
     func endCurrentGame() {
-        currentPlayer = nil
-        players = [Player]()
-        bomb = nil
-        currentTask = nil
-        //soundManager.stopTickSound()
-        //soundManager.playBombSound()
+        soundManager.stopTickSound()
+        soundManager.playBombSound()
+    }
+    
+    func quitCurrentGame() {
+        soundManager.stopTickSound()
     }
     
     func createPlayers(playerNames: [String]) -> [Player] {
@@ -172,7 +171,7 @@ class GameManager{
             
             // Tick Sound
             
-            //soundManager.playTickSound(newUpdateInterval: 3*progressPercentage)
+            soundManager.playTickSound(newUpdateInterval: 3*progressPercentage)
         }
     }
 }

@@ -20,6 +20,7 @@ class EndScreenViewController: UIViewController {
         controller = EndScreenController(endScreenViewController: self)
         
         controller?.showLoserPlayer()
+        controller?.endCurrentGame()
     }
     
     func updateLoserLabel(newText: String) {

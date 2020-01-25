@@ -88,6 +88,7 @@ class DeliverController {
         
         let lightSensorOn = lsManager.startLightSensor()
         if(lightSensorOn) {
+            print("LIGHT SENSOR ON")
             lsManager.ambientIntensity.addObserver(ambientIntensityObserver) { newIntensity in
                 // Ignore first values, because of light change on beginning
                 if (self.ignoreCounter > self.ignoreCount) {
@@ -252,6 +253,7 @@ class DeliverController {
     }
     
     func navigateToHome() {
+        gameManager.quitCurrentGame()
         if (self.endDelivery(stopDeviceMotion: true)) {
             deliverViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
         }

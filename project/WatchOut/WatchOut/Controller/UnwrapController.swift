@@ -402,14 +402,20 @@ class UnwrapController {
         // + 1
         if (turnCounter >= maxNumTurns + 1){
             print("Good job! Task is finished! ")
-            self.stopUnwrap()
+            self.endUnwrap(stopDeviceMotion: false)
 //            self.navigateToNextTask()
         }
     }
     
-    func stopUnwrap() {
-        print("stop")
+    func endUnwrap(stopDeviceMotion: Bool) -> Bool {
+        print("END UNWRAP")
         dmManager.currentMotionData.removeObserver(observer)
+        
+        if (stopDeviceMotion) {
+            return dmManager.stopDeviceMotion()
+        }
+        
+        return true
     }
     
     
@@ -464,21 +470,20 @@ class UnwrapController {
     // MARK: - Navigation
 
     func navigateToNextTask() {
-        //var nextTaskType = gameManager.switchToNextTask()
-
-        unwrapViewController.performSegue(withIdentifier: Constants.TwitchSegue, sender: self)
+        if (self.endUnwrap(stopDeviceMotion: false)) {
+            unwrapViewController.performSegue(withIdentifier: Constants.TwitchSegue, sender: self)
+        }
     }
 
     func navigateToHome() {
-        let result = dmManager.stopDeviceMotion()
-        if (result) {
+        gameManager.quitCurrentGame()
+        if (self.endUnwrap(stopDeviceMotion: true)) {
             unwrapViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
         }
     }
 
     func navigateToEndScreen() {
-        let result = dmManager.stopDeviceMotion()
-        if (result) {
+        if (self.endUnwrap(stopDeviceMotion: true)) {
             unwrapViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
         }
     }

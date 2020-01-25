@@ -17,14 +17,16 @@ class SoundManager {
     private var bombSound: AVAudioPlayer?
     private var timer: Timer = Timer()
     
-    var maxUpdateInterval: Double = 3.0
-    var minUpdateInterval: Double = 1/20.0
+    var maxUpdateInterval: Double = 2.5
+    var minUpdateInterval: Double = 1/10.0
     
     // numberTotalBoundaries = 10 means that the position can be between 1 and 10
     // numberTotalBoundaries+1 means above the boundaries
     // numberTotalBoundaries = 0 means below the boundaries
     private var numberTotalBoundaries : Int = 10
     private var lastPositionInBoundaries: Int
+    
+    private var canStartNewTimer: Bool = true
     
     private init() {
         
@@ -62,7 +64,7 @@ class SoundManager {
         }
         else {
             let intervalSize = (maxUpdateInterval - minUpdateInterval)/Double(numberTotalBoundaries)
-            newPositionInBoundaries = Int(newUpdateInterval/intervalSize)
+            newPositionInBoundaries = Int(newUpdateInterval/intervalSize)+1
             
             
             updateInterval = Double(newPositionInBoundaries)*intervalSize
@@ -70,8 +72,10 @@ class SoundManager {
         
         // Only update the timer interval if the position in the boundaries changed
         if (newPositionInBoundaries != lastPositionInBoundaries) {
+            print("NEW TICK BOUNDARY: \(newPositionInBoundaries)")
             lastPositionInBoundaries = newPositionInBoundaries
-            
+
+            self.tickSound?.stop()
             timer.invalidate()
             timer = Timer(fire: Date(), interval: updateInterval, repeats: true,
                                block: { (timer) in
