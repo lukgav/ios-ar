@@ -31,7 +31,7 @@ class SoundManager {
     private init() {
         
         // initialize with above the boundaries
-        lastPositionInBoundaries = numberTotalBoundaries+1
+        lastPositionInBoundaries = -1
         
         let tickPath = Bundle.main.path(forResource: "TickSound.mp3", ofType:nil)!
         let tickUrl = URL(fileURLWithPath: tickPath)

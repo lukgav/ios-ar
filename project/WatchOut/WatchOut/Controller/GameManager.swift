@@ -40,6 +40,8 @@ class GameManager{
         currentColor = UIColor.white
         
         bomb?.stabilityChangedClosure = stabilityChanged
+        
+        decreaseStability(percentage: 0.0001)
     }
     
     func endCurrentGame() {
@@ -171,7 +173,7 @@ class GameManager{
             
             // Tick Sound
             
-            soundManager.playTickSound(newUpdateInterval: 3*progressPercentage)
+            soundManager.playTickSound(newUpdateInterval: 2.5*progressPercentage)
         }
     }
 }

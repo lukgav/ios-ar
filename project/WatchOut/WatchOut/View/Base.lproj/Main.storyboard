@@ -52,15 +52,15 @@
                                     <constraint firstAttribute="height" constant="200" id="0Om-bJ-C6i"/>
                                 </constraints>
                             </imageView>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" maximumValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="mxO-el-l7e" userLabel="playerCountStepper">
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="2" minimumValue="2" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="mxO-el-l7e" userLabel="playerCountStepper">
                                 <rect key="frame" x="20" y="701" width="94" height="32"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <action selector="playerCountStepperValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="68V-aZ-mUT"/>
                                 </connections>
                             </stepper>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 1 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Txv-5u-HCk" userLabel="playerCountLabel">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Txv-5u-HCk" userLabel="playerCountLabel">
                                 <rect key="frame" x="120" y="748" width="50" height="35"/>
                                 <color key="tintColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <constraints>
@@ -542,7 +542,7 @@
         <segue reference="cYO-1R-dfZ"/>
         <segue reference="Udo-a8-iKt"/>
         <segue reference="vCN-Ym-yPR"/>
-        <segue reference="NUh-b3-TSL"/>
+        <segue reference="8jX-h0-hCH"/>
         <segue reference="43M-id-rIK"/>
     </inferredMetricsTieBreakers>
 </document>

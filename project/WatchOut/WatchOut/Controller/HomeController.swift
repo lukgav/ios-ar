@@ -16,7 +16,7 @@ class HomeController {
     
     
 
-    var playerCount: Int = 1
+    var playerCount: Int = 2
     
     let homeViewController : HomeViewController
     
