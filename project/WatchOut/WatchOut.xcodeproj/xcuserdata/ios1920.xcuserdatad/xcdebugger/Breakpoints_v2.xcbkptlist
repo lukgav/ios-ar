@@ -21,81 +21,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "564AD33D-5C85-4BCF-88CA-1A6DCF05849A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "WatchOut/Controller/DeliverController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "76"
-            endingLineNumber = "76"
-            landmarkName = "startDelivery(countDownDuration:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1EC4676B-2883-4A12-B71B-EB9B565B7D96"
+            uuid = "339B40D8-8512-4260-B178-81748FDD74DF"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WatchOut/Controller/TwitchController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "141"
-            endingLineNumber = "141"
-            landmarkName = "isUpDirection(accX:accY:accZ:)"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "navigateToNextTwitch()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2800C7AE-763C-44E8-9DF3-551CF5AADACB"
+            uuid = "702B705A-C163-4061-A204-9C77DB271575"
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WatchOut/Controller/TwitchController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "72"
-            endingLineNumber = "72"
-            landmarkName = "startTwitch(maxMovingSpeed:amount:)"
+            startingLineNumber = "181"
+            endingLineNumber = "181"
+            landmarkName = "endTwitch(stopDeviceMotion:)"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "2800C7AE-763C-44E8-9DF3-551CF5AADACB - ccba81b79316552e"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (WatchOut.MotionData) -&gt; () in WatchOut.TwitchController.startTwitch(maxMovingSpeed: Swift.Double, amount: Swift.Int) -&gt; ()"
-                  moduleName = "WatchOut"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ios1920/Desktop/ios-ar/project/WatchOut/WatchOut/Controller/TwitchController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "1136">
-               </Location>
-               <Location
-                  uuid = "2800C7AE-763C-44E8-9DF3-551CF5AADACB - ccba81b79316552e"
-                  shouldBeEnabled = "No"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (WatchOut.MotionData) -&gt; () in WatchOut.TwitchController.startTwitch(maxMovingSpeed: Swift.Double, amount: Swift.Int) -&gt; ()"
-                  moduleName = "WatchOut"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/ios1920/Desktop/ios-ar/project/WatchOut/WatchOut/Controller/TwitchController.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "72"
-                  endingLineNumber = "72"
-                  offsetFromSymbolStart = "3488">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

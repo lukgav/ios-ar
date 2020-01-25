@@ -75,7 +75,11 @@ class SoundManager {
             timer.invalidate()
             timer = Timer(fire: Date(), interval: updateInterval, repeats: true,
                                block: { (timer) in
+<<<<<<< HEAD
+                                print("Playing Tick Sound with Interval: \(updateInterval)")
+=======
 //                                print("Playing Tick Sound")
+>>>>>>> 4ce77c59803b792b72172076511c487666be7287
                                 self.tickSound?.play()
             })
 

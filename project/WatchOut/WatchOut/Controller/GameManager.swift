@@ -37,6 +37,7 @@ class GameManager{
         currentPlayer = self.players.first
         bomb = Bomb(stabilityLimit: 200.0, timeLimit: 120)
         currentTask = firstTask
+        currentColor = UIColor.white
         
         bomb?.stabilityChangedClosure = stabilityChanged
     }
@@ -174,5 +175,4 @@ class GameManager{
             soundManager.playTickSound(newUpdateInterval: 3*progressPercentage)
         }
     }
-
 }

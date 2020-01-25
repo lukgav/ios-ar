@@ -7,163 +7,168 @@
 //
 import simd
 import CoreMotion
+import UIKit
 
 class TwitchController {
     
     // Manager & Controller
-    private let twitchViewController: TwitchViewController
+    private var twitchViewController: TwitchViewController?
+    private var twitchAltViewController: TwitchAltViewController?
     
     private let dmManager = DeviceMotionManager.shared
     private let motionDataObserver = MotionDataObserver()
     private let gameManager = GameManager.shared
     
     private var lastMotionData: MotionData = MotionData()
-    private var diffMotionData: MotionData = MotionData()
-    
-    private var maxDiffRotRate: Double = 0.05
-    private var maxDiffAcc: Double = 0.5
     
     private var accSumCounterX: Double = 0.0
     private var accSumCounterZ: Double = 0.0
     private var accSumCounterY: Double = 0.0
     
-    let twitchDirections: [TwitchDirection] = [.Up]
+    private var maxDiff = 0.04
+    private var maxDiffNeg = -0.04
+        
+    let twitchDirections: [TwitchDirection] = [.Up, .Down, .Left, .Right]
     
     var currentTwitchDirection : TwitchDirection
-    var currentDirectionDone: Bool = false
     
-    var twitchDoneCounter: Int = 0
-    
-    var accArray: [SIMD3<Double>] = Array(repeating: SIMD3<Double>(0.0,0.0,0.0), count: 20)
-    var intervalCounter: Int = 0
-    
-    var maxPosSpeed: Double = 0.0
-    var maxNegSpeed: Double = 0.0
-    var minDirectionSpeed: Double = 0.0
-    
-    init(twitchViewController: TwitchViewController) {
+    var isAlt: Bool
+        
+    init(twitchViewController: TwitchViewController, isAlt: Bool) {
         self.twitchViewController = twitchViewController
         
         currentTwitchDirection = twitchDirections.randomElement()!
+        self.isAlt = isAlt
+    }
+    
+    init(twitchAltViewController: TwitchAltViewController, isAlt: Bool) {
+        self.twitchAltViewController = twitchAltViewController
+        
+        currentTwitchDirection = twitchDirections.randomElement()!
+        self.isAlt = isAlt
     }
       
-    func startTwitch(maxMovingSpeed: Double, amount: Int) {
-        
-        maxPosSpeed = maxMovingSpeed
-        maxNegSpeed = maxMovingSpeed * -1.0
-        minDirectionSpeed = maxMovingSpeed * 0.1
-        
+    func startTwitch() {
         // initialize ui updates
-        twitchViewController.updateArrowImage(direction: currentTwitchDirection)
+        if(isAlt) {
+            twitchAltViewController?.updateArrowImage(direction: currentTwitchDirection)
+            twitchAltViewController?.updateBackgroundColor(newColor: gameManager.currentColor)
+        }
+        else {
+            twitchViewController?.updateArrowImage(direction: currentTwitchDirection)
+            twitchViewController?.updateBackgroundColor(newColor: gameManager.currentColor)
+        }
         
-        dmManager.currentMotionData.addObserver(motionDataObserver) { newMotionData in
-            
-            self.diffMotionData = newMotionData.diff(other: self.lastMotionData)
-            self.lastMotionData = newMotionData
-            
-            self.accArray[self.intervalCounter] = self.diffMotionData.acceleration
-            if(self.intervalCounter >= self.accArray.count-1) {
-                self.intervalCounter = 0
-                
-                var accSum: SIMD3<Double> = SIMD3<Double>(0.0,0.0,0.0)
-                for acc in self.accArray {
-                    accSum += acc
-                }
-                let averageAcc = accSum
-                
-                let lastAccX = averageAcc.x
-                let lastAccY = averageAcc.y
-                let lastAccZ = averageAcc.z
-                
-                print("-----------------------------------")
-                print("averageAccX:" + String(lastAccX))
-                print("averageAccY:" + String(lastAccY))
-                print("averageAccZ:" + String(lastAccZ))
-                
-                if(!self.currentDirectionDone) {
-                    
-                    var bombExploded = false
-                    var userDidCorrectDirection = false
-                    
-                    switch(self.currentTwitchDirection) {
-                        case .Up:
-                            userDidCorrectDirection = self.isUpDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+        // wait before looking for direction
+        
+        var date = Date()
+        date.addTimeInterval(2.0)
+        let timer = Timer(fire: date, interval: 0.0, repeats: false,
+                           block: { (timer) in
+                                    print("START TWITCH: OBSERVE MOTION")
+                            
+                                    self.dmManager.currentMotionData.addObserver(self.motionDataObserver) { newMotionData in
+                                    
+                                    self.lastMotionData = newMotionData
+                                        
+                                    let lastAcc = self.lastMotionData.acceleration
+                                    
+                                    let lastAccX = lastAcc.x
+                                    let lastAccY = lastAcc.y
+                                    let lastAccZ = lastAcc.z
+                                    
+                                    print("-----------------------------------")
+//                                    print("averageAccX:" + String(lastAccX))
+//                                    print("averageAccY:" + String(lastAccY))
+//                                    print("averageAccZ:" + String(lastAccZ))
                                                     
-                        case .Right:
-                            userDidCorrectDirection = self.isRightDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
-                        
-                        case .Down:
-                            userDidCorrectDirection = self.isDownDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
-                        
-                        case .Left:
-                            userDidCorrectDirection = self.isLeftDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
-                    }
-                    
-                    // User did correct direction
-//                    if (userDidCorrectDirection) {
-//                        self.currentDirectionDone = true
-//                    }
-//                    // User did wrong direction
-//                    else {
-//                        bombExploded = self.gameManager.decreaseStability(percentage: 0.25)
-//
-//                        if (bombExploded) {
-//                            // Bomb exploded
-//                            self.navigateToEndScreen()
-//                        } else {
-//                            self.twitchViewController.updateBackgroundColor(newColor: self.gameManager.currentColor)
-//                        }
-//                    }
-                }
-                // TwitchDirectionDone = true
-//                else {
-//                    if (self.twitchDoneCounter > amount) {
-//                        // Next Task
-//                        self.navigateToNextTask()
-//                    }
-//                    else {
-//                        // Next Twitch
-//                        self.currentDirectionDone = false
-//                        self.twitchDoneCounter += 1
-//                        self.currentTwitchDirection = self.twitchDirections.randomElement()!
-//                        // Update UI
-//                        self.twitchViewController.updateArrowImage(direction: self.currentTwitchDirection)
-//                    }
-//                }
-            }
-            else {
-                self.intervalCounter += 1
-            }
-        }
+                                    var bombExploded = false
+                                    var userDidWrongDirection = false
+                                    
+                                    switch(self.currentTwitchDirection) {
+                                        case .Up:
+                                            userDidWrongDirection = self.isNotUpDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                                                                    
+                                        case .Right:
+                                            userDidWrongDirection = self.isNotRightDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                                        
+                                        case .Down:
+                                            userDidWrongDirection = self.isNotDownDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                                        
+                                        case .Left:
+                                            userDidWrongDirection = self.isNotLeftDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
+                                    }
+                                    
+                                     // User did wrong direction
+                                    if (userDidWrongDirection) {
+                                        bombExploded = self.gameManager.decreaseStability(percentage: 0.03)
+                                        if (bombExploded) {
+                                            // Bomb exploded
+                                            self.navigateToEndScreen()
+                                        } else {
+                                            if(self.isAlt) {
+                                                self.twitchAltViewController?.updateBackgroundColor(newColor: self.gameManager.currentColor)
+                                            }
+                                            else {
+                                                self.twitchViewController?.updateBackgroundColor(newColor: self.gameManager.currentColor)
+                                            }
+                                        }
+                                    }
+                                    // User did correct direction
+                                    else {
+                                        if (self.currentTwitchDirection == .Up){
+                                            print("NEXT TASK")
+                                            // Next Task
+                                            self.navigateToNextTask()
+                                        }
+                                        else {
+                                            print("NEXT TWITCH")
+                                            // Do another Twitch
+                                            self.navigateToNextTwitch()
+                                        }
+                                    }
+                                }
+                            })
+        
+        // Add the timer to the current run loop.
+        RunLoop.current.add(timer, forMode: RunLoop.Mode.default)
+        
+        
     }
     
-    private func isUpDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
-        if (accX > maxNegSpeed && accX < maxPosSpeed && accY > minDirectionSpeed && accZ > maxNegSpeed && accZ < maxPosSpeed) {
-            print("DIRECTION UP CORRECT")
+    private func isNotUpDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX > maxDiff || accX < maxDiffNeg || accY > maxDiff || accZ > maxDiff || accZ < maxDiffNeg ) {
+            print("DIRECTION UP WRONG")
             return true
         }
-        print("DIRECTION UP WRONG")
+        print("DIRECTION UP CORRECT")
         return false
     }
     
-    private func isRightDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
-        if (accX > 0.1 || accY > 0.1 || accZ > 0.1) {
+    private func isNotRightDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX > maxDiff || accY < maxDiffNeg || accY > maxDiff || accZ > maxDiff || accZ < maxDiffNeg) {
+            print("DIRECTION RIGHT WRONG")
             return true
         }
+        print("DIRECTION RIGHT CORRECT")
         return false
     }
     
-    private func isDownDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
-        if (accX > 0.1 || accY > 0.1 || accZ > 0.1) {
+    private func isNotDownDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX > maxDiff || accX < maxDiffNeg || accY < maxDiffNeg || accZ > maxDiff || accZ < maxDiffNeg) {
+            print("DIRECTION DOWN WRONG")
             return true
         }
+        print("DIRECTION DOWN CORRECT")
         return false
     }
     
-    private func isLeftDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
-        if (accX > 0.1 || accY > 0.1 || accZ > 0.1) {
+    private func isNotLeftDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
+        if (accX < maxDiffNeg || accY < maxDiffNeg || accY > maxDiff || accZ > maxDiff || accZ < maxDiffNeg) {
+            print("DIRECTION LEFT WRONG")
             return true
         }
+        print("DIRECTION LEFT CORRECT")
         return false
     }
     
@@ -174,26 +179,53 @@ class TwitchController {
             let dmResult = dmManager.stopDeviceMotion()
             return dmResult
         }
-        return false
+        return true
     }
     
     // MARK: - Navigation
     
     func navigateToNextTask() {
         if (self.endTwitch(stopDeviceMotion: false)) {
-            twitchViewController.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
+            if(isAlt) {
+                twitchAltViewController?.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
+            }
+            else {
+                twitchViewController?.performSegue(withIdentifier: Constants.DeliverSegue, sender: self)
+            }
+            
         }
     }
 
     func navigateToHome() {
         if (self.endTwitch(stopDeviceMotion: true)) {
-            twitchViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+            if(self.isAlt) {
+                twitchAltViewController?.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+            }
+            else {
+                twitchViewController?.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
+            }
         }
     }
 
     func navigateToEndScreen() {
         if (self.endTwitch(stopDeviceMotion: true)) {
-            twitchViewController.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
+            if(self.isAlt) {
+                twitchAltViewController?.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
+            }
+            else {
+                twitchViewController?.performSegue(withIdentifier: Constants.BombExplodedSegue, sender: self)
+            }
+        }
+    }
+    
+    func navigateToNextTwitch() {
+        if (self.endTwitch(stopDeviceMotion: false)){
+            if(self.isAlt) {
+                 twitchAltViewController?.performSegue(withIdentifier: Constants.TwitchSegue, sender: self)
+             }
+             else {
+                 twitchViewController?.performSegue(withIdentifier: Constants.TwitchAltSegue, sender: self)
+             }
         }
     }
 }
