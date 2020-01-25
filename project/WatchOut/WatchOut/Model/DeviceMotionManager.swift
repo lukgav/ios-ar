@@ -76,7 +76,7 @@ class DeviceMotionManager {
     
     /// Returns true, if it stopped correctly
     func stopDeviceMotion() -> Bool {
-        if motion.isDeviceMotionActive {
+        if (motion.isDeviceMotionActive) {
             motion.stopDeviceMotionUpdates()
             motion.showsDeviceMovementDisplay = false
             

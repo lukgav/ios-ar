@@ -15,7 +15,7 @@ class Bomb{
         didSet {
             // change color everytime stabiltyCounter value changed
             stabilityChangedClosure?()
-            print("StabilityCounter changed from \(oldValue) to \(stabilityCounter)")
+//            print("StabilityCounter changed from \(oldValue) to \(stabilityCounter)")
         }
     }
     
@@ -32,6 +32,8 @@ class Bomb{
     // precision of the timer
     let timeInterval = 1.0/50.0
     
+    
+    
     init(stabilityLimit: Double, timeLimit: Double, decreaseOverTime: Bool = true){
         self.stabilityLimit = stabilityLimit
         self.timeLimit = timeLimit
@@ -41,4 +43,30 @@ class Bomb{
         // counter starts full and will decrease over time
         stabilityCounter = stabilityLimit
     }
+    
+    func checkStability()->Bool{
+
+        if (stabilityCounter < 0.0) {
+            print("BOOOOOOOOOOOOOOM")
+            return true
+        }
+        else if(stabilityCounter == 0.5){
+            print("I don't feel so good")
+            return false
+        }
+        else if(stabilityCounter == 0.25){
+            print("Is it hot in here? I'm boiling")
+            return false
+        }
+        else if(stabilityCounter == 0.1){
+            print("Tell my kids I love them")
+            return false
+        }
+        else if(stabilityCounter == 0.05){
+            print("...")
+            return false
+        }
+        return false
+    }
+    
 }

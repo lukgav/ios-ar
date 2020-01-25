@@ -48,9 +48,11 @@ class UnwrapController {
 
     ///----------------- These values are set at random in setupUnwrap -----------------
     private var unwrapDirection: Direction = .x
+    private var shouldTurnClockwise: Bool = true
     private var maxNumTurns: Int = 0
     private var turnCounter: Int = 0
-    private var shouldTurnClockwise: Bool = false
+    private var turnedOnce: Bool = false
+    private var pointTurnedAt: Double = 0.0
     ///-----------------These values are set at random in setupUnwrap -----------------
     
     private var xRandCount: Int = 0
@@ -64,8 +66,9 @@ class UnwrapController {
     /// These are used for the timer BEFORE the player starts
     
     private var errMsg = errorMsg()
-    private let dmgVal: Double = 0.05
-
+    private let dmgVal: Double = 0.01
+    private var isTaskComplete: Bool = false
+    private var goingInRightDiretcion: Bool = true
     
     
     // TODO:
@@ -84,9 +87,10 @@ class UnwrapController {
     
     init(unwrapViewController: UnwrapViewController) {
         self.unwrapViewController = unwrapViewController
-        self.maxNumTurns = 2
+//        self.maxNumTurns = 2
         self.timer = Timer()
-
+        self.setUpUnwrap(isRand: false)
+        self.loadUI(pDirection: unwrapDirection)
 //        self.getRandomTurns()
     }
     // MARK: - Unwrap Logic
@@ -119,20 +123,26 @@ class UnwrapController {
         }
     }
     
+    func roundtoThousandth(pNum: Double)->Double{
+        return round(100*pNum) / 100
+    }
+    
+    func isWithinRange(val: Double,min: Double,max: Double) ->Bool{
+        return (val < max) && (val > min)
+    }
+    
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
     func startUnwrap(pCountDownDuration: Double){
-        self.setUpUnwrap()
-        self.loadUI()
-        self.startCountdown(duration: pCountDownDuration)
-        self.stopCountdown()
-        
+
+//        self.startCountdown(duration: pCountDownDuration)
+//        self.stopCountdown()
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
+            self.printGravData(pDirection: self.unwrapDirection)
             self.loadNewData(pNewMotionData: newMotionData)
-            self.checkTaskFinishedCondition()
-//            self.printGravData(pDirection: self.unwrapDirection)
+            self.checkEndUnwrapCondition()
             /// Players mistakes and consequences are checked below
 //            self.checkBombExplode()
-//            self.UnwrapInDirection(pDirection: self.unwrapDirection)
+            self.UnwrapInDirection(pDirection: self.unwrapDirection)
             ///Update oldMotionData and background color. Do here AFTER all computation is done
             self.oldMotionData = self.currentMotionData
             self.unwrapViewController.updateBackgroundColor(pColor: self.gameManager.currentColor)
@@ -141,27 +151,38 @@ class UnwrapController {
     }
     
     // MARK: - BELOW: Load, update Unwrap values, UI and print data etc...
-    func setUpUnwrap(){
-        getRandomTurns()
-        getRandomClockwiseTurn()
-        getRandomDirection()
+    func setUpUnwrap(isRand: Bool){
+        if isRand{
+            getRandomTurns()
+            getRandomClockwiseTurn()
+            getRandomDirection()
+        }
+        else{
+            unwrapDirection = .y
+            shouldTurnClockwise = false
+            maxNumTurns = 1
+        }
+
     }
     
-    func loadUI(){
+    func loadUI(pDirection: Direction){
         let nextPlayer =  gameManager.getNextRandomPlayer()
         
         unwrapViewController.updateBackgroundColor(pColor: gameManager.currentColor)
         // TODO: randomize direction AND clockWise Boolean
-        unwrapViewController.updateTurningImage(direction: self.unwrapDirection, goClockwise: self.shouldTurnClockwise)
-        
+        unwrapViewController.updateTurningImage(direction: pDirection, goClockwise: self.shouldTurnClockwise)
     }
     
     func loadNewData(pNewMotionData: MotionData){
         self.currentMotionData = pNewMotionData
+        self.numOfTurnsMoved(pDirection: self.unwrapDirection)
         self.diffMotionData = self.currentMotionData.diff(other: self.oldMotionData)
     }
     
     func printGravData(pDirection: Direction){
+        if(isTaskComplete){
+            print("Good job! Task is finished! ")
+        }
         switch pDirection{
         case .x:
             print("---------------------------------------------------")
@@ -191,7 +212,6 @@ class UnwrapController {
     }
     
     // MARK: - ABOVE: Load, update Unwrap values, UI and print data etc...
-
     
     // MARK: - BELOW: Check Unwrap Direction
     func checkUnwrapMotion(){
@@ -226,24 +246,81 @@ class UnwrapController {
         if(self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)){
                 //check if gravity is out of range in y-direction
         //                print("Going in right direction")
+            self.goingInRightDiretcion = true
             self.checkGravPosition(pDirection: pWobbleDir)
             self.checkChangeinGrav()
         }
         else{
+            self.goingInRightDiretcion = false
             self.decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Going in wrong direction")
         }
     }
     
-    func numOfTurnsMoved(){
-        if(self.currentMotionData.gravity.z >= 0.999){
-            turnCounter += 1
+    func numOfTurnsMoved(pDirection: Direction){
+        let turnPoint = 0.998
+        let mustBePassed = 0.4
+        var diffMotion: Double
+        
+        switch pDirection{
+        case .x:
+            diffMotion = abs(self.pointTurnedAt - self.currentMotionData.gravity.z)
+            if (!self.turnedOnce){
+                if(self.currentMotionData.gravity.z >= turnPoint){
+                    self.turnedOnce = true
+                    self.pointTurnedAt = self.currentMotionData.gravity.z
+    //                print("turnCounter: \(turnCounter)")
+                    turnCounter += 1
+                }
+            }
+            else if(diffMotion > mustBePassed){
+                self.pointTurnedAt = 0
+                self.turnedOnce = false
+            }
+        case .y:
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.y, stateGravDirectionVal: self.currentMotionData.gravity.z)
+        case .z:
+            diffMotion = abs(self.pointTurnedAt - self.currentMotionData.gravity.z)
+            if (!self.turnedOnce){
+                if(self.currentMotionData.gravity.z >= turnPoint){
+                    self.turnedOnce = true
+                    self.pointTurnedAt = self.currentMotionData.gravity.z
+                    turnCounter += 1
+                }
+            }
+            else if(diffMotion > mustBePassed){
+                self.pointTurnedAt = 0
+                self.turnedOnce = false
+            }
+        }
+            
+        print("turnCounter: \(turnCounter)")
+    }
+    
+    //Need to set this for x and z diretcion
+    // must have a different min and max direction
+    func checkNumOfTurns(turningGravDirectionVal: Double, stateGravDirectionVal: Double){
+        let mustBePassed = 0.4
+        var diffMotion: Double
+        
+        diffMotion = abs(self.pointTurnedAt - turningGravDirectionVal)
+        print("DiffMotion: \(diffMotion)")
+        if (!self.turnedOnce && stateGravDirectionVal > 0){
+            if(isWithinRange(val: turningGravDirectionVal, min: 0.05, max: 0.20)){
+                self.turnedOnce = true
+                self.pointTurnedAt = turningGravDirectionVal
+                turnCounter += 1
+            }
+        }
+        else if(diffMotion > mustBePassed){
+            self.pointTurnedAt = 0
+            self.turnedOnce = false
         }
     }
 
 
     
-    func isDeviceTurningInCorrectDirection(pTurningDirection: Direction, pStateDirection: Direction) -> Bool{
-        var isGoinginIntendedDirection: Bool = false
+    func isDeviceTurningInCorrectDirection(pTurningDirection: Direction, pStateDirection: Direction) -> Bool {
+        let isGoinginIntendedDirection: Bool = false
         print("--------------ShouldGoClockwise: \(self.shouldTurnClockwise)--------")
         if(self.isDeviceTurningClockwise(turningDirection: pTurningDirection, stateDirection: pStateDirection) && self.shouldTurnClockwise){
             print("-----------------Turning clockwise-----------------")
@@ -321,13 +398,7 @@ class UnwrapController {
             }
         }
     
-    func roundtoThousandth(pNum: Double)->Double{
-        return round(100*pNum) / 100
-    }
-    
-    func isWithinRange(val: Double,min: Double,max: Double) ->Bool{
-        return (val < max) && (val > min)
-    }
+
 
     // MARK: - Check if Turning is going to fast
     /// Check if change in Gravity in one or more directions is too much
@@ -387,24 +458,27 @@ class UnwrapController {
     // MARK:   - Check Finish Condition
     
     
+
+    
+    func checkEndUnwrapCondition(){
+//        self.checkBombExplode()
+        self.checkifTaskisCompleted()
+    }
+    
     func checkBombExplode(){
-        if(self.gameManager.decreaseStability(percentage: 0.0)){
+        if(self.gameManager.shouldExplode()){
             self.navigateToEndScreen()
         }
     }
     
-    func checkTaskFinishedCondition(){
-        self.numOfTurnsMoved()
-        self.checkifTaskisFinished()
-    }
-    
-    func checkifTaskisFinished(){
+    func checkifTaskisCompleted(){
         // + 1
-        if (turnCounter >= maxNumTurns + 1){
-            print("Good job! Task is finished! ")
-            self.endUnwrap(stopDeviceMotion: false)
+//        if (turnCounter > maxNumTurns + 1){
+//            self.isTaskComplete = true
+//            // ----------------- Andi: Should This be TRUE??? -----------------
+//            self.endUnwrap(stopDeviceMotion: false)
 //            self.navigateToNextTask()
-        }
+//        }
     }
     
     func endUnwrap(stopDeviceMotion: Bool) -> Bool {
@@ -433,7 +507,7 @@ class UnwrapController {
     
     // MARK: - Countdown Logic
     
-    private func startCountdown(duration: Double) {
+    func startCountdown(duration: Double) {
         
         print("Timer started")
         
@@ -460,7 +534,7 @@ class UnwrapController {
         return
     }
     
-    private func stopCountdown() {
+    func stopCountdown() {
         timer.invalidate()
         print("Timer stopped")
     }

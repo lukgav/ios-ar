@@ -119,6 +119,10 @@ class GameManager{
     func decreaseStability(percentage: Double) -> Bool{
         bomb!.stabilityCounter -= percentage*bomb!.stabilityLimit
         
+        return self.shouldExplode()
+    }
+    
+    func shouldExplode()->Bool{
         if (bomb!.stabilityCounter < 0.0) {
             return true
         }

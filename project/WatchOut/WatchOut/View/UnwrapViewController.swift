@@ -21,9 +21,7 @@ class UnwrapViewController: UIViewController {
         
         // Do any additional setup after loading the view.
         controller = UnwrapController(unwrapViewController: self)
-        
         controller?.startUnwrap(pCountDownDuration: 4.0)
-        
         //curPlayer.text = String(currentP)
     }
     
@@ -61,22 +59,21 @@ class UnwrapViewController: UIViewController {
     func updateTurningImage(direction: Direction, goClockwise: Bool) {
         switch direction {
         case Direction.x:
-            if(goClockwise && !goClockwise){
+            if(goClockwise){
                 loadImage(pImageName: "rotationX")
             }
             else{
                 loadImage(pImageName: "rotationXMir")
             }
-
         case Direction.y:
-           if(goClockwise && !goClockwise){
+           if(goClockwise){
                 loadImage(pImageName: "rotationY")
             }
             else{
                 loadImage(pImageName: "rotationYMir")
             }
         case Direction.z:
-            if(goClockwise  && !goClockwise){
+            if(goClockwise){
                 loadImage(pImageName: "rotationZMir")
             }
             else{
