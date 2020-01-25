@@ -85,6 +85,8 @@ class UnwrapController {
     init(unwrapViewController: UnwrapViewController) {
         self.unwrapViewController = unwrapViewController
         self.maxNumTurns = 2
+        self.timer = Timer()
+
 //        self.getRandomTurns()
     }
     // MARK: - Unwrap Logic

@@ -23,7 +23,7 @@ class UnwrapViewController: UIViewController {
         // Do any additional setup after loading the view.
         controller = UnwrapController(unwrapViewController: self)
         
-        controller?.startUnwrap(pDuration: 4.0)
+        controller?.startUnwrap(pCountDownDuration: 4.0)
         
         //curPlayer.text = String(currentP)
     }
