@@ -19,13 +19,6 @@ class UnwrapController {
     private var currentMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
-    
-    /// Unused fields
-    private var maxOverallRotRate: Double = 0.05
-    private var maxOverallAcc: Double = 0.05
-    private var maxRotRate: SIMD3<Double> =  SIMD3<Double>(x: 1.2, y: 1.2, z: 1.2)
-    private var maxAcc: SIMD3<Double> =  SIMD3<Double>(x: 1, y: 1, z: 1.5)
-    
     //---------------------Values currently set for Going in X direction---------------------
     private var minGrav: SIMD3<Double>?
     private var maxGrav: SIMD3<Double>?
@@ -54,11 +47,10 @@ class UnwrapController {
     private var timerInterval: Double = 1/10.0
     /// These are used for the timer BEFORE the player starts
     
-    private let dmgVal: Double = 0.01
+    private var dmgVal: Double?
     private var isTaskComplete: Bool = false
     private var isGoingInCorrectDirection: Bool = false
     private var isUnwrapPastStart: Bool = false
-    
     
     // TODO:
     //--------Backend-------
@@ -66,10 +58,8 @@ class UnwrapController {
     //      - a 5 second timer?
     //--------UI--------
     // What to show on screen:
-    // - Num of turns to do
-    // - Direction to turn
-    //   - Clockwise/anticlockwise
-    //   - along x, y or z direction
+    // - Num of turns to do!!!!!
+
     
     
     init(unwrapViewController: UnwrapViewController, pDifficulty: Difficulty) {
@@ -94,15 +84,16 @@ class UnwrapController {
     func setMotionDifficulty(pDifficulty: Difficulty){
         switch pDifficulty{
             case .Easy:
-                self.setRangeOfMotion(lMax: 0.6, lMin: -0.6, lTopMax: 0.7, lBottMax: 0.45)
+                self.setRangeOfMotion(lMax: 0.6, lMin: -0.6, lTopMax: 0.7, lBottMax: 0.45, pDmg: 0.01)
             case .Medium:
-                self.setRangeOfMotion(lMax: 0.4, lMin: -0.4, lTopMax: 0.5, lBottMax: 0.3)
+                self.setRangeOfMotion(lMax: 0.4, lMin: -0.4, lTopMax: 0.5, lBottMax: 0.3 , pDmg: 0.02)
             case .Hard:
-                self.setRangeOfMotion(lMax: 0.2, lMin: -0.2, lTopMax: 0.4, lBottMax: 0.15)
+                self.setRangeOfMotion(lMax: 0.2, lMin: -0.2, lTopMax: 0.4, lBottMax: 0.15, pDmg: 0.03)
         }
     }
     
-    func setRangeOfMotion(lMax: Double, lMin: Double, lTopMax: Double, lBottMax: Double){
+    func setRangeOfMotion(lMax: Double, lMin: Double, lTopMax: Double, lBottMax: Double, pDmg: Double){
+        dmgVal = pDmg
         minGrav = SIMD3<Double>(x: lMin, y: lMin, z: lMin)
         maxGrav = SIMD3<Double>(x: lMax, y: lMax, z: lMax)
         topMaxDiffGrav = SIMD3<Double>(x: lTopMax, y: lTopMax, z: lTopMax)
@@ -110,7 +101,7 @@ class UnwrapController {
     }
     
     func setUpUnwrap(isRand: Bool = true){
-        maxNumTurns = 1
+        maxNumTurns = 4
         if isRand{
 //            getRandomTurns()
             getRandomClockwiseTurn()
@@ -209,6 +200,7 @@ class UnwrapController {
         }
         
         unwrapViewController.updateDirectionText(pDirectionStr: command)
+        unwrapViewController.updateNumOfTurns(pTurns: maxNumTurns - turnCounter)
     }
     
     func printRotData(pDirection: Direction){
@@ -362,44 +354,6 @@ class UnwrapController {
         }
     }
     
-    func setTurningStartPos(pDirection: Direction){
-        switch pDirection{
-        case .x:
-            deviceTurningStartPos = self.currentMotionData.gravity.x
-        case .y:
-            deviceTurningStartPos = self.currentMotionData.gravity.y
-        case .z:
-            deviceTurningStartPos = self.currentMotionData.gravity.y
-        }
-    }
-    
-    func isDeviceStillWithinStartRange()->Bool{
-        if isGoingInCorrectDirection{
-            switch unwrapDirection{
-            case .x:
-                return isWithinSetRange(val: self.currentMotionData.gravity.x)
-            case .y:
-                return isWithinSetRange(val: self.currentMotionData.gravity.y)
-            case .z:
-                return isWithinSetRange(val: self.currentMotionData.gravity.y)
-            }
-        }
-        return true
-        
-    }
-    func isWithinSetRange(val: Double) -> Bool{
-        let lMinVal = deviceTurningStartPos - 0.40
-        let lMaxVal = deviceTurningStartPos + 0.40
-        if(isWithinRange(val: self.currentMotionData.gravity.y, min: lMinVal, max: lMaxVal)){
-            print("Too close to start point")
-            return true
-        }
-//        isUnwrapPastStart = false
-        print("Far away from start point")
-        return false
-    }
-    
-    
     func checkUnwrapInDirection(pTurningDir: Direction, pStateDir: Direction, pWobbleDir: Direction){
         self.isGoingInCorrectDirection = self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)
         if(self.isGoingInCorrectDirection){
@@ -411,9 +365,22 @@ class UnwrapController {
         }
         else{
 //            self.isGoingInCorrectDirection = false
-            self.decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Going in wrong direction")
+            self.decreaseBombStabilityAndColor(pDmg: self.dmgVal!, pErr: "Going in wrong direction")
         }
     }
+    
+    func setTurningStartPos(pDirection: Direction){
+        switch pDirection{
+        case .x:
+            deviceTurningStartPos = self.currentMotionData.gravity.x
+        case .y:
+            deviceTurningStartPos = self.currentMotionData.gravity.y
+        case .z:
+            deviceTurningStartPos = self.currentMotionData.gravity.y
+        }
+    }
+    
+
 
     func numOfTurnsMoved(pDirection: Direction){
         var lMin: Double = 0.05
@@ -440,16 +407,16 @@ class UnwrapController {
             let lMaxVal: Double = 0.7
             switch pDirection{
             case .x:
-                isPastStartInMotion(pMotion: self.currentMotionData.gravity.x)
+                isDevicePastStartInMotion(pMotion: self.currentMotionData.gravity.x)
             case .y:
-                isPastStartInMotion(pMotion: self.currentMotionData.gravity.y)
+                isDevicePastStartInMotion(pMotion: self.currentMotionData.gravity.y)
             case .z:
-                isPastStartInMotion(pMotion: self.currentMotionData.gravity.y)
+                isDevicePastStartInMotion(pMotion: self.currentMotionData.gravity.y)
             }
         }
     }
         
-    func isPastStartInMotion(pMotion: Double){
+    func isDevicePastStartInMotion(pMotion: Double){
         var lDiff: Double?
         let lMaxVal: Double = 0.7
         lDiff = abs(deviceTurningStartPos - pMotion)
@@ -575,11 +542,11 @@ class UnwrapController {
     
     func checkChangeinGravinDirection(val: Double, minVal: Double, maxVal: Double){
         if(val > maxVal){
-            decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Over max change in gravity ")
+            decreaseBombStabilityAndColor(pDmg: self.dmgVal!, pErr: "Over max change in gravity ")
         }
         else if(isWithinRange(val: val, min: minVal ,max: maxVal)){
             var lDmg: Double
-            lDmg = (self.dmgVal/10) * val
+            lDmg = (self.dmgVal!/10) * val
             decreaseBombStabilityAndColor(pDmg: lDmg, pErr: "Too much Change in gravity ")
         }
     }
@@ -588,7 +555,7 @@ class UnwrapController {
     func checkGravPosition(pDirection: Direction)-> Bool{
         let curMotion = self.currentMotionData
         if(curMotion.isOutOfRangeInDirection(pMotion: curMotion.gravity, pDirection: pDirection, maxValue: self.maxGrav!.y, minValue: self.minGrav!.y)){
-            decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "gravity:  Out of Range in \(pDirection.toString)")
+            decreaseBombStabilityAndColor(pDmg: self.dmgVal!, pErr: "gravity:  Out of Range in \(pDirection.toString)")
             return true
         }
         return false
@@ -596,23 +563,6 @@ class UnwrapController {
     
     func isOutofGravYRange() -> Bool{
         return !isWithinRange(val: self.oldMotionData.gravity.y, min: self.minGrav!.y, max: self.maxGrav!.y)
-    }
-    
-    //MARK: - Check other sensors and if they are over max magnitude
-    func isOverMaxAcceleration() -> Bool {
-        if(oldMotion.isMotionGreaterThanMaxInEveryDirection(pMotion: self.oldMotionData.acceleration, maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)){
-            return true
-        }
-        return false
-    }
-    
-    func isOverMaxRotationRate() -> Bool {
-        // too fast rotation (speed)
-        var oldMotion = self.oldMotionData
-        if(oldMotion.isMotionGreaterThanMaxInEveryDirection(pMotion: oldMotion.rotationRate, maxX: self.maxRotRate.x, maxY: self.maxRotRate.y, maxZ: self.maxRotRate.z)){
-            return true
-        }
-        return false
     }
     
     // MARK:   - Check Finish Condition
@@ -657,7 +607,7 @@ class UnwrapController {
     }
     
     func increaseBombStabilityAndColor(){
-        self.gameManager.increaseStability(percentage: self.dmgVal)
+        self.gameManager.increaseStability(percentage: self.dmgVal!)
     }
     
     // MARK: - Countdown Logic
@@ -693,8 +643,6 @@ class UnwrapController {
         timer.invalidate()
         print("Timer stopped")
     }
-    
-    
     
     // MARK: - Navigation
 

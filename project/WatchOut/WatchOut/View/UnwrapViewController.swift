@@ -15,13 +15,17 @@ class UnwrapViewController: UIViewController {
 //    @IBOutlet weak var currentPlayer: UILabel!
     @IBOutlet weak var countDownTimeLabel: UILabel!
     @IBOutlet var directionWrap: UIImageView!
-    @IBOutlet weak var directionToGo: UITextView!
+    
+    @IBOutlet weak var numOfTurns: UITextView!
+    @IBOutlet weak var checkDirection: UITextView!
+    //    @IBOutlet weak var directionToGo: UITextView!
+//    @IBOutlet weak var numOfTurns: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        controller = UnwrapController(unwrapViewController: self, pDifficulty: .Hard)
+        controller = UnwrapController(unwrapViewController: self, pDifficulty: .Easy)
         controller?.startUnwrap(pCountDownDuration: 4.0)
         //curPlayer.text = String(currentP)
     }
@@ -35,12 +39,17 @@ class UnwrapViewController: UIViewController {
     }
     
     func updateDirectionText(pDirectionStr: String){
-        self.directionToGo.text = pDirectionStr
+        self.checkDirection.text = pDirectionStr
     }
     
     func updateBackgroundColor(pColor: UIColor) {
-        self.directionToGo.backgroundColor = pColor
+        self.checkDirection.backgroundColor = pColor
+        self.numOfTurns.backgroundColor = pColor
         self.view.backgroundColor = pColor
+    }
+    
+    func updateNumOfTurns(pTurns: Int){
+        self.numOfTurns.text = "Turns Left: \(pTurns)"
     }
     
     func updateTimerLabel(newTime: Double) {

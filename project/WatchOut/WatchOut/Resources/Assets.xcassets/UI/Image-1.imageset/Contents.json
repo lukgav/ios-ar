@@ -2,11 +2,11 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "rotationZMir.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "rotationZMirOld.png",
       "scale" : "2x"
     },
     {
