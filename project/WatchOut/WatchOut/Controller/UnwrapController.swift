@@ -34,6 +34,8 @@ class UnwrapController {
     private var currentMotionData: MotionData = MotionData()
     private var diffMotionData: MotionData = MotionData()
     
+    
+    /// Unused fields
     private var maxOverallRotRate: Double = 0.05
     private var maxOverallAcc: Double = 0.05
     private var maxRotRate: SIMD3<Double> =  SIMD3<Double>(x: 1.2, y: 1.2, z: 1.2)
@@ -55,6 +57,7 @@ class UnwrapController {
     private var pointTurnedAt: Double = 0.0
     ///-----------------These values are set at random in setupUnwrap -----------------
     
+    // Temporary variables
     private var xRandCount: Int = 0
     private var yRandCount: Int = 0
     private var zRandCount: Int = 0
@@ -68,7 +71,7 @@ class UnwrapController {
     private var errMsg = errorMsg()
     private let dmgVal: Double = 0.01
     private var isTaskComplete: Bool = false
-    private var goingInRightDiretcion: Bool = true
+    private var isGoingInCorrectDiretcion: Bool = true
     
     
     // TODO:
@@ -158,9 +161,9 @@ class UnwrapController {
             getRandomDirection()
         }
         else{
-            unwrapDirection = .y
+            unwrapDirection = .z
             shouldTurnClockwise = false
-            maxNumTurns = 1
+            maxNumTurns = 2
         }
 
     }
@@ -242,20 +245,20 @@ class UnwrapController {
         // - x in gravity to check direction of movement
         // - z to check rate of change in gravity of x
         // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
-            
-        if(self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)){
+        self.isGoingInCorrectDiretcion = self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)
+        if(self.isGoingInCorrectDiretcion){
                 //check if gravity is out of range in y-direction
         //                print("Going in right direction")
-            self.goingInRightDiretcion = true
+//            self.isGoingInCorrectDiretcion = true
             self.checkGravPosition(pDirection: pWobbleDir)
             self.checkChangeinGrav()
         }
         else{
-            self.goingInRightDiretcion = false
+//            self.isGoingInCorrectDiretcion = false
             self.decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Going in wrong direction")
         }
     }
-    
+
     func numOfTurnsMoved(pDirection: Direction){
         let turnPoint = 0.998
         let mustBePassed = 0.4
@@ -263,64 +266,40 @@ class UnwrapController {
         
         switch pDirection{
         case .x:
-            diffMotion = abs(self.pointTurnedAt - self.currentMotionData.gravity.z)
-            if (!self.turnedOnce){
-                if(self.currentMotionData.gravity.z >= turnPoint){
-                    self.turnedOnce = true
-                    self.pointTurnedAt = self.currentMotionData.gravity.z
-    //                print("turnCounter: \(turnCounter)")
-                    turnCounter += 1
-                }
-            }
-            else if(diffMotion > mustBePassed){
-                self.pointTurnedAt = 0
-                self.turnedOnce = false
-            }
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.z)
         case .y:
             checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.y, stateGravDirectionVal: self.currentMotionData.gravity.z)
         case .z:
-            diffMotion = abs(self.pointTurnedAt - self.currentMotionData.gravity.z)
-            if (!self.turnedOnce){
-                if(self.currentMotionData.gravity.z >= turnPoint){
-                    self.turnedOnce = true
-                    self.pointTurnedAt = self.currentMotionData.gravity.z
-                    turnCounter += 1
-                }
-            }
-            else if(diffMotion > mustBePassed){
-                self.pointTurnedAt = 0
-                self.turnedOnce = false
-            }
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.y)
         }
-            
         print("turnCounter: \(turnCounter)")
     }
     
     //Need to set this for x and z diretcion
     // must have a different min and max direction
     func checkNumOfTurns(turningGravDirectionVal: Double, stateGravDirectionVal: Double){
-        let mustBePassed = 0.4
-        var diffMotion: Double
-        
-        diffMotion = abs(self.pointTurnedAt - turningGravDirectionVal)
-        print("DiffMotion: \(diffMotion)")
-        if (!self.turnedOnce && stateGravDirectionVal > 0){
-            if(isWithinRange(val: turningGravDirectionVal, min: 0.05, max: 0.20)){
-                self.turnedOnce = true
-                self.pointTurnedAt = turningGravDirectionVal
-                turnCounter += 1
+        if(self.isGoingInCorrectDiretcion){
+            let mustBePassed = 0.4
+            var diffMotion: Double
+            
+            diffMotion = abs(self.pointTurnedAt - turningGravDirectionVal)
+            print("DiffMotion: \(diffMotion)")
+            if (!self.turnedOnce && stateGravDirectionVal > 0 && isGoingInCorrectDiretcion){
+                if(isWithinRange(val: turningGravDirectionVal, min: 0.05, max: 0.20)){
+                    self.turnedOnce = true
+                    self.pointTurnedAt = turningGravDirectionVal
+                    turnCounter += 1
+                }
+            }
+            else if(diffMotion > mustBePassed){
+                print("Value is passed")
+                self.pointTurnedAt = 0
+                self.turnedOnce = false
             }
         }
-        else if(diffMotion > mustBePassed){
-            self.pointTurnedAt = 0
-            self.turnedOnce = false
-        }
     }
-
-
     
     func isDeviceTurningInCorrectDirection(pTurningDirection: Direction, pStateDirection: Direction) -> Bool {
-        let isGoinginIntendedDirection: Bool = false
         print("--------------ShouldGoClockwise: \(self.shouldTurnClockwise)--------")
         if(self.isDeviceTurningClockwise(turningDirection: pTurningDirection, stateDirection: pStateDirection) && self.shouldTurnClockwise){
             print("-----------------Turning clockwise-----------------")
@@ -331,12 +310,8 @@ class UnwrapController {
             print("-----------------Turning anticlockwise-----------------")
             return true
         }
-        else{
-            return false
-        }
-        return isGoinginIntendedDirection
+        return false
     }
-    
 
     func whichGravAxes(pDirection: Direction) -> (Double, Double, Double){
         var current: Double
@@ -365,8 +340,6 @@ class UnwrapController {
         return (current, old, diff)
     }
     
-
-    
     func isGravityIncreasingInDirection(pDirection: Direction) -> Bool{
         var current: Double
         var old: Double
@@ -393,13 +366,9 @@ class UnwrapController {
     //            print("Grav is DECREASING along X")
                 return true
             }
-            else{
-                return false
-            }
+            return false
         }
     
-
-
     // MARK: - Check if Turning is going to fast
     /// Check if change in Gravity in one or more directions is too much
     func checkChangeinGrav(){
@@ -457,9 +426,6 @@ class UnwrapController {
     
     // MARK:   - Check Finish Condition
     
-    
-
-    
     func checkEndUnwrapCondition(){
 //        self.checkBombExplode()
         self.checkifTaskisCompleted()
@@ -473,12 +439,12 @@ class UnwrapController {
     
     func checkifTaskisCompleted(){
         // + 1
-//        if (turnCounter > maxNumTurns + 1){
-//            self.isTaskComplete = true
-//            // ----------------- Andi: Should This be TRUE??? -----------------
-//            self.endUnwrap(stopDeviceMotion: false)
-//            self.navigateToNextTask()
-//        }
+        if (turnCounter >= maxNumTurns){
+            self.isTaskComplete = true
+            // ----------------- Andi: Should This be TRUE??? -----------------
+            self.endUnwrap(stopDeviceMotion: false)
+            self.navigateToNextTask()
+        }
     }
     
     func endUnwrap(stopDeviceMotion: Bool) -> Bool {
