@@ -14,6 +14,14 @@ class HomeViewController: UIViewController {
                 
     @IBOutlet weak var playerCountLabel: UILabel!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view.
+        controller = HomeController(homeViewController: self)
+        controller?.startGame()
+    }
+    
     @IBAction func playerCountStepperValueChanged(_ sender: UIStepper) {
         controller!.playerCount = Int(sender.value)
         playerCountLabel.text = String(controller!.playerCount)
@@ -25,12 +33,6 @@ class HomeViewController: UIViewController {
     
     @IBAction func HelpButtonTouch(_ sender: Any) {
         controller!.navigateToHelp()
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        controller = HomeController(homeViewController: self)
     }
 
 }
