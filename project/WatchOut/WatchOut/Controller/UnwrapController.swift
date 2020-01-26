@@ -101,9 +101,9 @@ class UnwrapController {
     }
     
     func setUpUnwrap(isRand: Bool = true){
-        maxNumTurns = 4
+//        maxNumTurns = 1
         if isRand{
-//            getRandomTurns()
+            getRandomTurns()
             getRandomClockwiseTurn()
             getRandomDirection()
         }
@@ -128,6 +128,7 @@ class UnwrapController {
         print("Random Direction: \(dir)")
 //        print("xCount:\(xRandCount) yCount:\(yRandCount) zCount: \(zRandCount)")
         self.unwrapDirection =  dir
+        self.setTurningStartPos(pDirection: self.unwrapDirection)
     }
     
     func iterateCounter(pDirection: Direction){
@@ -154,7 +155,7 @@ class UnwrapController {
 
 //        self.startCountdown(duration: pCountDownDuration)
 //        self.stopCountdown()
-        self.setTurningStartPos(pDirection: self.unwrapDirection)
+//        self.setTurningStartPos(pDirection: self.unwrapDirection)
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.printData(pDirection: self.unwrapDirection)
             self.loadNewData(pNewMotionData: newMotionData)
