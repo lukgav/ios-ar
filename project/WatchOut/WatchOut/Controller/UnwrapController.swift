@@ -8,21 +8,6 @@
 import Foundation
 
 class UnwrapController {
- 
-    struct errorMsg{
-        var outOfRange = "Out of Range "
-        var outOfXRange = "Out of X Range "
-        var outOfYRange = "Out of Y Range  "
-        var outOfZRange = "Out of Z Range  "
-        var tooHigh = "past max value"
-        var tooHighX = "past max X value"
-        var tooHighY = "past max Y value"
-        var tooHighZ = "past max Z value"
-        var tooLow = "under min value"
-        var tooLowX = "under min X value"
-        var tooLowY = "under min Y value"
-        var tooLowZ = "under min Z value"
-    }
     
     private let unwrapViewController : UnwrapViewController
     
@@ -42,10 +27,10 @@ class UnwrapController {
     private var maxAcc: SIMD3<Double> =  SIMD3<Double>(x: 1, y: 1, z: 1.5)
     
     //---------------------Values currently set for Going in X direction---------------------
-    private var minGrav: SIMD3<Double> =  SIMD3<Double>(x: -0.2, y: -0.2, z: -0.2)
-    private var maxGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.2, y: 0.2, z: 0.2)
-    private var topMaxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.4, y: 0.4, z: 0.4)
-    private var bottomMaxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.15, y: 0.15, z: 0.15)
+    private var minGrav: SIMD3<Double>?
+    private var maxGrav: SIMD3<Double>?
+    private var topMaxDiffGrav: SIMD3<Double>?
+    private var bottomMaxDiffGrav: SIMD3<Double>?
     //---------------------Values currently set for Going in X direction---------------------
 
     ///----------------- These values are set at random in setup-----------------
@@ -54,7 +39,8 @@ class UnwrapController {
     private var maxNumTurns: Int = 0
     private var turnCounter: Int = 0
     private var turnedOnce: Bool = false
-    private var pointTurnedAt: Double = 0.0
+    private var deviceTurnedAt: Double = 0.0
+    private var deviceTurningStartPos: Double = 0.0
     ///-----------------These values are set at random in setup -----------------
     
     // Temporary variables
@@ -68,32 +54,31 @@ class UnwrapController {
     private var timerInterval: Double = 1/10.0
     /// These are used for the timer BEFORE the player starts
     
-    private var errMsg = errorMsg()
     private let dmgVal: Double = 0.01
     private var isTaskComplete: Bool = false
     private var isGoingInCorrectDirection: Bool = false
+    private var isUnwrapPastStart: Bool = false
     
     
     // TODO:
     //--------Backend-------
     // - Give player time to see read screen
     //      - a 5 second timer?
-    // - Turning in anti-clockwise does not work(WHen stattionary still getting damage)
     //--------UI--------
     // What to show on screen:
-    // - Player who is playing
     // - Num of turns to do
     // - Direction to turn
     //   - Clockwise/anticlockwise
     //   - along x, y or z direction
     
     
-    init(unwrapViewController: UnwrapViewController) {
+    init(unwrapViewController: UnwrapViewController, pDifficulty: Difficulty) {
         self.unwrapViewController = unwrapViewController
-//        self.maxNumTurns = 2
         self.timer = Timer()
-        self.setUpUnwrap(isRand: true)
+        self.setMotionDifficulty(pDifficulty: pDifficulty)
+        self.setUpUnwrap()
         self.loadUI(pDirection: unwrapDirection)
+        self.isUnwrapPastStart = false
 //        self.getRandomTurns()
     }
     // MARK: - Unwrap Logic
@@ -105,18 +90,35 @@ class UnwrapController {
         // TODO: randomize direction AND clockWise Boolean
         unwrapViewController.updateTurningImage(direction: pDirection, goClockwise: self.shouldTurnClockwise)
     }
+
+    func setMotionDifficulty(pDifficulty: Difficulty){
+        switch pDifficulty{
+            case .Easy:
+                self.setRangeOfMotion(lMax: 0.6, lMin: -0.6, lTopMax: 0.7, lBottMax: 0.45)
+            case .Medium:
+                self.setRangeOfMotion(lMax: 0.4, lMin: -0.4, lTopMax: 0.5, lBottMax: 0.3)
+            case .Hard:
+                self.setRangeOfMotion(lMax: 0.2, lMin: -0.2, lTopMax: 0.4, lBottMax: 0.15)
+        }
+    }
     
-    func setUpUnwrap(isRand: Bool){
+    func setRangeOfMotion(lMax: Double, lMin: Double, lTopMax: Double, lBottMax: Double){
+        minGrav = SIMD3<Double>(x: lMin, y: lMin, z: lMin)
+        maxGrav = SIMD3<Double>(x: lMax, y: lMax, z: lMax)
+        topMaxDiffGrav = SIMD3<Double>(x: lTopMax, y: lTopMax, z: lTopMax)
+        bottomMaxDiffGrav =  SIMD3<Double>(x: lBottMax, y: lBottMax, z: lBottMax)
+    }
+    
+    func setUpUnwrap(isRand: Bool = true){
+        maxNumTurns = 1
         if isRand{
 //            getRandomTurns()
-            maxNumTurns = 2
             getRandomClockwiseTurn()
             getRandomDirection()
         }
         else{
-            unwrapDirection = .x
+            unwrapDirection = .z
             shouldTurnClockwise = true
-            maxNumTurns = 2
         }
     }
     
@@ -161,12 +163,13 @@ class UnwrapController {
 
 //        self.startCountdown(duration: pCountDownDuration)
 //        self.stopCountdown()
+        self.setTurningStartPos(pDirection: self.unwrapDirection)
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.printData(pDirection: self.unwrapDirection)
             self.loadNewData(pNewMotionData: newMotionData)
             self.checkEndUnwrapCondition()
+            self.devicePastStart(pDirection: self.unwrapDirection)
             /// Players mistakes and consequences are checked below
-//            self.checkBombExplode()
             self.UnwrapInDirection(pDirection: self.unwrapDirection)
             ///Update oldMotionData and background color. Do here AFTER all computation is done
             self.oldMotionData = self.currentMotionData
@@ -176,9 +179,6 @@ class UnwrapController {
     }
     
     // MARK: - BELOW: Load, update Unwrap values, UI and print data etc...
-
-    
-
     
     func loadNewData(pNewMotionData: MotionData){
         self.currentMotionData = pNewMotionData
@@ -189,23 +189,119 @@ class UnwrapController {
     func printData(pDirection: Direction){
         print("UnwrapDir: \(unwrapDirection)")
         printDataToDevice()
-//        printGravData(pDirection: pDirection)
+//        printMotionData(pDirection: pDirection)
+
+    }
+    
+    func printMotionData(pDirection: Direction){
+//        printAttData(pDirection: pDirection)
+//        printAccData(pDirection: pDirection)
+//        printRotData(pDirection: pDirection)
+        printGravData(pDirection: pDirection)
     }
     func printDataToDevice(){
         var command: String = "Input Command"
         if(isGoingInCorrectDirection){
-            command = "Going in Correct Direction"
+            command = "CORRECT Direction"
         }
         else if(!isGoingInCorrectDirection){
-            command = "Going in Correct Direction"
+            command = "FALSE Direction"
         }
         
         unwrapViewController.updateDirectionText(pDirectionStr: command)
     }
     
+    func printRotData(pDirection: Direction){
+        switch pDirection{
+        case .x:
+            print("---------------------------------------------------")
+            print("oldRotX: \(self.oldMotionData.rotationRate.x)")
+            print("curRotX: \(self.currentMotionData.rotationRate.x)")
+            print("diffRotX: \(self.diffMotionData.rotationRate.x)")
+            print("-------------")
+            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
+            print("curRotY: \(self.currentMotionData.rotationRate.y)")
+        case .y:
+            print("---------------------------------------------------")
+            print("oldRotY: \(self.oldMotionData.rotationRate.y)")
+            print("curRotY: \(self.currentMotionData.rotationRate.y)")
+            print("diffRotY: \(self.diffMotionData.rotationRate.y)")
+            print("-------------")
+            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
+            print("curRotX: \(self.currentMotionData.rotationRate.x)")
+        case .z:
+            print("---------------------------------------------------")
+            print("oldRotX: \(self.oldMotionData.rotationRate.x)")
+            print("curRotX: \(self.currentMotionData.rotationRate.x)")
+            print("diffRotZX: \(self.diffMotionData.rotationRate.x)")
+            print("-------------")
+            print("curRotY: \(self.currentMotionData.rotationRate.y)")
+            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
+        }
+    }
+    
+    func printAccData(pDirection: Direction){
+        switch pDirection{
+        case .x:
+            print("---------------------------------------------------")
+            print("oldAccX: \(self.oldMotionData.acceleration.x)")
+            print("currAccX: \(self.currentMotionData.acceleration.x)")
+            print("diffAccX: \(self.diffMotionData.acceleration.x)")
+            print("-------------")
+            print("currAccZ: \(self.currentMotionData.acceleration.z)")
+            print("currAccY: \(self.currentMotionData.acceleration.y)")
+        case .y:
+            print("---------------------------------------------------")
+            print("oldAccY: \(self.oldMotionData.acceleration.y)")
+            print("currAccY: \(self.currentMotionData.acceleration.y)")
+            print("diffAccY: \(self.diffMotionData.acceleration.y)")
+            print("-------------")
+            print("currAccZ: \(self.currentMotionData.acceleration.z)")
+            print("currAccX: \(self.currentMotionData.acceleration.x)")
+        case .z:
+            print("---------------------------------------------------")
+            print("oldAccX: \(self.oldMotionData.acceleration.x)")
+            print("currAccX: \(self.currentMotionData.acceleration.x)")
+            print("diffAccZX: \(self.diffMotionData.acceleration.x)")
+            print("-------------")
+            print("currAccY: \(self.currentMotionData.acceleration.y)")
+            print("currAccZ: \(self.currentMotionData.acceleration.z)")
+        }
+    }
+    
+    func printAttData(pDirection: Direction){
+        if(isTaskComplete){
+            print("Good job! Task is finished! ")
+        }
+        switch pDirection{
+        case .x:
+            print("---------------------------------------------------")
+            print("oldAttX: \(self.oldMotionData.attitude.x)")
+            print("currentAttX: \(self.currentMotionData.attitude.x)")
+            print("DiffAttX: \(self.diffMotionData.attitude.x)")
+            print("-------------")
+            print("currentAttZ: \(self.currentMotionData.attitude.z)")
+            print("currentAttY: \(self.currentMotionData.attitude.y)")
+        case .y:
+            print("---------------------------------------------------")
+            print("oldAttY: \(self.oldMotionData.attitude.y)")
+            print("currentAttY: \(self.currentMotionData.attitude.y)")
+            print("DiffAttY: \(self.diffMotionData.attitude.y)")
+            print("-------------")
+            print("currentAttZ: \(self.currentMotionData.attitude.z)")
+            print("currentAttX: \(self.currentMotionData.attitude.x)")
+        case .z:
+            print("---------------------------------------------------")
+            print("oldAttX: \(self.oldMotionData.attitude.x)")
+            print("currentAttX: \(self.currentMotionData.attitude.x)")
+            print("DiffAttX: \(self.diffMotionData.attitude.x)")
+            print("-------------")
+            print("currentAttY: \(self.currentMotionData.attitude.y)")
+            print("currentAttZ: \(self.currentMotionData.attitude.z)")
+        }
+    }
+    
     func printGravData(pDirection: Direction){
-        
-        
         if(isTaskComplete){
             print("Good job! Task is finished! ")
         }
@@ -230,7 +326,7 @@ class UnwrapController {
             print("---------------------------------------------------")
             print("oldGravX: \(self.oldMotionData.gravity.x)")
             print("currentGravX: \(self.currentMotionData.gravity.x)")
-            print("DiffGravZX: \(self.diffMotionData.gravity.x)")
+            print("DiffGravX: \(self.diffMotionData.gravity.x)")
             print("-------------")
             print("currentGravY: \(self.currentMotionData.gravity.y)")
             print("currentGravZ: \(self.currentMotionData.gravity.z)")
@@ -253,21 +349,58 @@ class UnwrapController {
         switch pDirection{
         case .x:
             //This orientation works!
+//            maxNumTurns = 2
             self.checkUnwrapInDirection(pTurningDir: .x, pStateDir: .z, pWobbleDir: .y)
         case .y:
+//            maxNumTurns = 2
             //Need to check these values to make sure if this the correct orientation
             self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .z, pWobbleDir: .x)
         case .z:
+//            maxNumTurns = 2
             //Need to check these values to make sure if this the correct orientation
             self.checkUnwrapInDirection(pTurningDir: .y, pStateDir: .x, pWobbleDir: .z)
         }
     }
     
+    func setTurningStartPos(pDirection: Direction){
+        switch pDirection{
+        case .x:
+            deviceTurningStartPos = self.currentMotionData.gravity.x
+        case .y:
+            deviceTurningStartPos = self.currentMotionData.gravity.y
+        case .z:
+            deviceTurningStartPos = self.currentMotionData.gravity.y
+        }
+    }
+    
+    func isDeviceStillWithinStartRange()->Bool{
+        if isGoingInCorrectDirection{
+            switch unwrapDirection{
+            case .x:
+                return isWithinSetRange(val: self.currentMotionData.gravity.x)
+            case .y:
+                return isWithinSetRange(val: self.currentMotionData.gravity.y)
+            case .z:
+                return isWithinSetRange(val: self.currentMotionData.gravity.y)
+            }
+        }
+        return true
+        
+    }
+    func isWithinSetRange(val: Double) -> Bool{
+        let lMinVal = deviceTurningStartPos - 0.40
+        let lMaxVal = deviceTurningStartPos + 0.40
+        if(isWithinRange(val: self.currentMotionData.gravity.y, min: lMinVal, max: lMaxVal)){
+            print("Too close to start point")
+            return true
+        }
+//        isUnwrapPastStart = false
+        print("Far away from start point")
+        return false
+    }
+    
+    
     func checkUnwrapInDirection(pTurningDir: Direction, pStateDir: Direction, pWobbleDir: Direction){
-        // ------------ ------------ z-direction ------------ ------------
-        // - x in gravity to check direction of movement
-        // - z to check rate of change in gravity of x
-        // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
         self.isGoingInCorrectDirection = self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)
         if(self.isGoingInCorrectDirection){
                 //check if gravity is out of range in y-direction
@@ -283,47 +416,73 @@ class UnwrapController {
     }
 
     func numOfTurnsMoved(pDirection: Direction){
-        var lMin: Double
-        var lMax: Double
+        var lMin: Double = 0.05
+        var lMax: Double = 0.20
         switch pDirection{
         case .x:
-            lMin = 0.05
-            lMax = 0.20
-            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.z, min: lMin,max: lMax)
+
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.z, pMin: lMin,pMax: lMax)
         case .y:
-            lMin = 0.05
-            lMax = 0.20
-            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.y, stateGravDirectionVal: self.currentMotionData.gravity.z, min: lMin,max: lMax)
+
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.y, stateGravDirectionVal: self.currentMotionData.gravity.z, pMin: lMin,pMax: lMax)
         case .z:
-            lMin = 0.05
-            lMax = 0.20
-            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.y, min: lMin,max: lMax)
+
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.y, pMin: lMin,pMax: lMax)
         }
         print("turnCounter: \(turnCounter)")
     }
     
     //Need to set this for x and z diretcion
     // must have a different min and max direction
-    func checkNumOfTurns(turningGravDirectionVal: Double, stateGravDirectionVal: Double, min: Double, max: Double){
-        if(self.isGoingInCorrectDirection){
-            let mustBePassed = 0.4
-            var diffMotion: Double
-            
-            diffMotion = abs(self.pointTurnedAt - turningGravDirectionVal)
-            print("DiffMotion: \(diffMotion)")
-            if (!self.turnedOnce &&
-                self.isDeviceFaceUp(stateGravDirectionVal: stateGravDirectionVal) &&
-                isGoingInCorrectDirection){
-                if(isWithinRange(val: turningGravDirectionVal, min: 0.05, max: 0.20)){
-                    self.turnedOnce = true
-                    self.pointTurnedAt = turningGravDirectionVal
-                    turnCounter += 1
-                }
+    func devicePastStart(pDirection: Direction){
+        if(!self.isUnwrapPastStart){
+            var lDiff: Double?
+            let lMaxVal: Double = 0.7
+            switch pDirection{
+            case .x:
+                isPastStartInMotion(pMotion: self.currentMotionData.gravity.x)
+            case .y:
+                isPastStartInMotion(pMotion: self.currentMotionData.gravity.y)
+            case .z:
+                isPastStartInMotion(pMotion: self.currentMotionData.gravity.y)
             }
-            else if(diffMotion > mustBePassed){
-                print("Value is passed")
-                self.pointTurnedAt = 0
-                self.turnedOnce = false
+        }
+    }
+        
+    func isPastStartInMotion(pMotion: Double){
+        var lDiff: Double?
+        let lMaxVal: Double = 0.7
+        lDiff = abs(deviceTurningStartPos - pMotion)
+        print("START diff Value: \(lDiff!)")
+        if(lDiff! > lMaxVal){
+            print("-----------PassedMaxValue------------")
+            self.isUnwrapPastStart = true
+            return
+        }
+    }
+    
+    func checkNumOfTurns(turningGravDirectionVal: Double, stateGravDirectionVal: Double, pMin: Double, pMax: Double){
+//        isWithinRange(val: deviceTurningStartPos, min: pMin, max: pMax)  ||
+        if(self.isUnwrapPastStart){
+            if(self.isGoingInCorrectDirection){
+                let mustBePassed = 0.4
+                var diffMotion: Double
+                diffMotion = abs(self.deviceTurnedAt - turningGravDirectionVal)
+                print("DiffMotion: \(diffMotion)")
+                if (!self.turnedOnce &&
+                    self.isDeviceFaceUp(stateGravDirectionVal: stateGravDirectionVal) &&
+                    isGoingInCorrectDirection){
+                    if(isWithinRange(val: turningGravDirectionVal, min: pMin, max: pMax)){
+                        self.turnedOnce = true
+                        self.deviceTurnedAt = turningGravDirectionVal
+                        turnCounter += 1
+                    }
+                }
+                else if(diffMotion > mustBePassed){
+                    print("Value is passed")
+                    self.deviceTurnedAt = 0
+                    self.turnedOnce = false
+                }
             }
         }
     }
@@ -407,11 +566,11 @@ class UnwrapController {
     /// Check if change in Gravity in one or more directions is too much
     func checkChangeinGrav(){
         //X Direction
-        checkChangeinGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.bottomMaxDiffGrav.x, maxVal: self.topMaxDiffGrav.x)
+        checkChangeinGravinDirection(val: self.diffMotionData.gravity.x, minVal: self.bottomMaxDiffGrav!.x, maxVal: self.topMaxDiffGrav!.x)
         //Z direction
-        checkChangeinGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.bottomMaxDiffGrav.z, maxVal: self.topMaxDiffGrav.z)
+        checkChangeinGravinDirection(val: self.diffMotionData.gravity.z, minVal: self.bottomMaxDiffGrav!.z, maxVal: self.topMaxDiffGrav!.z)
         //Y Direction
-        checkChangeinGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.bottomMaxDiffGrav.y, maxVal: self.topMaxDiffGrav.y)
+        checkChangeinGravinDirection(val: self.diffMotionData.gravity.y, minVal: self.bottomMaxDiffGrav!.y, maxVal: self.topMaxDiffGrav!.y)
     }
     
     func checkChangeinGravinDirection(val: Double, minVal: Double, maxVal: Double){
@@ -428,22 +587,20 @@ class UnwrapController {
     // MARK: - Check if Player is wobbling too much
     func checkGravPosition(pDirection: Direction)-> Bool{
         let curMotion = self.currentMotionData
-        if(curMotion.isOutOfRangeInDirection(pMotion: curMotion.gravity, pDirection: pDirection, maxValue: self.maxGrav.y, minValue: self.minGrav.y)){
-            decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: MotionType.gravity.toString + ": " +  self.errMsg.outOfRange + "in " + pDirection.toString)
+        if(curMotion.isOutOfRangeInDirection(pMotion: curMotion.gravity, pDirection: pDirection, maxValue: self.maxGrav!.y, minValue: self.minGrav!.y)){
+            decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "gravity:  Out of Range in \(pDirection.toString)")
             return true
         }
         return false
     }
     
     func isOutofGravYRange() -> Bool{
-        return !isWithinRange(val: self.oldMotionData.gravity.y, min: self.minGrav.y, max: self.maxGrav.y)
+        return !isWithinRange(val: self.oldMotionData.gravity.y, min: self.minGrav!.y, max: self.maxGrav!.y)
     }
     
     //MARK: - Check other sensors and if they are over max magnitude
     func isOverMaxAcceleration() -> Bool {
-        // too much acceleration (shaking)
-        var oldMotion = self.oldMotionData
-        if(oldMotion.isMotionGreaterThanMaxInEveryDirection(pMotion: oldMotion.acceleration, maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)){
+        if(oldMotion.isMotionGreaterThanMaxInEveryDirection(pMotion: self.oldMotionData.acceleration, maxX: self.maxAcc.x, maxY: self.maxAcc.y, maxZ: self.maxAcc.z)){
             return true
         }
         return false
@@ -461,7 +618,7 @@ class UnwrapController {
     // MARK:   - Check Finish Condition
     
     func checkEndUnwrapCondition(){
-//        self.checkBombExplode()
+        self.checkBombExplode()
         self.checkifTaskisCompleted()
     }
     
@@ -484,11 +641,9 @@ class UnwrapController {
     func endUnwrap(stopDeviceMotion: Bool) -> Bool {
         print("END UNWRAP")
         dmManager.currentMotionData.removeObserver(observer)
-        
         if (stopDeviceMotion) {
             return dmManager.stopDeviceMotion()
         }
-        
         return true
     }
     

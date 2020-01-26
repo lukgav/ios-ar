@@ -21,7 +21,7 @@ class UnwrapViewController: UIViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        controller = UnwrapController(unwrapViewController: self)
+        controller = UnwrapController(unwrapViewController: self, pDifficulty: .Hard)
         controller?.startUnwrap(pCountDownDuration: 4.0)
         //curPlayer.text = String(currentP)
     }
@@ -39,6 +39,7 @@ class UnwrapViewController: UIViewController {
     }
     
     func updateBackgroundColor(pColor: UIColor) {
+        self.directionToGo.backgroundColor = pColor
         self.view.backgroundColor = pColor
     }
     
@@ -49,11 +50,11 @@ class UnwrapViewController: UIViewController {
     
     func loadImage(pImageName: String){
         directionWrap.image = UIImage.init(named: pImageName)
-        UIView.animate(withDuration: 2, animations:
-            {
-                self.directionWrap.frame.origin.y -= 100
-            },
-                       completion: nil)
+//        UIView.animate(withDuration: 2, animations:
+//            {
+//                self.directionWrap.frame.origin.y -= 200
+//            },
+//                       completion: nil)
     }
 
     func updateTimer(newTime: Double) {
@@ -65,24 +66,24 @@ class UnwrapViewController: UIViewController {
         switch direction {
         case Direction.x:
             if(goClockwise){
-                loadImage(pImageName: "rotationX")
+                loadImage(pImageName: "rotationXMir")
             }
             else{
-                loadImage(pImageName: "rotationXMir")
+                loadImage(pImageName: "rotationX")
             }
         case Direction.y:
            if(goClockwise){
-                loadImage(pImageName: "rotationY")
+                loadImage(pImageName: "rotationYMir")
             }
             else{
-                loadImage(pImageName: "rotationYMir")
+                loadImage(pImageName: "rotationY")
             }
         case Direction.z:
             if(goClockwise){
-                loadImage(pImageName: "rotationZMir")
+                loadImage(pImageName: "rotationZ")
             }
             else{
-                loadImage(pImageName: "rotationZ")
+                loadImage(pImageName: "rotationZMir")
             }
         }
     }

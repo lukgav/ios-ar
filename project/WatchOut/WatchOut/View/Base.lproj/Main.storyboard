@@ -192,13 +192,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1RW-To-TsM" userLabel="nextTaskButton">
-                                <rect key="frame" x="173" y="660" width="68" height="30"/>
-                                <state key="normal" title="Next Task"/>
-                                <connections>
-                                    <action selector="NextTaskTouch:" destination="O1c-Kr-D4k" eventType="touchUpInside" id="p2c-pc-5Tn"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yPS-E7-u07" userLabel="quitGameButton">
                                 <rect key="frame" x="158" y="720" width="98" height="38"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
@@ -216,14 +209,17 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rotation1" translatesAutoresizingMaskIntoConstraints="NO" id="91L-tL-39f" userLabel="unwrapImagePlaceHolderImageView">
-                                <rect key="frame" x="30" y="157" width="354" height="500"/>
+                                <rect key="frame" x="30" y="157" width="354" height="354"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="354" id="W20-UN-E5Q"/>
+                                </constraints>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="yQQ-Rg-2OJ">
-                                <rect key="frame" x="86" y="617" width="244" height="40"/>
+                                <rect key="frame" x="30" y="570" width="354" height="87"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -231,7 +227,6 @@
                         <constraints>
                             <constraint firstItem="bSg-Dx-FI3" firstAttribute="top" secondItem="jl6-9X-eMS" secondAttribute="top" constant="45" id="4Qi-Pw-KhS"/>
                             <constraint firstItem="91L-tL-39f" firstAttribute="top" secondItem="bSg-Dx-FI3" secondAttribute="bottom" constant="70" id="Guf-Mq-1P7"/>
-                            <constraint firstItem="yPS-E7-u07" firstAttribute="top" secondItem="1RW-To-TsM" secondAttribute="bottom" constant="30" id="OQJ-L7-HUA"/>
                             <constraint firstItem="bSg-Dx-FI3" firstAttribute="centerX" secondItem="5Mq-0s-xQw" secondAttribute="centerX" id="VZg-95-sn5"/>
                             <constraint firstAttribute="trailing" secondItem="91L-tL-39f" secondAttribute="trailing" constant="30" id="Wcg-T0-G9l"/>
                             <constraint firstItem="91L-tL-39f" firstAttribute="leading" secondItem="5Mq-0s-xQw" secondAttribute="leading" constant="30" id="br3-XK-4rC"/>
@@ -278,8 +273,12 @@
                                     <action selector="QuitGameTouch:" destination="vaX-O0-H9D" eventType="touchUpInside" id="XOW-Hn-gq1"/>
                                 </connections>
                             </button>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bombDeliver" translatesAutoresizingMaskIntoConstraints="NO" id="kt8-FJ-oTH">
-                                <rect key="frame" x="48" y="257" width="318" height="159"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bombDeliver" translatesAutoresizingMaskIntoConstraints="NO" id="kt8-FJ-oTH">
+                                <rect key="frame" x="79" y="257" width="256" height="256"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="256" id="eCN-eF-GbT"/>
+                                    <constraint firstAttribute="width" constant="256" id="p3a-hu-wke"/>
+                                </constraints>
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="khb-mU-agC">
@@ -343,7 +342,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Hoq-yO-tDI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1742" y="96"/>
+            <point key="canvasLocation" x="1740.5797101449277" y="95.758928571428569"/>
         </scene>
         <!--End Screen View Controller-->
         <scene sceneID="2JX-xy-FWW">
@@ -539,7 +538,7 @@
         <image name="I" width="16" height="16"/>
         <image name="Start Button" width="256" height="256"/>
         <image name="StartScreen Background" width="1280" height="720"/>
-        <image name="bombDeliver" width="318" height="159"/>
+        <image name="bombDeliver" width="512" height="512"/>
         <image name="exit" width="225" height="225"/>
         <image name="explosion" width="1280" height="720"/>
         <image name="name3" width="892" height="432"/>
@@ -549,9 +548,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="cYO-1R-dfZ"/>
-        <segue reference="Udo-a8-iKt"/>
+        <segue reference="fyu-OB-oIg"/>
         <segue reference="vCN-Ym-yPR"/>
-        <segue reference="8jX-h0-hCH"/>
-        <segue reference="43M-id-rIK"/>
+        <segue reference="NUh-b3-TSL"/>
+        <segue reference="zld-ML-x4X"/>
     </inferredMetricsTieBreakers>
 </document>
