@@ -15,6 +15,7 @@ class UnwrapViewController: UIViewController {
 //    @IBOutlet weak var currentPlayer: UILabel!
     @IBOutlet weak var countDownTimeLabel: UILabel!
     @IBOutlet var directionWrap: UIImageView!
+    @IBOutlet weak var directionToGo: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,10 @@ class UnwrapViewController: UIViewController {
     
     @IBAction func NextTaskTouch(_ sender: Any) {
         controller?.navigateToNextTask()
+    }
+    
+    func updateDirectionText(pDirectionStr: String){
+        self.directionToGo.text = pDirectionStr
     }
     
     func updateBackgroundColor(pColor: UIColor) {

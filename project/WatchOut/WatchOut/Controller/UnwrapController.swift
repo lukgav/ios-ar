@@ -48,14 +48,14 @@ class UnwrapController {
     private var bottomMaxDiffGrav: SIMD3<Double> =  SIMD3<Double>(x: 0.15, y: 0.15, z: 0.15)
     //---------------------Values currently set for Going in X direction---------------------
 
-    ///----------------- These values are set at random in setupUnwrap -----------------
+    ///----------------- These values are set at random in setup-----------------
     private var unwrapDirection: Direction = .x
     private var shouldTurnClockwise: Bool = true
     private var maxNumTurns: Int = 0
     private var turnCounter: Int = 0
     private var turnedOnce: Bool = false
     private var pointTurnedAt: Double = 0.0
-    ///-----------------These values are set at random in setupUnwrap -----------------
+    ///-----------------These values are set at random in setup -----------------
     
     // Temporary variables
     private var xRandCount: Int = 0
@@ -71,7 +71,7 @@ class UnwrapController {
     private var errMsg = errorMsg()
     private let dmgVal: Double = 0.01
     private var isTaskComplete: Bool = false
-    private var isGoingInCorrectDiretcion: Bool = true
+    private var isGoingInCorrectDirection: Bool = false
     
     
     // TODO:
@@ -92,14 +92,36 @@ class UnwrapController {
         self.unwrapViewController = unwrapViewController
 //        self.maxNumTurns = 2
         self.timer = Timer()
-        self.setUpUnwrap(isRand: false)
+        self.setUpUnwrap(isRand: true)
         self.loadUI(pDirection: unwrapDirection)
 //        self.getRandomTurns()
     }
     // MARK: - Unwrap Logic
 
+    func loadUI(pDirection: Direction){
+        let nextPlayer =  gameManager.getNextRandomPlayer()
+        
+        unwrapViewController.updateBackgroundColor(pColor: gameManager.currentColor)
+        // TODO: randomize direction AND clockWise Boolean
+        unwrapViewController.updateTurningImage(direction: pDirection, goClockwise: self.shouldTurnClockwise)
+    }
+    
+    func setUpUnwrap(isRand: Bool){
+        if isRand{
+//            getRandomTurns()
+            maxNumTurns = 2
+            getRandomClockwiseTurn()
+            getRandomDirection()
+        }
+        else{
+            unwrapDirection = .x
+            shouldTurnClockwise = true
+            maxNumTurns = 2
+        }
+    }
+    
     func getRandomTurns(){
-        self.maxNumTurns = Int.random(in: 0...3)
+        self.maxNumTurns = Int.random(in: 1...2)
     }
     func getRandomClockwiseTurn(){
         self.shouldTurnClockwise = Bool.random()
@@ -140,7 +162,7 @@ class UnwrapController {
 //        self.startCountdown(duration: pCountDownDuration)
 //        self.stopCountdown()
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
-            self.printGravData(pDirection: self.unwrapDirection)
+            self.printData(pDirection: self.unwrapDirection)
             self.loadNewData(pNewMotionData: newMotionData)
             self.checkEndUnwrapCondition()
             /// Players mistakes and consequences are checked below
@@ -154,27 +176,9 @@ class UnwrapController {
     }
     
     // MARK: - BELOW: Load, update Unwrap values, UI and print data etc...
-    func setUpUnwrap(isRand: Bool){
-        if isRand{
-            getRandomTurns()
-            getRandomClockwiseTurn()
-            getRandomDirection()
-        }
-        else{
-            unwrapDirection = .z
-            shouldTurnClockwise = false
-            maxNumTurns = 2
-        }
 
-    }
     
-    func loadUI(pDirection: Direction){
-        let nextPlayer =  gameManager.getNextRandomPlayer()
-        
-        unwrapViewController.updateBackgroundColor(pColor: gameManager.currentColor)
-        // TODO: randomize direction AND clockWise Boolean
-        unwrapViewController.updateTurningImage(direction: pDirection, goClockwise: self.shouldTurnClockwise)
-    }
+
     
     func loadNewData(pNewMotionData: MotionData){
         self.currentMotionData = pNewMotionData
@@ -182,7 +186,26 @@ class UnwrapController {
         self.diffMotionData = self.currentMotionData.diff(other: self.oldMotionData)
     }
     
+    func printData(pDirection: Direction){
+        print("UnwrapDir: \(unwrapDirection)")
+        printDataToDevice()
+//        printGravData(pDirection: pDirection)
+    }
+    func printDataToDevice(){
+        var command: String = "Input Command"
+        if(isGoingInCorrectDirection){
+            command = "Going in Correct Direction"
+        }
+        else if(!isGoingInCorrectDirection){
+            command = "Going in Correct Direction"
+        }
+        
+        unwrapViewController.updateDirectionText(pDirectionStr: command)
+    }
+    
     func printGravData(pDirection: Direction){
+        
+        
         if(isTaskComplete){
             print("Good job! Task is finished! ")
         }
@@ -245,46 +268,52 @@ class UnwrapController {
         // - x in gravity to check direction of movement
         // - z to check rate of change in gravity of x
         // - y acceleration should not move above a max limit(Should not move in this direction at all really but thats not the point
-        self.isGoingInCorrectDiretcion = self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)
-        if(self.isGoingInCorrectDiretcion){
+        self.isGoingInCorrectDirection = self.isDeviceTurningInCorrectDirection(pTurningDirection: pTurningDir, pStateDirection: pStateDir)
+        if(self.isGoingInCorrectDirection){
                 //check if gravity is out of range in y-direction
         //                print("Going in right direction")
-//            self.isGoingInCorrectDiretcion = true
+//            self.isGoingInCorrectDirection = true
             self.checkGravPosition(pDirection: pWobbleDir)
             self.checkChangeinGrav()
         }
         else{
-//            self.isGoingInCorrectDiretcion = false
+//            self.isGoingInCorrectDirection = false
             self.decreaseBombStabilityAndColor(pDmg: self.dmgVal, pErr: "Going in wrong direction")
         }
     }
 
     func numOfTurnsMoved(pDirection: Direction){
-        let turnPoint = 0.998
-        let mustBePassed = 0.4
-        var diffMotion: Double
-        
+        var lMin: Double
+        var lMax: Double
         switch pDirection{
         case .x:
-            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.z)
+            lMin = 0.05
+            lMax = 0.20
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.z, min: lMin,max: lMax)
         case .y:
-            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.y, stateGravDirectionVal: self.currentMotionData.gravity.z)
+            lMin = 0.05
+            lMax = 0.20
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.y, stateGravDirectionVal: self.currentMotionData.gravity.z, min: lMin,max: lMax)
         case .z:
-            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.y)
+            lMin = 0.05
+            lMax = 0.20
+            checkNumOfTurns(turningGravDirectionVal: self.currentMotionData.gravity.x, stateGravDirectionVal: self.currentMotionData.gravity.y, min: lMin,max: lMax)
         }
         print("turnCounter: \(turnCounter)")
     }
     
     //Need to set this for x and z diretcion
     // must have a different min and max direction
-    func checkNumOfTurns(turningGravDirectionVal: Double, stateGravDirectionVal: Double){
-        if(self.isGoingInCorrectDiretcion){
+    func checkNumOfTurns(turningGravDirectionVal: Double, stateGravDirectionVal: Double, min: Double, max: Double){
+        if(self.isGoingInCorrectDirection){
             let mustBePassed = 0.4
             var diffMotion: Double
             
             diffMotion = abs(self.pointTurnedAt - turningGravDirectionVal)
             print("DiffMotion: \(diffMotion)")
-            if (!self.turnedOnce && stateGravDirectionVal > 0 && isGoingInCorrectDiretcion){
+            if (!self.turnedOnce &&
+                self.isDeviceFaceUp(stateGravDirectionVal: stateGravDirectionVal) &&
+                isGoingInCorrectDirection){
                 if(isWithinRange(val: turningGravDirectionVal, min: 0.05, max: 0.20)){
                     self.turnedOnce = true
                     self.pointTurnedAt = turningGravDirectionVal
@@ -297,6 +326,10 @@ class UnwrapController {
                 self.turnedOnce = false
             }
         }
+    }
+    
+    func isDeviceFaceUp(stateGravDirectionVal: Double) -> Bool{
+        return stateGravDirectionVal < 0.0
     }
     
     func isDeviceTurningInCorrectDirection(pTurningDirection: Direction, pStateDirection: Direction) -> Bool {
@@ -358,11 +391,12 @@ class UnwrapController {
     func isDeviceTurningClockwise(turningDirection: Direction, stateDirection: Direction) -> Bool{
         var (current, old, diff): (Double,Double,Double)
         (current, old, diff) = whichGravAxes(pDirection: stateDirection)
-        if(isGravityIncreasingInDirection(pDirection: turningDirection) && current < 0.0){
+        var isFaceUp = self.isDeviceFaceUp(stateGravDirectionVal: current)
+        if(isGravityIncreasingInDirection(pDirection: turningDirection) && isFaceUp){
     //            print("Grav is INCREASING X")
                 return true
         }
-        else if(!isGravityIncreasingInDirection(pDirection: turningDirection) && current > 0.0){
+        else if(!isGravityIncreasingInDirection(pDirection: turningDirection) && !isFaceUp){
     //            print("Grav is DECREASING along X")
                 return true
             }

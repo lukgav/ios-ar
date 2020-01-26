@@ -27,6 +27,8 @@ class TwitchController {
     
     private var maxDiff = 0.04
     private var maxDiffNeg = -0.04
+    
+    private var dmgVal = 0.01
         
     let twitchDirections: [TwitchDirection] = [.Up, .Down, .Left, .Right]
     
@@ -101,7 +103,7 @@ class TwitchController {
                                     
                                      // User did wrong direction
                                     if (userDidWrongDirection) {
-                                        bombExploded = self.gameManager.decreaseStability(percentage: 0.03)
+                                        bombExploded = self.gameManager.decreaseStability(percentage: self.dmgVal)
                                         if (bombExploded) {
                                             // Bomb exploded
                                             self.navigateToEndScreen()
