@@ -51,7 +51,7 @@ class UnwrapController {
     private var isTaskComplete: Bool = false
     private var isGoingInCorrectDirection: Bool = false
     private var isUnwrapPastStart: Bool = false
-    
+    private let presentationFinished: Bool = true
     // TODO:
     //--------Backend-------
     // - Give player time to see read screen
