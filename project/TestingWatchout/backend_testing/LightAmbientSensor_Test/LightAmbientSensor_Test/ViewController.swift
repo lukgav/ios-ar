@@ -27,8 +27,6 @@ class ViewController: UIViewController {
 //    instanceOfCustomObject.someProperty = "Test"
 //    instanceOfCustomObject.someProperty = "Hello"
 
-
-    
     func testCustomObject(){
         instanceOfCustomObject.someMethod()
         instanceOfCustomObject.someProperty = "Test"
