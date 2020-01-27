@@ -31,7 +31,7 @@ class DeliverController {
     
     private var minDiffRotRate: Double = 1.0
     private var minDiffAcc : Double = 0.5
-        
+    
     private var timer : Timer
     private var countDownTime: Double = 0
     private var timerInterval: Double = 1/10.0
@@ -102,7 +102,7 @@ class DeliverController {
                        print("THUMB NOW ON SENSOR")
                    }
                    
-                   if (self.isAmbientIntensityDark == true && newIntensity > 1000) {
+                   if (self.isAmbientIntensityDark == true && newIntensity > 950) {
                        self.isAmbientIntensityDark = false
                        
                        // user lifted thumb and delivered to next player

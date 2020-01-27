@@ -12,7 +12,13 @@ class ViewController: UIViewController {
 
     @IBOutlet var testView: UITextView!
     
-    var instanceOfCustomObject: CustomObject = CustomObject()
+    var instanceofLightSensor: LightAmbienceDataObject = LightAmbientSensor()
+
+    
+    func testLightObject(){
+        instanceofLightSensor.printHello
+        instanceofLightSensor.sayHello()
+    }
     
 //    CustomObject.printHello()
     

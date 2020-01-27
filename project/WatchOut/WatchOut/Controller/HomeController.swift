@@ -64,7 +64,7 @@ class HomeController {
     }
     
     func startGame(){
-        self.ambientLightOn(maxIntensity: 1000, minIntensity: 750)
+//        self.ambientLightOn(maxIntensity: 1000, minIntensity: 750)
 //        {
 //            navigateToFirstTask()
 //        }

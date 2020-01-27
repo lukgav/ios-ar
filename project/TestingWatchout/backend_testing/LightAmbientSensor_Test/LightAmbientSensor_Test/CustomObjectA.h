@@ -18,7 +18,6 @@
 + (void) printHello;
 + (NSString *)sayHello;
 
-
 - (void) someMethod;
 
 

@@ -18,24 +18,35 @@
 
 
 
++ (void) printHello {
+    NSLog(@" \n Hello Phone World");
+}
 
-+ (void) handle_event:(void*) target secondParam: (void*) refcon thirdParam:(IOHIDServiceRef) service fourthParam: (IOHIDEventRef) event {
-    IOHIDEventSystemOpen(<#IOHIDEventSystemRef system#>, IOHIDEventSystemCallback callback, <#void *target#>, <#void *refcon#>, <#void *unused#>)
++(NSString *)sayHello{
+    NSString * var;
     
+    var = @" Hello from objective-c class.";
     
-    if (IOHIDEventGetType(event) == kIOHIDEventTypeAmbientLightSensor) {
-        // Ambient Light Sensor Event
-        int luxValue =  IOHIDEventGetIntegerValue(event, (IOHIDEventField)kIOHIDEventFieldAmbientLightSensorLevel);
-        // lux Event Field
-        int channel0 = IOHIDEventGetIntegerValue(event, (IOHIDEventField)kIOHIDEventFieldAmbientLightSensorRawChannel0);
-        // ch0 Event Field
-        int channel1 = IOHIDEventGetIntegerValue(event, (IOHIDEventField)kIOHIDEventFieldAmbientLightSensorRawChannel1);
-        // ch1 Event Field
+    return var;
+}
 
-        NSLog(@"IOHID: ALS Sensor: Lux : %d  ch0 : %d   ch1 : %d", luxValue, channel0, channel1);
-        // lux==0 : no light, lux==1000+ almost direct sunlight
-    }
-    
+//+ (void) handle_event:(void*) target secondParam: (void*) refcon thirdParam:(IOHIDServiceRef) service fourthParam: (IOHIDEventRef) event {
+//    IOHIDEventSystemOpen(<#IOHIDEventSystemRef system#>, IOHIDEventSystemCallback callback, <#void *target#>, <#void *refcon#>, <#void *unused#>)
+//    
+//    
+//    if (IOHIDEventGetType(event) == kIOHIDEventTypeAmbientLightSensor) {
+//        // Ambient Light Sensor Event
+//        int luxValue =  IOHIDEventGetIntegerValue(event, (IOHIDEventField)kIOHIDEventFieldAmbientLightSensorLevel);
+//        // lux Event Field
+//        int channel0 = IOHIDEventGetIntegerValue(event, (IOHIDEventField)kIOHIDEventFieldAmbientLightSensorRawChannel0);
+//        // ch0 Event Field
+//        int channel1 = IOHIDEventGetIntegerValue(event, (IOHIDEventField)kIOHIDEventFieldAmbientLightSensorRawChannel1);
+//        // ch1 Event Field
+//
+//        NSLog(@"IOHID: ALS Sensor: Lux : %d  ch0 : %d   ch1 : %d", luxValue, channel0, channel1);
+//        // lux==0 : no light, lux==1000+ almost direct sunlight
+//    }
+//    
     + (void) testEvent{
          Create and open an event system.
             IOHIDEventSystemRef system = IOHIDEventSystemCreate(NULL);

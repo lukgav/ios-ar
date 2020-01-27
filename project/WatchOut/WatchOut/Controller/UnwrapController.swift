@@ -84,7 +84,7 @@ class UnwrapController {
     func setMotionDifficulty(pDifficulty: Difficulty){
         switch pDifficulty{
             case .Easy:
-                self.setRangeOfMotion(lMax: 0.6, lMin: -0.6, lTopMax: 0.7, lBottMax: 0.45, pDmg: 0.01)
+                self.setRangeOfMotion(lMax: 0.6, lMin: -0.6, lTopMax: 0.7, lBottMax: 0.55, pDmg: 0.01)
             case .Medium:
                 self.setRangeOfMotion(lMax: 0.4, lMin: -0.4, lTopMax: 0.5, lBottMax: 0.3 , pDmg: 0.02)
             case .Hard:
@@ -101,9 +101,9 @@ class UnwrapController {
     }
     
     func setUpUnwrap(isRand: Bool = true){
-//        maxNumTurns = 1
+        maxNumTurns = 1
         if isRand{
-            getRandomTurns()
+//            getRandomTurns()
             getRandomClockwiseTurn()
             getRandomDirection()
         }
@@ -384,8 +384,8 @@ class UnwrapController {
 
 
     func numOfTurnsMoved(pDirection: Direction){
-        var lMin: Double = 0.05
-        var lMax: Double = 0.20
+        var lMin: Double = 0.00
+        var lMax: Double = 0.30
         switch pDirection{
         case .x:
 

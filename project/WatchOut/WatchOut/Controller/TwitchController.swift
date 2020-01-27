@@ -28,7 +28,7 @@ class TwitchController {
     private var maxDiff = 0.04
     private var maxDiffNeg = -0.04
     
-    private var dmgVal = 0.01
+    private var dmgVal = 0.005
         
     let twitchDirections: [TwitchDirection] = [.Up, .Down, .Left, .Right]
     
