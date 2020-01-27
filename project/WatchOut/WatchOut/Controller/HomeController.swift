@@ -108,7 +108,7 @@ class HomeController {
                 if (self.ignoreLightCounter > self.ignoreLightCount) {
 //                    print("Intensity: \(newIntensity)")
                     if (self.isAmbientIntensityDark == false && newIntensity < minIntensity && !self.coverLightOnce) {
-                        self.isAmbientIntensityDark = true
+                        self.isAmbientIntensityDark = true^
                         self.coverLightOnce = true
                         // user has thumb on light sensor
                         self.checkifTapped(totalDuration: 10)
