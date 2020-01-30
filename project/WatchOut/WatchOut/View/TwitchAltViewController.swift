@@ -7,10 +7,13 @@
 //
 import UIKit
 
+
+// use this mirror ViewController to solve the problem of TwitchViewController not be able to navigate to self
 class TwitchAltViewController: UIViewController {
 
     var controller: TwitchController?
     
+    // arrow image ImageView
     @IBOutlet weak var arrow: UIImageView!
     
     override func viewDidLoad() {
@@ -21,6 +24,7 @@ class TwitchAltViewController: UIViewController {
         controller?.startTwitch()
     }
     
+    // animate the arrow movement in the direction of the arrow-image
     func updateArrowImage(direction: TwitchDirection) {
         switch direction {
         case .Up:
@@ -46,10 +50,12 @@ class TwitchAltViewController: UIViewController {
         }
     }
     
+    // update background color
     func updateBackgroundColor(newColor: UIColor) {
         self.view.backgroundColor = newColor
     }
-        
+    
+    // quitgame button, go back to home
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
