@@ -40,6 +40,9 @@ class DeliverController {
     private let ignoreCount: Int = 2
     private var isAmbientIntensityDark: Bool = false
     
+    private let minLightIntensity: Double = 700
+    private let maxLightIntensity: Double = 950
+    
     private let nextPlayer: Player
     
     init(deliverViewController: DeliverViewController) {
@@ -94,7 +97,7 @@ class DeliverController {
                 if (self.ignoreCounter > self.ignoreCount) {
                     print("Intensity: \(newIntensity)")
                     if (self.isAmbientIntensityDark == false &&
-                       newIntensity < 700) {
+                        newIntensity < self.minLightIntensity) {
                        
                        self.isAmbientIntensityDark = true
                        
@@ -102,7 +105,7 @@ class DeliverController {
                        print("THUMB NOW ON SENSOR")
                    }
                    
-                   if (self.isAmbientIntensityDark == true && newIntensity > 1000) {
+                    if (self.isAmbientIntensityDark == true && newIntensity > self.maxLightIntensity) {
                        self.isAmbientIntensityDark = false
                        
                        // user lifted thumb and delivered to next player

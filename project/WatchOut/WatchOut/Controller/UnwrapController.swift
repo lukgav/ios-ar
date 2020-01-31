@@ -186,9 +186,6 @@ class UnwrapController {
     }
     
     func printMotionData(pDirection: Direction){
-//        printAttData(pDirection: pDirection)
-//        printAccData(pDirection: pDirection)
-//        printRotData(pDirection: pDirection)
         printGravData(pDirection: pDirection)
     }
     func printDataToDevice(){
@@ -202,96 +199,6 @@ class UnwrapController {
         
         unwrapViewController.updateDirectionText(pDirectionStr: command)
         unwrapViewController.updateNumOfTurns(pTurns: maxNumTurns - turnCounter)
-    }
-    
-    func printRotData(pDirection: Direction){
-        switch pDirection{
-        case .x:
-            print("---------------------------------------------------")
-            print("oldRotX: \(self.oldMotionData.rotationRate.x)")
-            print("curRotX: \(self.currentMotionData.rotationRate.x)")
-            print("diffRotX: \(self.diffMotionData.rotationRate.x)")
-            print("-------------")
-            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
-            print("curRotY: \(self.currentMotionData.rotationRate.y)")
-        case .y:
-            print("---------------------------------------------------")
-            print("oldRotY: \(self.oldMotionData.rotationRate.y)")
-            print("curRotY: \(self.currentMotionData.rotationRate.y)")
-            print("diffRotY: \(self.diffMotionData.rotationRate.y)")
-            print("-------------")
-            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
-            print("curRotX: \(self.currentMotionData.rotationRate.x)")
-        case .z:
-            print("---------------------------------------------------")
-            print("oldRotX: \(self.oldMotionData.rotationRate.x)")
-            print("curRotX: \(self.currentMotionData.rotationRate.x)")
-            print("diffRotZX: \(self.diffMotionData.rotationRate.x)")
-            print("-------------")
-            print("curRotY: \(self.currentMotionData.rotationRate.y)")
-            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
-        }
-    }
-    
-    func printAccData(pDirection: Direction){
-        switch pDirection{
-        case .x:
-            print("---------------------------------------------------")
-            print("oldAccX: \(self.oldMotionData.acceleration.x)")
-            print("currAccX: \(self.currentMotionData.acceleration.x)")
-            print("diffAccX: \(self.diffMotionData.acceleration.x)")
-            print("-------------")
-            print("currAccZ: \(self.currentMotionData.acceleration.z)")
-            print("currAccY: \(self.currentMotionData.acceleration.y)")
-        case .y:
-            print("---------------------------------------------------")
-            print("oldAccY: \(self.oldMotionData.acceleration.y)")
-            print("currAccY: \(self.currentMotionData.acceleration.y)")
-            print("diffAccY: \(self.diffMotionData.acceleration.y)")
-            print("-------------")
-            print("currAccZ: \(self.currentMotionData.acceleration.z)")
-            print("currAccX: \(self.currentMotionData.acceleration.x)")
-        case .z:
-            print("---------------------------------------------------")
-            print("oldAccX: \(self.oldMotionData.acceleration.x)")
-            print("currAccX: \(self.currentMotionData.acceleration.x)")
-            print("diffAccZX: \(self.diffMotionData.acceleration.x)")
-            print("-------------")
-            print("currAccY: \(self.currentMotionData.acceleration.y)")
-            print("currAccZ: \(self.currentMotionData.acceleration.z)")
-        }
-    }
-    
-    func printAttData(pDirection: Direction){
-        if(isTaskComplete){
-            print("Good job! Task is finished! ")
-        }
-        switch pDirection{
-        case .x:
-            print("---------------------------------------------------")
-            print("oldAttX: \(self.oldMotionData.attitude.x)")
-            print("currentAttX: \(self.currentMotionData.attitude.x)")
-            print("DiffAttX: \(self.diffMotionData.attitude.x)")
-            print("-------------")
-            print("currentAttZ: \(self.currentMotionData.attitude.z)")
-            print("currentAttY: \(self.currentMotionData.attitude.y)")
-        case .y:
-            print("---------------------------------------------------")
-            print("oldAttY: \(self.oldMotionData.attitude.y)")
-            print("currentAttY: \(self.currentMotionData.attitude.y)")
-            print("DiffAttY: \(self.diffMotionData.attitude.y)")
-            print("-------------")
-            print("currentAttZ: \(self.currentMotionData.attitude.z)")
-            print("currentAttX: \(self.currentMotionData.attitude.x)")
-        case .z:
-            print("---------------------------------------------------")
-            print("oldAttX: \(self.oldMotionData.attitude.x)")
-            print("currentAttX: \(self.currentMotionData.attitude.x)")
-            print("DiffAttX: \(self.diffMotionData.attitude.x)")
-            print("-------------")
-            print("currentAttY: \(self.currentMotionData.attitude.y)")
-            print("currentAttZ: \(self.currentMotionData.attitude.z)")
-        }
     }
     
     func printGravData(pDirection: Direction){
