@@ -12,20 +12,22 @@ import UIKit
 
 class GameManager{
     
+    // singleton
     static let shared = GameManager()
     
     private var soundManager = SoundManager.shared
     
+    // game objects
     var bomb: Bomb?
     var currentPlayer: Player?
     var players:[Player] = [Player]()
     
+    //
     var currentColor: UIColor = UIColor.white
-    
     var currentTask: TaskType?
     
     private init() {
-        
+        // singleton
     }
     
     /// Starts a new game
@@ -39,8 +41,11 @@ class GameManager{
         currentTask = firstTask
         currentColor = UIColor.white
         
+        // add the close to the bomb, so stabilityChanged is executed everytime the stability changes
         bomb?.stabilityChangedClosure = stabilityChanged
         
+        // workaround to start the ticking sound at the beginning of the game
+        // (ticking sound is updated everytime the stability changes)
         decreaseStability(percentage: 0.0001)
     }
     
@@ -53,6 +58,7 @@ class GameManager{
         soundManager.stopTickSound()
     }
     
+    // helper method for debugging, should ask the user for names in later development
     func createPlayers(playerNames: [String]) -> [Player] {
         var newPlayers = [Player]()
         for playerId in 0...(playerNames.count - 1) {
