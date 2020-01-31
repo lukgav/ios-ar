@@ -10,12 +10,13 @@ import Foundation
 import UIKit
 
 class Bomb{
+    // max stability at start
     let stabilityLimit: Double
+    // current stability
     var stabilityCounter: Double {
         didSet {
-            // change color everytime stabiltyCounter value changed
+            // closure is executed everytime a new value did set
             stabilityChangedClosure?()
-//            print("StabilityCounter changed from \(oldValue) to \(stabilityCounter)")
         }
     }
     
@@ -25,13 +26,13 @@ class Bomb{
     
     var hasExploded: Bool = false
     
+    // timer
     let timeLimit: Double
     var timer: Timer?
     var currentTime: Double
     
     // precision of the timer
     let timeInterval = 1.0/50.0
-    
     
     
     init(stabilityLimit: Double, timeLimit: Double, decreaseOverTime: Bool = true){
@@ -45,7 +46,6 @@ class Bomb{
     }
     
     func checkStability()->Bool{
-
         if (stabilityCounter < 0.0) {
             print("BOOOOOOOOOOOOOOM")
             return true
@@ -68,5 +68,4 @@ class Bomb{
         }
         return false
     }
-    
 }
