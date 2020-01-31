@@ -100,10 +100,11 @@ class UnwrapController {
         bottomMaxDiffGrav =  SIMD3<Double>(x: lBottMax, y: lBottMax, z: lBottMax)
     }
     
+    //Sets up for axis of movement and direction along that axis. Can be randomised
     func setUpUnwrap(isRand: Bool = true){
-//        maxNumTurns = 1
+        maxNumTurns = 1
         if isRand{
-            getRandomTurns()
+//            getRandomTurns()
             getRandomClockwiseTurn()
             getRandomDirection()
         }
@@ -142,7 +143,7 @@ class UnwrapController {
         }
     }
     
-    func roundtoThousandth(pNum: Double)->Double{
+    func roundtoHundredth(pNum: Double)->Double{
         return round(100*pNum) / 100
     }
     
@@ -153,9 +154,6 @@ class UnwrapController {
     /// Starting position is when the phone is facing towards the user (x=0,y=-1,z=0)
     func startUnwrap(pCountDownDuration: Double){
 
-//        self.startCountdown(duration: pCountDownDuration)
-//        self.stopCountdown()
-//        self.setTurningStartPos(pDirection: self.unwrapDirection)
         dmManager.currentMotionData.addObserver(observer) { newMotionData in
             self.printData(pDirection: self.unwrapDirection)
             self.loadNewData(pNewMotionData: newMotionData)
@@ -170,7 +168,7 @@ class UnwrapController {
         return
     }
     
-    // MARK: - BELOW: Load, update Unwrap values, UI and print data etc...
+    // MARK: -  Load, update Unwrap values, UI and print data etc...
     
     func loadNewData(pNewMotionData: MotionData){
         self.currentMotionData = pNewMotionData
@@ -186,9 +184,6 @@ class UnwrapController {
     }
     
     func printMotionData(pDirection: Direction){
-//        printAttData(pDirection: pDirection)
-//        printAccData(pDirection: pDirection)
-//        printRotData(pDirection: pDirection)
         printGravData(pDirection: pDirection)
     }
     func printDataToDevice(){
@@ -202,96 +197,6 @@ class UnwrapController {
         
         unwrapViewController.updateDirectionText(pDirectionStr: command)
         unwrapViewController.updateNumOfTurns(pTurns: maxNumTurns - turnCounter)
-    }
-    
-    func printRotData(pDirection: Direction){
-        switch pDirection{
-        case .x:
-            print("---------------------------------------------------")
-            print("oldRotX: \(self.oldMotionData.rotationRate.x)")
-            print("curRotX: \(self.currentMotionData.rotationRate.x)")
-            print("diffRotX: \(self.diffMotionData.rotationRate.x)")
-            print("-------------")
-            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
-            print("curRotY: \(self.currentMotionData.rotationRate.y)")
-        case .y:
-            print("---------------------------------------------------")
-            print("oldRotY: \(self.oldMotionData.rotationRate.y)")
-            print("curRotY: \(self.currentMotionData.rotationRate.y)")
-            print("diffRotY: \(self.diffMotionData.rotationRate.y)")
-            print("-------------")
-            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
-            print("curRotX: \(self.currentMotionData.rotationRate.x)")
-        case .z:
-            print("---------------------------------------------------")
-            print("oldRotX: \(self.oldMotionData.rotationRate.x)")
-            print("curRotX: \(self.currentMotionData.rotationRate.x)")
-            print("diffRotZX: \(self.diffMotionData.rotationRate.x)")
-            print("-------------")
-            print("curRotY: \(self.currentMotionData.rotationRate.y)")
-            print("curRotZ: \(self.currentMotionData.rotationRate.z)")
-        }
-    }
-    
-    func printAccData(pDirection: Direction){
-        switch pDirection{
-        case .x:
-            print("---------------------------------------------------")
-            print("oldAccX: \(self.oldMotionData.acceleration.x)")
-            print("currAccX: \(self.currentMotionData.acceleration.x)")
-            print("diffAccX: \(self.diffMotionData.acceleration.x)")
-            print("-------------")
-            print("currAccZ: \(self.currentMotionData.acceleration.z)")
-            print("currAccY: \(self.currentMotionData.acceleration.y)")
-        case .y:
-            print("---------------------------------------------------")
-            print("oldAccY: \(self.oldMotionData.acceleration.y)")
-            print("currAccY: \(self.currentMotionData.acceleration.y)")
-            print("diffAccY: \(self.diffMotionData.acceleration.y)")
-            print("-------------")
-            print("currAccZ: \(self.currentMotionData.acceleration.z)")
-            print("currAccX: \(self.currentMotionData.acceleration.x)")
-        case .z:
-            print("---------------------------------------------------")
-            print("oldAccX: \(self.oldMotionData.acceleration.x)")
-            print("currAccX: \(self.currentMotionData.acceleration.x)")
-            print("diffAccZX: \(self.diffMotionData.acceleration.x)")
-            print("-------------")
-            print("currAccY: \(self.currentMotionData.acceleration.y)")
-            print("currAccZ: \(self.currentMotionData.acceleration.z)")
-        }
-    }
-    
-    func printAttData(pDirection: Direction){
-        if(isTaskComplete){
-            print("Good job! Task is finished! ")
-        }
-        switch pDirection{
-        case .x:
-            print("---------------------------------------------------")
-            print("oldAttX: \(self.oldMotionData.attitude.x)")
-            print("currentAttX: \(self.currentMotionData.attitude.x)")
-            print("DiffAttX: \(self.diffMotionData.attitude.x)")
-            print("-------------")
-            print("currentAttZ: \(self.currentMotionData.attitude.z)")
-            print("currentAttY: \(self.currentMotionData.attitude.y)")
-        case .y:
-            print("---------------------------------------------------")
-            print("oldAttY: \(self.oldMotionData.attitude.y)")
-            print("currentAttY: \(self.currentMotionData.attitude.y)")
-            print("DiffAttY: \(self.diffMotionData.attitude.y)")
-            print("-------------")
-            print("currentAttZ: \(self.currentMotionData.attitude.z)")
-            print("currentAttX: \(self.currentMotionData.attitude.x)")
-        case .z:
-            print("---------------------------------------------------")
-            print("oldAttX: \(self.oldMotionData.attitude.x)")
-            print("currentAttX: \(self.currentMotionData.attitude.x)")
-            print("DiffAttX: \(self.diffMotionData.attitude.x)")
-            print("-------------")
-            print("currentAttY: \(self.currentMotionData.attitude.y)")
-            print("currentAttZ: \(self.currentMotionData.attitude.z)")
-        }
     }
     
     func printGravData(pDirection: Direction){
@@ -329,14 +234,6 @@ class UnwrapController {
     // MARK: - ABOVE: Load, update Unwrap values, UI and print data etc...
     
     // MARK: - BELOW: Check Unwrap Direction
-    func checkUnwrapMotion(){
-        ///Works in x direction
-//        UnwrapInDirection(pDirection: .x)//        checkUnwrapInYDirection()
-        /// DOES NOT WORK IN Y Direction
-//        UnwrapInDirection(pDirection: .y)
-        /// DOES NOT WORK IN Z Direction
-//        UnwrapInDirection(pDirection: .z)
-    }
     
     func UnwrapInDirection(pDirection: Direction){
         switch pDirection{
@@ -370,6 +267,8 @@ class UnwrapController {
         }
     }
     
+    // MARK: -  Measure and save the starting graivty values
+
     func setTurningStartPos(pDirection: Direction){
         switch pDirection{
         case .x:
@@ -382,7 +281,7 @@ class UnwrapController {
     }
     
 
-
+    // MARK: -  Check number of turns moved in unwrap task
     func numOfTurnsMoved(pDirection: Direction){
         var lMin: Double = 0.05
         var lMax: Double = 0.20
@@ -402,10 +301,11 @@ class UnwrapController {
     
     //Need to set this for x and z diretcion
     // must have a different min and max direction
+    // MARK: -  Check if device is past the start of the turning motion
     func devicePastStart(pDirection: Direction){
         if(!self.isUnwrapPastStart){
             var lDiff: Double?
-            let lMaxVal: Double = 0.7
+            let lMaxVal: Double = 0.6
             switch pDirection{
             case .x:
                 isDevicePastStartInMotion(pMotion: self.currentMotionData.gravity.x)
@@ -429,6 +329,7 @@ class UnwrapController {
         }
     }
     
+    // MARK: -  Check if device is has comleted the required number of turns
     func checkNumOfTurns(turningGravDirectionVal: Double, stateGravDirectionVal: Double, pMin: Double, pMax: Double){
 //        isWithinRange(val: deviceTurningStartPos, min: pMin, max: pMax)  ||
         if(self.isUnwrapPastStart){
@@ -454,7 +355,7 @@ class UnwrapController {
             }
         }
     }
-    
+    // MARK: -  Check if device is facing up or facing down
     func isDeviceFaceUp(stateGravDirectionVal: Double) -> Bool{
         return stateGravDirectionVal < 0.0
     }
@@ -465,7 +366,7 @@ class UnwrapController {
             print("-----------------Turning clockwise-----------------")
             return true
         }
-        //OR Is device turning anticlockwise and should it be turning anticlockwise?
+        //OR Is device turning anticlockwise AND should it be turning anticlockwise?
         else if(!self.isDeviceTurningClockwise(turningDirection: pTurningDirection, stateDirection: pStateDirection) && !self.shouldTurnClockwise){
             print("-----------------Turning anticlockwise-----------------")
             return true
@@ -473,6 +374,7 @@ class UnwrapController {
         return false
     }
 
+    // MARK: -  Check which axes the should be compared and measured in checking the direction
     func whichGravAxes(pDirection: Direction) -> (Double, Double, Double){
         var current: Double
         var old: Double
@@ -493,9 +395,9 @@ class UnwrapController {
             diff = self.diffMotionData.gravity.z
 //        print("current: \(current),old: \(old),diff: \(diff) \n")
         }
-        current =  self.roundtoThousandth(pNum: current)
-        old =  self.roundtoThousandth(pNum: old)
-        diff =  self.roundtoThousandth(pNum: diff)
+        current =  self.roundtoHundredth(pNum: current)
+        old =  self.roundtoHundredth(pNum: old)
+        diff =  self.roundtoHundredth(pNum: diff)
         
         return (current, old, diff)
     }
@@ -503,15 +405,10 @@ class UnwrapController {
     func isGravityIncreasingInDirection(pDirection: Direction) -> Bool{
         var current: Double
         var old: Double
-        var diffDir: Double
         var diffTotal: Double
         (current, old, diffTotal) = whichGravAxes(pDirection: pDirection)
         
-        diffDir =  abs(current - old)
-//        diffTotal = abs(diffTotal)
-//        print(diffTotal)
         return current >= old
-//        return diffTotal >= 0.0
     }
     
 // MARK: - check Clockwise or Anti-Clockwise direction and if that matches teh directionthe playe should go in
@@ -530,7 +427,7 @@ class UnwrapController {
             return false
         }
     
-    // MARK: - Check if Turning is going to fast
+    // MARK: - Check if device is Turning too fast
     /// Check if change in Gravity in one or more directions is too much
     func checkChangeinGrav(){
         //X Direction
@@ -567,18 +464,19 @@ class UnwrapController {
     }
     
     // MARK:   - Check Finish Condition
-    
-    func checkEndUnwrapCondition(){
+        func checkEndUnwrapCondition(){
         self.checkBombExplode()
         self.checkifTaskisCompleted()
     }
     
+    //MARK:     - Fail condition
     func checkBombExplode(){
         if(self.gameManager.shouldExplode()){
             self.navigateToEndScreen()
         }
     }
-    
+
+    //MARK:     - Success condition
     func checkifTaskisCompleted(){
         // + 1
         if (turnCounter >= maxNumTurns){
@@ -588,7 +486,7 @@ class UnwrapController {
             self.navigateToNextTask()
         }
     }
-    
+    //MARK:     - remove observer on device live data
     func endUnwrap(stopDeviceMotion: Bool) -> Bool {
         print("END UNWRAP")
         dmManager.currentMotionData.removeObserver(observer)
@@ -611,41 +509,7 @@ class UnwrapController {
         self.gameManager.increaseStability(percentage: self.dmgVal!)
     }
     
-    // MARK: - Countdown Logic
-    
-    func startCountdown(duration: Double) {
-        
-        print("Timer started")
-        
-        self.countDownTime = duration
-        
-        self.timer = Timer.scheduledTimer(withTimeInterval: self.timerInterval, repeats: true) { timer in
-            self.countDownTime -= self.timerInterval
-            
-            if (self.countDownTime <= 0.0) {
-                return
-//                self.startUnwrap()
-            }
-            else {
-//                if (self.countDownTime < duration - self.timerInterval*5) {
-//                    print("Allow user to read data")
-//                }
-                print("CountDownTime: \(self.countDownTime)")
-                self.unwrapViewController.updateTimer(newTime: self.countDownTime)
-            }
-            
-        }
-        // Add the timer to the current run loop.
-        RunLoop.current.add(self.timer, forMode: RunLoop.Mode.default)
-        return
-    }
-    
-    func stopCountdown() {
-        timer.invalidate()
-        print("Timer stopped")
-    }
-    
-    // MARK: - Navigation
+    // MARK: - Navigation between view controllers
 
     func navigateToNextTask() {
         if (self.endUnwrap(stopDeviceMotion: false)) {
