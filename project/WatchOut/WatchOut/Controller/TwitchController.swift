@@ -11,7 +11,7 @@ import UIKit
 
 class TwitchController {
     
-    // Manager & Controller
+    // manager & controller
     private var twitchViewController: TwitchViewController?
     private var twitchAltViewController: TwitchAltViewController?
     
@@ -19,6 +19,7 @@ class TwitchController {
     private let motionDataObserver = MotionDataObserver()
     private let gameManager = GameManager.shared
     
+    // variables
     private var lastMotionData: MotionData = MotionData()
     
     private var accSumCounterX: Double = 0.0
@@ -85,7 +86,7 @@ class TwitchController {
                                     var bombExploded = false
                                     var userDidWrongDirection = false
                                     
-                                    // checking which direction the user moves the phone wrongly                                                                       
+                                    // checking in which direction the user moves the phone wrongly                                                                       
                                     switch(self.currentTwitchDirection) {
                                         case .Up:
                                             userDidWrongDirection = self.isNotUpDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
@@ -138,6 +139,7 @@ class TwitchController {
     }
     
     // checking ob the phone moves in the wrong up/down/left/right direction
+    
     private func isNotUpDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
         if (accX > maxDiff || accX < maxDiffNeg || accY > maxDiff || accZ > maxDiff || accZ < maxDiffNeg ) {
             print("DIRECTION UP WRONG")
@@ -174,7 +176,7 @@ class TwitchController {
         return false
     }
     
-    // end twitch task
+    // end twitch task, remove the observer
     private func endTwitch(stopDeviceMotion: Bool) -> Bool {
         dmManager.currentMotionData.removeObserver(motionDataObserver)
         
