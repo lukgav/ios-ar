@@ -20,13 +20,15 @@ class EndScreenViewController: UIViewController {
         controller = EndScreenController(endScreenViewController: self)
         
         controller?.showLoserPlayer()
+        // end the current game by stopping all sensors etc.
         controller?.endCurrentGame()
     }
     
+    // for updating the loserLabel from the controller level
     func updateLoserLabel(newText: String) {
         youLoseLabel.text = newText
     }
-        
+    
     @IBAction func BackToHomeTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
