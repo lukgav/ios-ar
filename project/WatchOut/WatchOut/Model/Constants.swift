@@ -11,6 +11,7 @@ import UIKit
 struct Constants {
     static let DeliverSegue = "DeliverSegue"
     static let UnwrapSegue = "UnwrapSegue"
+    // two twitch segues are needed because they are switched out when navigating to the next one
     static let TwitchSegue = "TwitchSegue"
     static let TwitchAltSegue = "TwitchAltSegue"
     static let HelpSegue = "HelpSegue"
