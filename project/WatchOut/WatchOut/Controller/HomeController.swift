@@ -99,7 +99,7 @@ class HomeController {
     }
     
     func ambientLightOn(maxIntensity: Double, minIntensity: Double){
-        var isLightSensorOn = lsManager.startLightSensor()
+        let isLightSensorOn = lsManager.startLightSensor()
         if(isLightSensorOn) {
             print("-----------homescreen: LIGHT sensor ON----------")
             lsManager.ambientIntensity.addObserver(ambientIntensityObserver) { newIntensity in

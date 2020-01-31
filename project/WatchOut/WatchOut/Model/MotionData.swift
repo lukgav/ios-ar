@@ -52,14 +52,12 @@ class MotionData {
         
     // check rotation absolute values
     func rotationContainsHigherAbsoluteValue(than: Double) -> Bool {
-        let rotation = MotionType.rotation
         return isMotionGreaterThanAbsoluteValue(pMotion: self.rotationRate, maxValue: than)
         
-        }
+    }
     
     // check acceleration absolute values
     func accelerationContainsHigherAbsoluteValue(than: Double) -> Bool {
-        let acceleration = MotionType.acceleration
         return isMotionGreaterThanAbsoluteValue(pMotion: self.acceleration, maxValue: than)
         
     }
@@ -84,12 +82,13 @@ class MotionData {
     
     func isGreaterThanMaxInDirection(pMotion: SIMD3<Double>, pDirection: Direction, maxValue: Double)-> Bool{
         switch pDirection{
-        case .x:
-            return (abs(pMotion.x) >= maxValue)
-        case .y:
-            return (abs(pMotion.y) >= maxValue)
-        case .z:
-            return (abs(pMotion.z) >= maxValue)
+            case .x:
+                return (abs(pMotion.x) >= maxValue)
+            case .y:
+                return (abs(pMotion.y) >= maxValue)
+            case .z:
+                return (abs(pMotion.z) >= maxValue)
+        }
     }
     
     // check ranges of Y

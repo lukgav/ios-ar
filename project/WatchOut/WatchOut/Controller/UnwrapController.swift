@@ -74,7 +74,7 @@ class UnwrapController {
     // MARK: - Unwrap Logic
 
     func loadUI(pDirection: Direction){
-        let nextPlayer =  gameManager.getNextRandomPlayer()
+        //let nextPlayer =  gameManager.getNextRandomPlayer()
         
         unwrapViewController.updateBackgroundColor(pColor: gameManager.currentColor)
         // TODO: randomize direction AND clockWise Boolean
@@ -384,8 +384,8 @@ class UnwrapController {
 
 
     func numOfTurnsMoved(pDirection: Direction){
-        var lMin: Double = 0.05
-        var lMax: Double = 0.20
+        let lMin: Double = 0.05
+        let lMax: Double = 0.20
         switch pDirection{
         case .x:
 

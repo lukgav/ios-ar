@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5321CAB023CF5C9A0002130E /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAAC23CF5C9A0002130E /* Task.swift */; };
 		5321CAB123CF5C9A0002130E /* Bomb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAAD23CF5C9A0002130E /* Bomb.swift */; };
 		5321CAB823CF61BE0002130E /* Difficulty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5321CAB723CF61BE0002130E /* Difficulty.swift */; };
 		5373786023D5E4EE00C18EAF /* LightSensorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5373785F23D5E4EE00C18EAF /* LightSensorManager.swift */; };
@@ -277,7 +276,6 @@
 				ACA386DD23CCCE5400CD724E /* GameManager.swift in Sources */,
 				53ED0EDF23C6172E0040AD3E /* AppDelegate.swift in Sources */,
 				ACA386DB23CCCAD700CD724E /* DeliverController.swift in Sources */,
-				5321CAB023CF5C9A0002130E /* Task.swift in Sources */,
 				AC065D1323D888C30099EB20 /* TwitchViewController.swift in Sources */,
 				5321CAB123CF5C9A0002130E /* Bomb.swift in Sources */,
 				A3981C2B23D1EEE100B43D70 /* MotionType.swift in Sources */,
@@ -437,13 +435,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				DEVELOPMENT_TEAM = YB75785J73;
 				INFOPLIST_FILE = WatchOut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.Trung.ios.WatchOut.luke;
+				PRODUCT_BUNDLE_IDENTIFIER = de.Trung.ios.WatchOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,13 +453,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TH5SU5QY9;
+				DEVELOPMENT_TEAM = YB75785J73;
 				INFOPLIST_FILE = WatchOut/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = de.Trung.ios.WatchOut.luke;
+				PRODUCT_BUNDLE_IDENTIFIER = de.Trung.ios.WatchOut;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
