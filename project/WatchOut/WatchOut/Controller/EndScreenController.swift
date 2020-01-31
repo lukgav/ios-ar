@@ -18,15 +18,16 @@ class EndScreenController {
     init(endScreenViewController: EndScreenViewController) {
         self.endScreenViewController = endScreenViewController
     }
-        
-    // MARK: - Navigation
     
     func showLoserPlayer() {
+        // update the ui label for the losing player
         let currentPlayer = gameManager.currentPlayer
         
         let newText = String("\(currentPlayer!.name) lost!")
         endScreenViewController.updateLoserLabel(newText: newText)
     }
+    
+    // MARK: - Navigation
     
     func navigateToHome() {
         endScreenViewController.performSegue(withIdentifier: Constants.HomeSegue, sender: self)
@@ -37,6 +38,7 @@ class EndScreenController {
     }
     
     func navigateToFirstTask() {
+        // create a new game similar to when the start button is pressed on the home screen
         let lastPlayers = gameManager.players
         gameManager.startNewGame(players: lastPlayers)
         
