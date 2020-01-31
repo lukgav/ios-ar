@@ -7,6 +7,9 @@
 //
 
 
+// classic publisher+observer pattern
+// used because other frameworks made problems
+
 // Publisher
 protocol ObservableProtocol : class {
     var observers : [ObserverProtocol] { get set }
@@ -38,7 +41,7 @@ class Observable<T> {
     init(value: T) {
         self.value = value
     }
-
+    
     func addObserver(_ observer: ObserverProtocol, completion: @escaping CompletionHandler) {
         self.observers[observer.id] = completion
     }
