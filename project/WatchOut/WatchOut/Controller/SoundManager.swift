@@ -86,9 +86,12 @@ class SoundManager {
             lastPositionInBoundaries = newPositionInBoundaries
 
             self.tickSound?.stop()
+            // important removal from the current run loop, 
+            // otherwise the would be more than one timer running
             timer.invalidate()
             timer = Timer(fire: Date(), interval: updateInterval, repeats: true,
                                block: { (timer) in
+                                // play the sound everytime the updateInterval-time has passed
                                 self.tickSound?.play()
             })
 
