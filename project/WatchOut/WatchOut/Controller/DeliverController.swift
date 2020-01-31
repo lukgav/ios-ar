@@ -94,7 +94,7 @@ class DeliverController {
                 if (self.ignoreCounter > self.ignoreCount) {
                     print("Intensity: \(newIntensity)")
                     if (self.isAmbientIntensityDark == false &&
-                       newIntensity < 750) {
+                       newIntensity < 700) {
                        
                        self.isAmbientIntensityDark = true
                        
@@ -102,7 +102,7 @@ class DeliverController {
                        print("THUMB NOW ON SENSOR")
                    }
                    
-                   if (self.isAmbientIntensityDark == true && newIntensity > 950) {
+                   if (self.isAmbientIntensityDark == true && newIntensity > 1000) {
                        self.isAmbientIntensityDark = false
                        
                        // user lifted thumb and delivered to next player
