@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
         controller = HomeController(homeViewController: self)
+        // unfinished code from luke?
         controller?.startGame()
     }
     
