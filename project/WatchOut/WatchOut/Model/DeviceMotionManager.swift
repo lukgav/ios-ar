@@ -10,11 +10,15 @@ import CoreMotion
 
 class DeviceMotionManager {
 
+    // singleton
     static let shared = DeviceMotionManager()
     private let motion: CMMotionManager
     private var timer: Timer
     
+    // observable motion data
     var currentMotionData: Observable<MotionData>
+    // updateInterval of the motion data
+    // (hardware updates more often, this interval is the time after which the next data is read)
     var updateInterval: Double = 1/10.0
     
     private init(){
@@ -36,10 +40,6 @@ class DeviceMotionManager {
             timer = Timer(fire: Date(), interval: updateInterval, repeats: true,
                                block: { (timer) in
                                 if let data = self.motion.deviceMotion {
-                                    // Get the attitude relative to the magnetic north reference frame.
-                                    
-                                    //print("Update")
-                                    
                                     let attitude = SIMD3<Double>(data.attitude.pitch,
                                                                  data.attitude.roll,
                                                                  data.attitude.yaw)
@@ -80,6 +80,7 @@ class DeviceMotionManager {
             motion.stopDeviceMotionUpdates()
             motion.showsDeviceMovementDisplay = false
             
+            // remove timer from run loop to not get any more updates
             timer.invalidate()
             
             return true
