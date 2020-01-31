@@ -12,7 +12,9 @@ import RealityKit
 
 class LightSensorManager : NSObject, ARSessionDelegate {
     
+    // singleton
     static let shared = LightSensorManager()
+    
     private let session = ARSession()
     var isRunning: Bool
     
@@ -34,6 +36,7 @@ class LightSensorManager : NSObject, ARSessionDelegate {
     }
     
     func startLightSensor() -> Bool {
+        // dont start new session, if the sensor is already running
         if (!isRunning && ARFaceTrackingConfiguration.isSupported) {
             session.delegate = self
             session.run(faceConfig)
@@ -54,11 +57,13 @@ class LightSensorManager : NSObject, ARSessionDelegate {
         return false
     }
     
+    // the ar session does not need an ARView to receive updates from the camera
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         
-        // Average over last 15 Light Values
+        // Average over last 15 Light Values wwith help of an intervalCounter
         intensityArray[intervalCounter] = Double(frame.lightEstimate!.ambientIntensity)
         if(intervalCounter >= intensityArray.count-1) {
+            // array is full, calculate average
             intervalCounter = 0
             
             var intensitySum: Double = 0.0
@@ -72,12 +77,10 @@ class LightSensorManager : NSObject, ARSessionDelegate {
         else {
             intervalCounter += 1
         }
-        
-        
-        
     }
 }
 
+// observer for AmbientIntensity
 class AmbientIntensityObserver : ObserverProtocol {
     var id: Int = 2
     

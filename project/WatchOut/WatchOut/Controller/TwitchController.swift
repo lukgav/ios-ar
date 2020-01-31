@@ -11,7 +11,7 @@ import UIKit
 
 class TwitchController {
     
-    // Manager & Controller
+    // manager & controller
     private var twitchViewController: TwitchViewController?
     private var twitchAltViewController: TwitchAltViewController?
     
@@ -19,6 +19,7 @@ class TwitchController {
     private let motionDataObserver = MotionDataObserver()
     private let gameManager = GameManager.shared
     
+    // variables
     private var lastMotionData: MotionData = MotionData()
     
     private var accSumCounterX: Double = 0.0
@@ -35,7 +36,7 @@ class TwitchController {
     var currentTwitchDirection : TwitchDirection
     
     var isAlt: Bool
-        
+    
     init(twitchViewController: TwitchViewController) {
         self.twitchViewController = twitchViewController
         
@@ -68,11 +69,12 @@ class TwitchController {
         let timer = Timer(fire: date, interval: 0.0, repeats: false,
                            block: { (timer) in
                                     print("START TWITCH: OBSERVE MOTION")
-                            
+                                    // add Observer
                                     self.dmManager.currentMotionData.addObserver(self.motionDataObserver) { newMotionData in
                                     
                                     self.lastMotionData = newMotionData
-                                        
+                                    
+                                    // use accelerometer to track the phone movement in this task
                                     let lastAcc = self.lastMotionData.acceleration
                                     
                                     let lastAccX = lastAcc.x
@@ -80,13 +82,11 @@ class TwitchController {
                                     let lastAccZ = lastAcc.z
                                     
                                     print("-----------------------------------")
-//                                    print("averageAccX:" + String(lastAccX))
-//                                    print("averageAccY:" + String(lastAccY))
-//                                    print("averageAccZ:" + String(lastAccZ))
                                                     
                                     var bombExploded = false
                                     var userDidWrongDirection = false
                                     
+                                    // checking in which direction the user moves the phone wrongly                                                                       
                                     switch(self.currentTwitchDirection) {
                                         case .Up:
                                             userDidWrongDirection = self.isNotUpDirection(accX: lastAccX, accY: lastAccY, accZ: lastAccZ)
@@ -138,6 +138,8 @@ class TwitchController {
         
     }
     
+    // checking ob the phone moves in the wrong up/down/left/right direction
+    
     private func isNotUpDirection(accX: Double, accY: Double, accZ: Double) -> Bool {
         if (accX > maxDiff || accX < maxDiffNeg || accY > maxDiff || accZ > maxDiff || accZ < maxDiffNeg ) {
             print("DIRECTION UP WRONG")
@@ -174,6 +176,7 @@ class TwitchController {
         return false
     }
     
+    // end twitch task, remove the observer
     private func endTwitch(stopDeviceMotion: Bool) -> Bool {
         dmManager.currentMotionData.removeObserver(motionDataObserver)
         

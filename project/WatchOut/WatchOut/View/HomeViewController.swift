@@ -17,8 +17,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
         controller = HomeController(homeViewController: self)
+        // unfinished code from luke?
         controller?.startGame()
     }
     

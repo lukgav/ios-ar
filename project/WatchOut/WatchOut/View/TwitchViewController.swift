@@ -11,6 +11,7 @@ class TwitchViewController: UIViewController {
 
     var controller: TwitchController?
     
+    // arrow image ImageView
     @IBOutlet weak var arrow: UIImageView!
     
     override func viewDidLoad() {
@@ -21,6 +22,7 @@ class TwitchViewController: UIViewController {
         controller?.startTwitch()
     }
     
+    // animate the arrow movement in the direction of the arrow-image
     func updateArrowImage(direction: TwitchDirection) {
         switch direction {
         case .Up:
@@ -46,10 +48,12 @@ class TwitchViewController: UIViewController {
         }
     }
     
+    // update background color
     func updateBackgroundColor(newColor: UIColor) {
         self.view.backgroundColor = newColor
     }
-
+    
+    // quitgame button, go back to home
     @IBAction func QuitGameTouch(_ sender: Any) {
         controller?.navigateToHome()
     }
